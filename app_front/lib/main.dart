@@ -21,9 +21,9 @@ class App extends StatelessWidget {
 
         // Define the default brightness and colors.
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.purple,
-          // ···
+          seedColor: Colors.purple,          
           brightness: Brightness.light,
+          
         ),
 
         // Define the default `TextTheme`. Use this to specify the default
