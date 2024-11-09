@@ -1,6 +1,5 @@
 import 'package:app_front/view/paginainicial.dart';
-// Include the Google Fonts package to provide more text format options
-// https://pub.dev/packages/google_fonts
+
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter/material.dart';
