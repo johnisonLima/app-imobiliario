@@ -24,45 +24,47 @@ class PaginaInicial extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 60,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 60,
+                ),
+                child: const Column(
+                  children: [
+                    Text(
+                      'Explore casas na\n Laís Heitz Imóveis',
+                      style: TextStyle(fontSize: 25),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Dê uma olhada profunda e navegue por casas à venda, fotos originais do bairro, avaliações de moradores e insights locais para encontrar o que é certo para você.',
+                      style: TextStyle(fontSize: 17),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-              child: const Column(
-                children: [
-                  Text(
-                    'Explore casas na\n Laís Heitz Imóveis',
-                    style: TextStyle(fontSize: 25),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Dê uma olhada profunda e navegue por casas à venda, fotos originais do bairro, avaliações de moradores e insights locais para encontrar o que é certo para você.',
-                    style: TextStyle(fontSize: 17),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),          
-
-          const Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 15.0, right: 15.0),
-
-                child: CardImoveis(),     
-              
-              ), 
-            ],
-          ),
-
+            ),          
         
-        ],
+            const Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
+        
+                  child: CardImoveis(),     
+                
+                ), 
+              ],
+            ),
+        
+          
+          ],
+        ),
       ),     
     );
   }
