@@ -14,8 +14,6 @@ class CardImoveis extends StatefulWidget {
 }
 
 class _CardImoveisState extends State<CardImoveis> {
-  var dadosBackend;
-
   Future<List<Imovel>> _getImoveis({String? chave, String? valor}) async {
     var api =
         'https://api.json-generator.com/templates/yDqMZNG19PT6/data?access_token=i0e5kvqe4bphiqpos2fqgddsk9ivs2nqiltt4ytd';
@@ -30,9 +28,9 @@ class _CardImoveisState extends State<CardImoveis> {
       imoveis = dados.map((item) => Imovel.fromJson(item)).toList();
     } else {
       imoveis = dados
-        .where((item) => item[chave] == valor)
-        .map((item) => Imovel.fromJson(item))
-        .toList();
+          .where((item) => item[chave] == valor)
+          .map((item) => Imovel.fromJson(item))
+          .toList();
     }
 
     return imoveis;
@@ -46,167 +44,197 @@ class _CardImoveisState extends State<CardImoveis> {
       'garage': Icons.directions_car_outlined,
     };
 
-    return FutureBuilder(
-      future: _getImoveis(chave: 'operacao', valor: 'Venda'),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox(
-            width: 360,
-            height: 220,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return const Center(child: Text('Erro ao carregar dados'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('Nenhum imóvel encontrado'));
-        }
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15.0, top: 8.0),
+          child: FutureBuilder(
+            future: _getImoveis(chave: 'operacao', valor: 'Venda'),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const SizedBox(
+                  width: 360,
+                  height: 220,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Erro ao carregar dados!'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('Nenhum imóvel encontrado!'));
+              }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                padding: const EdgeInsets.only(bottom: 18),
-                child: const Text(
-                  'Imóveis para Venda',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontStyle: FontStyle.italic,
-                      color: Color.fromARGB(255, 88, 88, 88)),
-                  textAlign: TextAlign.start,
-                )),
-            GestureDetector(
-              onTap: () {
-                print(dadosBackend.id);
-                print(dadosBackend.operacao);
-              },
-              child: SizedBox(
-                width:
-                    (MediaQuery.of(context).orientation == Orientation.portrait)
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 18),
+                    child: const Text(
+                      'Imóveis para Venda',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 88, 88, 88),
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).orientation ==
+                            Orientation.portrait
                         ? MediaQuery.of(context).size.width * 0.92
                         : MediaQuery.of(context).size.width * 0.95,
-                height: 220,
-                child: ListView.builder(
-                  itemCount: snapshot.data.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    dadosBackend = snapshot.data[index];
-
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Card(
-                        child: SizedBox(
-                          width: 290,
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(10),
-                                    ),
-                                    child: Image.network(
-                                        dadosBackend.imagemDestaque,
-                                        width: double.infinity,
-                                        height: 135,
-                                        fit: BoxFit.cover),
-                                  ),
-                                  Positioned(
-                                    bottom: 10,
-                                    left: 10,
-                                    child: Text(
-                                      dadosBackend.tipo,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [
-                                          Shadow(
-                                            blurRadius: 5.0,
-                                            color: Colors.black45,
-                                            offset: Offset(2, 2),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
+                    height: 220,
+                    child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              print(snapshot.data[index].id);
+                              print(snapshot.data[index].operacao);
+                            },
+                            child: Card(
+                              child: SizedBox(
+                                width: 290,
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            textBaseline:
-                                                TextBaseline.alphabetic,
-                                            children: [
-                                              Text(
-                                                dadosBackend.comodidades[0].qtd
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 3)),
-                                              Icon(iconMap[dadosBackend
-                                                  .comodidades[0].tipo]),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 5)),
-                                              Text(
-                                                dadosBackend.comodidades[1].qtd
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 3)),
-                                              Icon(iconMap[dadosBackend
-                                                  .comodidades[1].tipo]),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 5)),
-                                              Text(
-                                                dadosBackend.comodidades[2].qtd
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 3)),
-                                              Icon(iconMap[dadosBackend
-                                                  .comodidades[2].tipo]),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 5)),
-                                            ],
+                                    Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                            top: Radius.circular(10),
                                           ),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 10)),
-                                          Text(
-                                            dadosBackend.titulo,
-                                            style:
-                                                const TextStyle(fontSize: 15),
+                                          child: Image.network(
+                                            snapshot.data[index].imagemDestaque,
+                                            width: double.infinity,
+                                            height: 135,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 10,
+                                          child: Text(
+                                            snapshot.data[index].tipo,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: [
+                                                Shadow(
+                                                  blurRadius: 5.0,
+                                                  color: Colors.black45,
+                                                  offset: Offset(2, 2),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  textBaseline:
+                                                      TextBaseline.alphabetic,
+                                                  children: [
+                                                    Text(
+                                                      snapshot.data[index]
+                                                          .comodidades[0].qtd
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 3),
+                                                    ),
+                                                    Icon(
+                                                      iconMap[snapshot
+                                                          .data[index]
+                                                          .comodidades[0]
+                                                          .tipo],
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                    ),
+                                                    Text(
+                                                      snapshot.data[index]
+                                                          .comodidades[1].qtd
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 3),
+                                                    ),
+                                                    Icon(
+                                                      iconMap[snapshot
+                                                          .data[index]
+                                                          .comodidades[1]
+                                                          .tipo],
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                    ),
+                                                    Text(
+                                                      snapshot.data[index]
+                                                          .comodidades[2].qtd
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 3),
+                                                    ),
+                                                    Icon(iconMap[snapshot
+                                                        .data[index]
+                                                        .comodidades[2]
+                                                        .tipo]),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 10),
+                                                ),
+                                                Text(
+                                                  snapshot.data[index].titulo,
+                                                  style: const TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -214,18 +242,225 @@ class _CardImoveisState extends State<CardImoveis> {
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15.0, top: 8.0),
+          child: FutureBuilder(
+            future: _getImoveis(chave: 'operacao', valor: 'Aluguel'),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const SizedBox(
+                  width: 360,
+                  height: 220,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Erro ao carregar dados!'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('Nenhum imóvel encontrado!'));
+              }
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 18),
+                    child: const Text(
+                      'Imóveis para Aluguel',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 88, 88, 88),
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        );
-      },
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).orientation ==
+                            Orientation.portrait
+                        ? MediaQuery.of(context).size.width * 0.92
+                        : MediaQuery.of(context).size.width * 0.95,
+                    height: 220,
+                    child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              print(snapshot.data[index].id);
+                              print(snapshot.data[index].operacao);
+                            },
+                            child: Card(
+                              child: SizedBox(
+                                width: 290,
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                            top: Radius.circular(10),
+                                          ),
+                                          child: Image.network(
+                                            snapshot.data[index].imagemDestaque,
+                                            width: double.infinity,
+                                            height: 135,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 10,
+                                          child: Text(
+                                            snapshot.data[index].tipo,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: [
+                                                Shadow(
+                                                  blurRadius: 5.0,
+                                                  color: Colors.black45,
+                                                  offset: Offset(2, 2),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  textBaseline:
+                                                      TextBaseline.alphabetic,
+                                                  children: [
+                                                    Text(
+                                                      snapshot.data[index]
+                                                          .comodidades[0].qtd
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 3),
+                                                    ),
+                                                    Icon(
+                                                      iconMap[snapshot
+                                                          .data[index]
+                                                          .comodidades[0]
+                                                          .tipo],
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                    ),
+                                                    Text(
+                                                      snapshot.data[index]
+                                                          .comodidades[1].qtd
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 3),
+                                                    ),
+                                                    Icon(
+                                                      iconMap[snapshot
+                                                          .data[index]
+                                                          .comodidades[1]
+                                                          .tipo],
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                    ),
+                                                    Text(
+                                                      snapshot.data[index]
+                                                          .comodidades[2].qtd
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 3),
+                                                    ),
+                                                    Icon(iconMap[snapshot
+                                                        .data[index]
+                                                        .comodidades[2]
+                                                        .tipo]),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 10),
+                                                ),
+                                                Text(
+                                                  snapshot.data[index].titulo,
+                                                  style: const TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
