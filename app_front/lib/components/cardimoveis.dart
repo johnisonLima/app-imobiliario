@@ -16,7 +16,7 @@ class CardImoveis extends StatefulWidget {
 class _CardImoveisState extends State<CardImoveis> {
   var dadosBackend;
 
-  Future<List<Imovel>> _getImoveis() async {
+  Future<List<Imovel>> _getImoveis({String? chave, String? valor}) async {
     var api =
         'https://api.json-generator.com/templates/yDqMZNG19PT6/data?access_token=i0e5kvqe4bphiqpos2fqgddsk9ivs2nqiltt4ytd';
     Uri uri = Uri.parse(api);
@@ -24,9 +24,16 @@ class _CardImoveisState extends State<CardImoveis> {
     var response = await http.get(uri);
 
     var dados = json.decode(response.body) as List;
+    List<Imovel> imoveis;
 
-    // Convertendo cada item da lista em um objeto Todo
-    List<Imovel> imoveis = dados.map((item) => Imovel.fromJson(item)).toList();
+    if (chave == null && valor == null) {
+      imoveis = dados.map((item) => Imovel.fromJson(item)).toList();
+    } else {
+      imoveis = dados
+        .where((item) => item[chave] == valor)
+        .map((item) => Imovel.fromJson(item))
+        .toList();
+    }
 
     return imoveis;
   }
@@ -37,15 +44,10 @@ class _CardImoveisState extends State<CardImoveis> {
       'shower': Icons.shower_outlined,
       'bed': Icons.bed_outlined,
       'garage': Icons.directions_car_outlined,
-      // Adicione outros ícones conforme necessário
     };
 
-    return
-
-        // GestureDetector(
-        //   child:
-        FutureBuilder(
-      future: _getImoveis(),
+    return FutureBuilder(
+      future: _getImoveis(chave: 'operacao', valor: 'Venda'),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const SizedBox(
@@ -61,144 +63,169 @@ class _CardImoveisState extends State<CardImoveis> {
           return const Center(child: Text('Nenhum imóvel encontrado'));
         }
 
-        return GestureDetector(
-          onTap: () {
-            print(dadosBackend.id);
-          },
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.90,
-            height: 220,
-            child: ListView.builder(
-              itemCount: snapshot.data.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                dadosBackend = snapshot.data[index];
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(bottom: 18),
+                child: const Text(
+                  'Imóveis para Venda',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontStyle: FontStyle.italic,
+                      color: Color.fromARGB(255, 88, 88, 88)),
+                  textAlign: TextAlign.start,
+                )),
+            GestureDetector(
+              onTap: () {
+                print(dadosBackend.id);
+                print(dadosBackend.operacao);
+              },
+              child: SizedBox(
+                width:
+                    (MediaQuery.of(context).orientation == Orientation.portrait)
+                        ? MediaQuery.of(context).size.width * 0.92
+                        : MediaQuery.of(context).size.width * 0.95,
+                height: 220,
+                child: ListView.builder(
+                  itemCount: snapshot.data.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    dadosBackend = snapshot.data[index];
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Card(
-                    child: SizedBox(
-                      width: 290,
-                      child: Column(
-                        children: [
-                          Stack(
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Card(
+                        child: SizedBox(
+                          width: 290,
+                          child: Column(
                             children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(10),
-                                ),
-                                child: Image.network(
-                                    dadosBackend.imagemDestaque,
-                                    width: double.infinity,
-                                    height: 135,
-                                    fit: BoxFit.cover),
-                              ),
-                              Positioned(
-                                bottom: 10,
-                                left: 10,
-                                child: Text(
-                                  dadosBackend.tipo,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      Shadow(
-                                        blurRadius: 5.0,
-                                        color: Colors.black45,
-                                        offset: Offset(2, 2),
-                                      ),
-                                    ],
+                              Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(10),
+                                    ),
+                                    child: Image.network(
+                                        dadosBackend.imagemDestaque,
+                                        width: double.infinity,
+                                        height: 135,
+                                        fit: BoxFit.cover),
                                   ),
+                                  Positioned(
+                                    bottom: 10,
+                                    left: 10,
+                                    child: Text(
+                                      dadosBackend.tipo,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                            blurRadius: 5.0,
+                                            color: Colors.black45,
+                                            offset: Offset(2, 2),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            textBaseline:
+                                                TextBaseline.alphabetic,
+                                            children: [
+                                              Text(
+                                                dadosBackend.comodidades[0].qtd
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 3)),
+                                              Icon(iconMap[dadosBackend
+                                                  .comodidades[0].tipo]),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 5)),
+                                              Text(
+                                                dadosBackend.comodidades[1].qtd
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 3)),
+                                              Icon(iconMap[dadosBackend
+                                                  .comodidades[1].tipo]),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 5)),
+                                              Text(
+                                                dadosBackend.comodidades[2].qtd
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 3)),
+                                              Icon(iconMap[dadosBackend
+                                                  .comodidades[2].tipo]),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 5)),
+                                            ],
+                                          ),
+                                          const Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 10)),
+                                          Text(
+                                            dadosBackend.titulo,
+                                            style:
+                                                const TextStyle(fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        textBaseline: TextBaseline.alphabetic,
-                                        children: [
-                                          Text(
-                                            dadosBackend.comodidades[0].qtd
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 3)),
-                                          Icon(iconMap[dadosBackend
-                                              .comodidades[0].tipo]),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 5)),
-                                          Text(
-                                            dadosBackend.comodidades[1].qtd
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 3)),
-                                          Icon(iconMap[dadosBackend
-                                              .comodidades[1].tipo]),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 5)),
-                                          Text(
-                                            dadosBackend.comodidades[2].qtd
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 3)),
-                                          Icon(iconMap[dadosBackend
-                                              .comodidades[2].tipo]),
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 5)),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.only(top: 10)),
-                                      Text(
-                                        dadosBackend.titulo,
-                                        style: const TextStyle(fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
+          ],
         );
       },
     );
-    // );
   }
 }
