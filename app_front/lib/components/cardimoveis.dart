@@ -90,12 +90,14 @@ class _CardImoveisState extends State<CardImoveis> {
                       itemCount: snapshot.data.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        final imovel = snapshot.data[index];
+
                         return Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              print(snapshot.data[index].id);
-                              print(snapshot.data[index].operacao);
+                              print(imovel.id);
+                              print(imovel.operacao);
                             },
                             child: Card(
                               child: SizedBox(
@@ -110,7 +112,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                             top: Radius.circular(10),
                                           ),
                                           child: Image.network(
-                                            snapshot.data[index].imagemDestaque,
+                                            imovel.imagemDestaque,
                                             width: double.infinity,
                                             height: 135,
                                             fit: BoxFit.cover,
@@ -120,7 +122,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                           bottom: 10,
                                           left: 10,
                                           child: Text(
-                                            snapshot.data[index].tipo,
+                                            imovel.tipo,
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 15,
@@ -155,7 +157,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                       TextBaseline.alphabetic,
                                                   children: [
                                                     Text(
-                                                      snapshot.data[index]
+                                                      imovel
                                                           .comodidades[0].qtd
                                                           .toString(),
                                                       style: const TextStyle(
@@ -178,7 +180,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      snapshot.data[index]
+                                                      imovel
                                                           .comodidades[1].qtd
                                                           .toString(),
                                                       style: const TextStyle(
@@ -201,7 +203,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      snapshot.data[index]
+                                                      imovel
                                                           .comodidades[2].qtd
                                                           .toString(),
                                                       style: const TextStyle(
@@ -228,7 +230,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                       EdgeInsets.only(top: 10),
                                                 ),
                                                 Text(
-                                                  snapshot.data[index].titulo,
+                                                  imovel.titulo,
                                                   style: const TextStyle(
                                                     fontSize: 15,
                                                   ),
@@ -297,12 +299,14 @@ class _CardImoveisState extends State<CardImoveis> {
                       itemCount: snapshot.data.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        final imovel = snapshot.data[index];
+
                         return Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              print(snapshot.data[index].id);
-                              print(snapshot.data[index].operacao);
+                              print(imovel.id);
+                              print(imovel.operacao);
                             },
                             child: Card(
                               child: SizedBox(
@@ -317,7 +321,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                             top: Radius.circular(10),
                                           ),
                                           child: Image.network(
-                                            snapshot.data[index].imagemDestaque,
+                                            imovel.imagemDestaque,
                                             width: double.infinity,
                                             height: 135,
                                             fit: BoxFit.cover,
@@ -327,7 +331,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                           bottom: 10,
                                           left: 10,
                                           child: Text(
-                                            snapshot.data[index].tipo,
+                                            imovel.tipo,
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 15,
@@ -362,7 +366,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                       TextBaseline.alphabetic,
                                                   children: [
                                                     Text(
-                                                      snapshot.data[index]
+                                                      imovel
                                                           .comodidades[0].qtd
                                                           .toString(),
                                                       style: const TextStyle(
@@ -385,7 +389,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      snapshot.data[index]
+                                                      imovel
                                                           .comodidades[1].qtd
                                                           .toString(),
                                                       style: const TextStyle(
@@ -408,7 +412,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      snapshot.data[index]
+                                                      imovel
                                                           .comodidades[2].qtd
                                                           .toString(),
                                                       style: const TextStyle(
@@ -435,7 +439,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                       EdgeInsets.only(top: 10),
                                                 ),
                                                 Text(
-                                                  snapshot.data[index].titulo,
+                                                  imovel.titulo,
                                                   style: const TextStyle(
                                                     fontSize: 15,
                                                   ),
