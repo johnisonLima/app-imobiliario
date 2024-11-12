@@ -15,8 +15,16 @@ class CardImoveis extends StatefulWidget {
 
 class _CardImoveisState extends State<CardImoveis> {
   Future<List<Imovel>> _getImoveis({String? chave, String? valor}) async {
-    var api =
-        'https://api.json-generator.com/templates/yDqMZNG19PT6/data?access_token=i0e5kvqe4bphiqpos2fqgddsk9ivs2nqiltt4ytd';
+    // npm install json-server@0.17.3
+    // npm install --save json-server@0.17.3
+    /*
+    "scripts": {
+      "server-start": "json-server --host 192.168.0.129 --port 8080 db/db.json"
+    }
+    */
+    // npm run server-start
+
+    var api = 'http://192.168.0.129:8080/imoveis';
     Uri uri = Uri.parse(api);
 
     var response = await http.get(uri);
@@ -24,14 +32,21 @@ class _CardImoveisState extends State<CardImoveis> {
     var dados = json.decode(response.body) as List;
     List<Imovel> imoveis;
 
-    if (chave == null && valor == null) {
-      imoveis = dados.map((item) => Imovel.fromJson(item)).toList();
-    } else {
-      imoveis = dados
-          .where((item) => item[chave] == valor)
-          .map((item) => Imovel.fromJson(item))
-          .toList();
+    try {
+      // Mapeando os dados para a lista de objetos Imovel
+      if (chave == null && valor == null) {
+        imoveis = dados.map((item) => Imovel.fromJson(item)).toList();
+      } else {
+        imoveis = dados
+            .where((item) => item[chave] == valor)
+            .map((item) => Imovel.fromJson(item))
+            .toList();
+      }
+    } catch (e) {
+      print("Erro ao mapear os imóveis: $e");
+      return [];
     }
+
 
     return imoveis;
   }
@@ -39,9 +54,14 @@ class _CardImoveisState extends State<CardImoveis> {
   @override
   Widget build(BuildContext context) {
     Map<String, IconData> iconMap = {
-      'shower': Icons.shower_outlined,
-      'bed': Icons.bed_outlined,
-      'garage': Icons.directions_car_outlined,
+      'banheiro': Icons.shower_outlined,
+      'quarto': Icons.bed_outlined,
+      'garagem': Icons.directions_car_outlined,
+      'portaria blindada': Icons.verified_user_outlined,
+      'climatizada': Icons.thermostat_auto_outlined,
+      'vigilancia': Icons.camera_outdoor_outlined,
+      'refeitorio': Icons.restaurant_outlined,
+      'wifi': Icons.wifi_outlined,
     };
 
     return Column(
@@ -91,7 +111,7 @@ class _CardImoveisState extends State<CardImoveis> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         final imovel = snapshot.data[index];
-
+ 
                         return Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: GestureDetector(
@@ -155,10 +175,9 @@ class _CardImoveisState extends State<CardImoveis> {
                                                       CrossAxisAlignment.start,
                                                   textBaseline:
                                                       TextBaseline.alphabetic,
-                                                  children: [
+                                                  children: [                                                   
                                                     Text(
-                                                      imovel
-                                                          .comodidades[0].qtd
+                                                      imovel.comodidades[0].qtd
                                                           .toString(),
                                                       style: const TextStyle(
                                                           fontSize: 15,
@@ -180,8 +199,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      imovel
-                                                          .comodidades[1].qtd
+                                                      imovel.comodidades[1].qtd
                                                           .toString(),
                                                       style: const TextStyle(
                                                           fontSize: 15,
@@ -203,8 +221,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      imovel
-                                                          .comodidades[2].qtd
+                                                      imovel.comodidades[2].qtd
                                                           .toString(),
                                                       style: const TextStyle(
                                                           fontSize: 15,
@@ -366,8 +383,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                       TextBaseline.alphabetic,
                                                   children: [
                                                     Text(
-                                                      imovel
-                                                          .comodidades[0].qtd
+                                                      imovel.comodidades[0].qtd
                                                           .toString(),
                                                       style: const TextStyle(
                                                           fontSize: 15,
@@ -389,8 +405,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      imovel
-                                                          .comodidades[1].qtd
+                                                      imovel.comodidades[1].qtd
                                                           .toString(),
                                                       style: const TextStyle(
                                                           fontSize: 15,
@@ -412,8 +427,7 @@ class _CardImoveisState extends State<CardImoveis> {
                                                           left: 5),
                                                     ),
                                                     Text(
-                                                      imovel
-                                                          .comodidades[2].qtd
+                                                      imovel.comodidades[2].qtd
                                                           .toString(),
                                                       style: const TextStyle(
                                                           fontSize: 15,

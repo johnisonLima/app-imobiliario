@@ -1,3 +1,4 @@
+import 'package:app_front/fetchData.dart';
 import 'package:app_front/view/paginainicial.dart';
 
 import 'package:google_fonts/google_fonts.dart';

@@ -11,7 +11,7 @@ class Imovel {
   final List<Comodidade> comodidades;
   final String dataLancamento;
   final String imagemDestaque;
-  final String dataEncerramento;
+  final String? dataEncerramento;
 
   Imovel({
     required this.id,
@@ -26,7 +26,7 @@ class Imovel {
     required this.comodidades,
     required this.dataLancamento,
     required this.imagemDestaque,
-    required this.dataEncerramento,
+    this.dataEncerramento,
   });
 
   factory Imovel.fromJson(Map<String, dynamic> json) {
@@ -131,12 +131,12 @@ class Endereco {
 }
 
 class Location {
-  final double lat;
-  final double long;
+  final double? lat;
+  final double? long;
 
   Location({
-    required this.lat,
-    required this.long,
+    this.lat,
+    this.long,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
@@ -153,11 +153,11 @@ class Location {
 }
 
 class Comodidade {
-  final int qtd;
+  final dynamic qtd;
   final String tipo;
 
   Comodidade({
-    required this.qtd,
+    this.qtd,
     required this.tipo,
   });
 

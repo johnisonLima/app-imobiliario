@@ -1,0 +1,136 @@
+{
+  "imoveis": [
+    {
+      "id": "1",
+      "tipo": "Apartamento",
+      "sobre": "O Residencial RIVERSIDE tem 54,81m2 de área privativa, bem distribuídos em 2 quartos, Sala, banheiro social, cozinha e área de serviço, 1 vaga de estacionamento e vagas para visitante. Localizado no B. Felícia _ Lot. Alameda dos Pássaros, 555 (Próximo ao Shopping Conquista Sul) ponto de Transporte coletivo em frente, padarias e farmácias. Possui Piscina adulto e infantil, área de fitness, quadra, jardim, churrasqueira, playground e Salão para festas. Além disso, segurança garantida 24 horas. ",
+      "valor": 235.11,
+      "titulo": "Candeias Premium Residencial",
+      "cliente": {
+        "nome": "James",
+        "Sobrenome": "Hetfield",
+        "email": "metallica@email.com",
+        "telefone": "(77) 98854-8796"
+      },
+      "endereco": {
+        "bairro": "Candeias",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Alameda dos Pássaros",
+        "location": {
+          "lat": -42.043982,
+          "long": -107.590829
+        }
+      },
+      "operacao": "Venda",
+      "areaTotal": 8578.21,
+      "comodidades": [
+        {
+          "qtd": 2,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": 4,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": 4,
+          "tipo": "quarto"
+        },
+        {
+          "qtd": "",
+          "tipo": "climatizada"
+        }
+      ],
+      "dataLancamento": "2024-02-16",
+      "imagemDestaque": "https://picsum.photos/310/135/",
+      "dataEncerramamento": "2024-07-30"
+    },
+    {
+      "id": "2",
+      "tipo": "Galpão em Condomínio",
+      "sobre": "Condomínio de galpões modulares com todas as facilidades para as empresas que necessitam de espaços para armazenagem, oferecendo aos usuários todos os benefícios e vantagens de uma infraestrutura.",
+      "valor": 89490.00,
+      "titulo": "Parque Logistico Sudoeste",
+      "cliente": {
+        "nome": "Axl",
+        "Sobrenome": "Rose",
+        "email": "gunsnroses@email.com",
+        "telefone": "(77) 2105-8856"
+      },
+      "endereco": {
+        "bairro": " Aírton Senna",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "BR-116",
+        "location": {
+          "lat": -14.910357,
+          "long": -40.8721725
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 6497.95,
+      "comodidades": [
+        {
+          "qtd": 1,
+          "tipo": "portaria blindada"
+        },
+        {
+          "qtd": "4",
+          "tipo": "garagem"
+        },
+        {
+          "qtd": "",
+          "tipo": "vigilancia"
+        }
+      ],
+      "dataLancamento": "2024-10-01",
+      "imagemDestaque": "https://picsum.photos/310/135/" 
+    },
+    {
+      "id": "3",
+      "tipo": "Aluguel",
+      "sobre": "Galpão A com 13 módulos disponíveis a partir de 1.731m² até 23.344m² podendo locar juntos ou separados",
+      "valor": 611.52,
+      "titulo": "Condomínio Industrial",
+      "cliente": {
+        "nome": "Tina",
+        "Sobrenome": "Turner",
+        "email": "tina@email.com",
+        "telefone": "(77) 98855-0554"
+      },
+      "endereco": {
+        "bairro": "Distrito Industrial dos Imborés",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Rua G",
+        "location": {
+          "lat": -14.8224183,
+          "long": -40.8057139
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 1623.16,
+      "comodidades": [
+        {
+          "qtd": 1,
+          "tipo": "refeitorio"
+        },
+        {
+          "qtd": 3,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": "",
+          "tipo": "vigilancia"
+        },        
+        {
+          "qtd": "",
+          "tipo": "wifi"
+        }
+      ],
+      "dataLancamento": "24-12-11",
+      "imagemDestaque": "https://picsum.photos/310/135/"
+    }
+  ]
+}
