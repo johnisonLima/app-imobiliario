@@ -1,5 +1,8 @@
 import 'package:app_front/components/cardimoveis.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../repository/imoveis_repositorio.dart';
 
 class PaginaInicial extends StatelessWidget {
   final String title;
@@ -51,10 +54,13 @@ class PaginaInicial extends StatelessWidget {
               ),
             ),          
         
-            const Padding(
-              padding: EdgeInsets.only(left: 15.0, right: 15.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),              
     
-              child: CardImoveis(),               
+              child: ChangeNotifierProvider(
+                create: (_) => ImoveisRepositorio(),
+                child: const CardImoveis(),
+              ), 
             ),
           ],
         ),

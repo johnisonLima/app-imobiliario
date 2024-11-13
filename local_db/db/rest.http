@@ -1,1 +1,9 @@
+###  get request
 get http://[::1]:8080/imoveis
+
+###  pagination
+get http://[::1]:8080/imoveis?_page=1&_limit=5
+
+
+###  pagination
+get http://[::1]:8080/imoveis?operacao=Venda&_page=1
