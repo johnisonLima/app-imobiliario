@@ -1,4 +1,5 @@
-import 'package:app_front/components/cardimoveis.dart';
+// import 'package:app_front/components/cardimoveis.dart';
+import 'package:app_front/components/card_imoveis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +20,11 @@ class PaginaInicial extends StatelessWidget {
           children: [
             // Imagem de fundo
             Positioned.fill(
-              child: Image.network('https://picsum.photos/400/150/', 
+              child: Image.network(
+                'https://picsum.photos/400/150/',
                 fit: BoxFit.cover,
               ),
             ),
-            
           ],
         ),
       ),
@@ -52,15 +53,40 @@ class PaginaInicial extends StatelessWidget {
                   ],
                 ),
               ),
-            ),          
-        
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0),              
-    
-              child: ChangeNotifierProvider(
-                create: (_) => ImoveisRepositorio(),
-                child: const CardImoveis(),
-              ), 
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 18),
+                    child: const Text(
+                      'Imóveis para Venda',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 88, 88, 88),
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0, top: 8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? MediaQuery.of(context).size.width * 0.92
+                          : MediaQuery.of(context).size.width * 0.95,
+                      height: 220,
+                      child: ChangeNotifierProvider(
+                        create: (_) => ImoveisRepositorio(),
+                        child: const CardImoveis(),                                                                       
+                      ), 
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

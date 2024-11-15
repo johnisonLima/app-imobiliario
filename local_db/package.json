@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "json-server": "^1.0.0-alpha.23"
+    "json-server": "^0.17.4"
   },
   "scripts": {
     "server-start": "json-server --host 192.168.0.129 --port 8080 db/db.json"

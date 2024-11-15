@@ -17,8 +17,10 @@ class ImoveisRepositorio with ChangeNotifier {
 
   Future<void> getImoveis() async {
     try {
-      final api =
-          'http://192.168.0.129:8080/imoveis?operacao=Venda&_page=$_pagina&_limit=5';
+      const apiUrl = 'http://192.168.0.129:8080/';
+
+      final api ='${apiUrl}imoveis?operacao=Venda&_page=$_pagina&_limit=3';
+      
       Uri uri = Uri.parse(api);
 
       final response = await http.get(uri);
@@ -31,7 +33,6 @@ class ImoveisRepositorio with ChangeNotifier {
         } else {
           _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
           _pagina++;
-          
         }
       } else {
         throw Exception('Erro ao carregar dados da API');
