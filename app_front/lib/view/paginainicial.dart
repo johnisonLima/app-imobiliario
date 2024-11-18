@@ -59,20 +59,17 @@ class PaginaInicial extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 18),
-                    child: const Text(
-                      'Imóveis para Venda',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 88, 88, 88),
-                      ),
-                      textAlign: TextAlign.start,
+                  const Text(
+                    'Imóveis para Venda',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontStyle: FontStyle.italic,
+                      color: Color.fromARGB(255, 88, 88, 88),
                     ),
+                    textAlign: TextAlign.start,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 15.0, top: 8.0),
+                    padding: const EdgeInsets.only(bottom: 40, top: 10),
                     child: SizedBox(
                       width: MediaQuery.of(context).orientation ==
                               Orientation.portrait
@@ -81,7 +78,31 @@ class PaginaInicial extends StatelessWidget {
                       height: 220,
                       child: ChangeNotifierProvider(
                         create: (_) => ImoveisRepositorio(),
-                        child: const CardImoveis(),                                                                       
+                        child: const CardImoveis(operacao: 'Venda'),                                                                       
+                      ), 
+                    ),
+                  ),
+                  
+                  const Text(
+                    'Imóveis para Aluguel',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontStyle: FontStyle.italic,
+                      color: Color.fromARGB(255, 88, 88, 88),
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40, top: 10),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? MediaQuery.of(context).size.width * 0.92
+                          : MediaQuery.of(context).size.width * 0.95,
+                      height: 220,
+                      child: ChangeNotifierProvider(
+                        create: (_) => ImoveisRepositorio(),
+                        child: const CardImoveis(operacao: 'Aluguel'),                                                                       
                       ), 
                     ),
                   ),

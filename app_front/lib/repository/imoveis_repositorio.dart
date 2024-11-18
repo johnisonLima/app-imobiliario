@@ -15,12 +15,18 @@ class ImoveisRepositorio with ChangeNotifier {
   bool get carregando => _carregando;
   bool get temMaisImoveis => _temMaisImoveis;
 
-  Future<void> getImoveis() async {
+  Future<void> getImoveis({String? operacao}) async {
     try {
       const apiUrl = 'http://192.168.0.129:8080/';
 
-      final api ='${apiUrl}imoveis?operacao=Venda&_page=$_pagina&_limit=3';
-      
+      final String api;
+
+      if (operacao != null) {
+        api = '${apiUrl}imoveis?operacao=$operacao&_page=$_pagina&_limit=3';
+      } else {
+        api = '${apiUrl}imoveis?_page=$_pagina&_limit=3';
+      }
+
       Uri uri = Uri.parse(api);
 
       final response = await http.get(uri);
@@ -46,13 +52,13 @@ class ImoveisRepositorio with ChangeNotifier {
     }
   }
 
-  Future<void> carregarMaisImoveis() async {
+  Future<void> carregarMaisImoveis({String? operacao}) async {
     if (_carregando || !_temMaisImoveis) return;
 
     _carregando = true;
     notifyListeners();
 
-    await getImoveis();
+    await getImoveis(operacao: operacao);
   }
 }
 

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../repository/imoveis_repositorio.dart';
 
-class CardImoveis extends StatelessWidget { 
+class CardImoveis extends StatelessWidget {
+  final String? operacao;
 
-  const CardImoveis({super.key});
+  const CardImoveis({super.key, this.operacao});  
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +26,12 @@ class CardImoveis extends StatelessWidget {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        imoveisRepo.carregarMaisImoveis();
+        imoveisRepo.carregarMaisImoveis(operacao: operacao);
       }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      imoveisRepo.getImoveis();
+      imoveisRepo.getImoveis(operacao: operacao);
     });
 
     return Consumer<ImoveisRepositorio>(
