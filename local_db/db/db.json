@@ -44,7 +44,24 @@
       ],
       "dataLancamento": "2024-02-16",
       "imagemDestaque": "https://i.ibb.co/MZ795dC/apartamento.webp",
-      "dataEncerramamento": "2024-07-30"
+      "dataEncerramamento": "2024-07-30",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "2",
@@ -85,7 +102,24 @@
         }
       ],
       "dataLancamento": "2024-10-01",
-      "imagemDestaque": "https://i.ibb.co/4WPRZrG/galpao.webp" 
+      "imagemDestaque": "https://i.ibb.co/4WPRZrG/galpao.webp",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ] 
     },
     {
       "id": "3",
@@ -130,7 +164,24 @@
         }
       ],
       "dataLancamento": "24-12-11",
-      "imagemDestaque": "https://i.ibb.co/0fHjNZK/galpao2.webp"
+      "imagemDestaque": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "4",
@@ -172,7 +223,24 @@
       ],
       "dataLancamento": "2023-05-15",
       "imagemDestaque": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-      "dataEncerramamento": "2024-11-15"
+      "dataEncerramamento": "2024-11-15",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "5",
@@ -214,7 +282,24 @@
       ],
       "dataLancamento": "2024-03-20",
       "imagemDestaque": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-      "dataEncerramamento": "2025-03-20"
+      "dataEncerramamento": "2025-03-20",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "6",
@@ -255,8 +340,26 @@
         }
       ],
       "dataLancamento": "2024-01-05",
-      "imagemDestaque": "https://i.ibb.co/3szWBwq/Edif-cio-Empresarial.webp"
-    },{
+      "imagemDestaque": "https://i.ibb.co/3szWBwq/Edif-cio-Empresarial.webp",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
+    },
+    {
       "id": "7",
       "tipo": "Apartamento",
       "sobre": "Apartamento aconchegante e bem localizado, com 3 quartos, sendo uma suíte, cozinha integrada à sala, varanda e vaga de garagem coberta. Ideal para quem busca conforto e praticidade no dia a dia.",
@@ -295,7 +398,24 @@
         }
       ],
       "dataLancamento": "2024-02-20",
-      "imagemDestaque": "https://i.ibb.co/mqrXJ78/Residencial-Primavera.webp"
+      "imagemDestaque": "https://i.ibb.co/mqrXJ78/Residencial-Primavera.webp",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "8",
@@ -337,7 +457,24 @@
       ],
       "dataLancamento": "2023-11-10",
       "imagemDestaque": "https://i.ibb.co/wJX15Hg/Ref-gio-do-Lago.webp",
-      "dataEncerramamento": "2025-01-30"
+      "dataEncerramamento": "2025-01-30",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "9",
@@ -378,7 +515,24 @@
         }
       ],
       "dataLancamento": "2024-05-05",
-      "imagemDestaque": "https://i.ibb.co/68K7BFN/Kitnet-Central.webp"
+      "imagemDestaque": "https://i.ibb.co/68K7BFN/Kitnet-Central.webp",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     },
     {
       "id": "10",
@@ -419,7 +573,24 @@
         }
       ],
       "dataLancamento": "2024-06-20",
-      "imagemDestaque": "https://i.ibb.co/RT4g7B2/Ponto-Comercial.webp"
+      "imagemDestaque": "https://i.ibb.co/RT4g7B2/Ponto-Comercial.webp",
+      "imagens": [
+        {
+          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "descricao": "Fachada do imóvel",
+          "tipo": "frontal"
+        },
+        {
+          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "descricao": "Sala de estar ampla",
+          "tipo": "interna"
+        },
+        {
+          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "descricao": "Quarto com armário embutido",
+          "tipo": "interna"
+        }
+      ]
     }        
   ]
 }

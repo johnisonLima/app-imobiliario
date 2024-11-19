@@ -1,6 +1,6 @@
-import 'package:app_front/model/imovel_detalhe_args%20.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../repository/imoveis_repositorio.dart';
 
 class CardImoveis extends StatelessWidget {
@@ -71,10 +71,8 @@ class CardImoveis extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     '/DetalhesImoveis',
-                    arguments: ImovelDetalhesArgs(id: imovel.id)
+                    arguments: imovel
                   );
-                  print(imovel.id);
-                  print(imovel.operacao);
                 },
                 child: Card(
                   child: SizedBox(

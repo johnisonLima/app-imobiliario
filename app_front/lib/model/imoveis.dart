@@ -12,6 +12,7 @@ class Imovel {
   final String dataLancamento;
   final String imagemDestaque;
   final String? dataEncerramento;
+  final List<Imagens> imagens;
 
   Imovel({
     required this.id,
@@ -26,6 +27,7 @@ class Imovel {
     required this.comodidades,
     required this.dataLancamento,
     required this.imagemDestaque,
+    required this.imagens,
     this.dataEncerramento,
   });
 
@@ -41,29 +43,33 @@ class Imovel {
       operacao: json['operacao'],
       areaTotal: json['areaTotal'].toDouble(),
       comodidades: (json['comodidades'] as List)
-          .map((c) => Comodidade.fromJson(c))
-          .toList(),
+        .map((c) => Comodidade.fromJson(c))
+        .toList(),
       dataLancamento: json['dataLancamento'],
       imagemDestaque: json['imagemDestaque'],
       dataEncerramento: json['dataEncerramamento'],
+      imagens: (json['imagens'] as List)
+        .map((i) => Imagens.fromJson(i))
+        .toList(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'tipo': tipo,
-    'sobre': sobre,
-    'valor': valor,
-    'titulo': titulo,
-    'cliente': cliente.toJson(),
-    'endereco': endereco.toJson(),
-    'operacao': operacao,
-    'areaTotal': areaTotal,
-    'comodidades': comodidades.map((c) => c.toJson()).toList(),
-    'dataLancamento': dataLancamento,
-    'imagemDestaque': imagemDestaque,
-    'dataEncerramento': dataEncerramento,
-  };
+        'id': id,
+        'tipo': tipo,
+        'sobre': sobre,
+        'valor': valor,
+        'titulo': titulo,
+        'cliente': cliente.toJson(),
+        'endereco': endereco.toJson(),
+        'operacao': operacao,
+        'areaTotal': areaTotal,
+        'comodidades': comodidades.map((c) => c.toJson()).toList(),
+        'dataLancamento': dataLancamento,
+        'imagemDestaque': imagemDestaque,
+        'dataEncerramento': dataEncerramento,
+        'imagens': imagens.map((i) => i.toJson()).toList(),
+      };
 }
 
 class Cliente {
@@ -89,11 +95,11 @@ class Cliente {
   }
 
   Map<String, dynamic> toJson() => {
-    'nome': nome,
-    'email': email,
-    'telefone': telefone,
-    'Sobrenome': sobrenome,
-  };
+        'nome': nome,
+        'email': email,
+        'telefone': telefone,
+        'Sobrenome': sobrenome,
+      };
 }
 
 class Endereco {
@@ -122,12 +128,12 @@ class Endereco {
   }
 
   Map<String, dynamic> toJson() => {
-    'bairro': bairro,
-    'cidade': cidade,
-    'estado': estado,
-    'location': location.toJson(),
-    'logradouro': logradouro,
-  };
+        'bairro': bairro,
+        'cidade': cidade,
+        'estado': estado,
+        'location': location.toJson(),
+        'logradouro': logradouro,
+      };
 }
 
 class Location {
@@ -147,9 +153,9 @@ class Location {
   }
 
   Map<String, dynamic> toJson() => {
-    'lat': lat,
-    'long': long,
-  };
+        'lat': lat,
+        'long': long,
+      };
 }
 
 class Comodidade {
@@ -172,4 +178,31 @@ class Comodidade {
     'qtd': qtd,
     'tipo': tipo,
   };
+}
+
+class Imagens {
+  final String url;
+  final String? descricao;
+  final String? tipo;
+
+  Imagens({
+    required this.url,
+    this.descricao,
+    this.tipo,
+  });
+
+  factory Imagens.fromJson(Map<String, dynamic> json) {
+    return Imagens(
+      url: json['url'],
+      descricao: json['descricao'],
+      tipo: json['tipo'],
+    );
+  }
+
+  Map<String, dynamic> toJson() =>
+    {
+      'url': url, 
+      'descricao': descricao, 
+      'tipo': tipo
+    };
 }
