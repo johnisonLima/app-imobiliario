@@ -43,7 +43,7 @@
         }
       ],
       "dataLancamento": "2024-02-16",
-      "imagemDestaque": "https://picsum.photos/310/135/",
+      "imagemDestaque": "https://i.ibb.co/MZ795dC/apartamento.webp",
       "dataEncerramamento": "2024-07-30"
     },
     {
@@ -85,7 +85,7 @@
         }
       ],
       "dataLancamento": "2024-10-01",
-      "imagemDestaque": "https://picsum.photos/310/135/" 
+      "imagemDestaque": "https://i.ibb.co/4WPRZrG/galpao.webp" 
     },
     {
       "id": "3",
@@ -130,7 +130,7 @@
         }
       ],
       "dataLancamento": "24-12-11",
-      "imagemDestaque": "https://picsum.photos/310/135/"
+      "imagemDestaque": "https://i.ibb.co/0fHjNZK/galpao2.webp"
     },
     {
       "id": "4",
@@ -171,7 +171,7 @@
         }
       ],
       "dataLancamento": "2023-05-15",
-      "imagemDestaque": "https://picsum.photos/310/135/",
+      "imagemDestaque": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
       "dataEncerramamento": "2024-11-15"
     },
     {
@@ -213,7 +213,7 @@
         }
       ],
       "dataLancamento": "2024-03-20",
-      "imagemDestaque": "https://picsum.photos/310/135/",
+      "imagemDestaque": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
       "dataEncerramamento": "2025-03-20"
     },
     {
@@ -255,7 +255,7 @@
         }
       ],
       "dataLancamento": "2024-01-05",
-      "imagemDestaque": "https://picsum.photos/310/135/"
+      "imagemDestaque": "https://i.ibb.co/3szWBwq/Edif-cio-Empresarial.webp"
     },{
       "id": "7",
       "tipo": "Apartamento",
@@ -295,7 +295,7 @@
         }
       ],
       "dataLancamento": "2024-02-20",
-      "imagemDestaque": "https://picsum.photos/310/135/"
+      "imagemDestaque": "https://i.ibb.co/mqrXJ78/Residencial-Primavera.webp"
     },
     {
       "id": "8",
@@ -336,7 +336,7 @@
         }
       ],
       "dataLancamento": "2023-11-10",
-      "imagemDestaque": "https://picsum.photos/310/135/",
+      "imagemDestaque": "https://i.ibb.co/wJX15Hg/Ref-gio-do-Lago.webp",
       "dataEncerramamento": "2025-01-30"
     },
     {
@@ -378,7 +378,7 @@
         }
       ],
       "dataLancamento": "2024-05-05",
-      "imagemDestaque": "https://picsum.photos/310/135/"
+      "imagemDestaque": "https://i.ibb.co/68K7BFN/Kitnet-Central.webp"
     },
     {
       "id": "10",
@@ -419,7 +419,7 @@
         }
       ],
       "dataLancamento": "2024-06-20",
-      "imagemDestaque": "https://picsum.photos/310/135/"
+      "imagemDestaque": "https://i.ibb.co/RT4g7B2/Ponto-Comercial.webp"
     }        
   ]
 }

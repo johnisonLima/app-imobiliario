@@ -3,29 +3,52 @@ import 'package:app_front/components/card_imoveis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../repository/imoveis_repositorio.dart';
+import '../repository/imoveis_repositorio.dart'; 
 
-class PaginaInicial extends StatelessWidget {
+class PaginaInicial extends StatefulWidget {
   final String title;
 
   const PaginaInicial({super.key, required this.title});
+
+  @override
+  State<PaginaInicial> createState() => _PaginainicialState();
+}
+
+class _PaginainicialState extends State<PaginaInicial> {
+  int _opcaoSelecionada = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        toolbarHeight: 150.0,
-        flexibleSpace: Stack(
-          children: [
-            // Imagem de fundo
-            Positioned.fill(
-              child: Image.network(
-                'https://picsum.photos/400/150/',
-                fit: BoxFit.cover,
+        toolbarHeight: 100.0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+          child: Stack(
+            children: [            
+              Positioned.fill(
+                child: Image.network(
+                  'https://i.ibb.co/MkmKMPT/banner-m.webp',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          ],
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20), 
+                  Center(
+                    child: Image.network(
+                      'https://i.ibb.co/H7wKLLZ/logo.webp',
+                      width: 130,
+                    ),
+                  ),
+                ],
+              ),            
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -41,13 +64,13 @@ class PaginaInicial extends StatelessWidget {
                   children: [
                     Text(
                       'Explore casas na\n Laís Heitz Imóveis',
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(fontSize: 25, color: Color.fromARGB(255, 88, 88, 88),),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 20),
                     Text(
                       'Dê uma olhada profunda e navegue por casas à venda, fotos originais do bairro, avaliações de moradores e insights locais para encontrar o que é certo para você.',
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 17, color: Color.fromARGB(255, 88, 88, 88),),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -78,11 +101,10 @@ class PaginaInicial extends StatelessWidget {
                       height: 220,
                       child: ChangeNotifierProvider(
                         create: (_) => ImoveisRepositorio(),
-                        child: const CardImoveis(operacao: 'Venda'),                                                                       
-                      ), 
+                        child: const CardImoveis(operacao: 'Venda'),
+                      ),
                     ),
                   ),
-                  
                   const Text(
                     'Imóveis para Aluguel',
                     style: TextStyle(
@@ -102,13 +124,43 @@ class PaginaInicial extends StatelessWidget {
                       height: 220,
                       child: ChangeNotifierProvider(
                         create: (_) => ImoveisRepositorio(),
-                        child: const CardImoveis(operacao: 'Aluguel'),                                                                       
-                      ), 
+                        child: const CardImoveis(operacao: 'Aluguel'),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+          ],
+        ),
+        
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.blue, 
+              width: 0.2,         
+            ),
+          ),
+        ),
+        child: BottomNavigationBar(
+            onTap: (opcao) {
+              setState(() {
+                _opcaoSelecionada = opcao;
+              });
+            },
+            type: BottomNavigationBarType.fixed,
+            selectedLabelStyle: const TextStyle(fontSize: 13),
+            unselectedLabelStyle: const TextStyle(fontSize: 13),
+            backgroundColor: Colors.grey[200],
+            fixedColor: Colors.blue[800],
+            unselectedItemColor: Colors.grey[600],
+            currentIndex: _opcaoSelecionada,
+            items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), label: 'Página Inicial'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Pesquisa'),                   
           ],
         ),
       ),
