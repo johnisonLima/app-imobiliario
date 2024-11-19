@@ -1,3 +1,4 @@
+import 'package:app_front/model/imovel_detalhe_args%20.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../repository/imoveis_repositorio.dart';
@@ -5,7 +6,7 @@ import '../repository/imoveis_repositorio.dart';
 class CardImoveis extends StatelessWidget {
   final String? operacao;
 
-  const CardImoveis({super.key, this.operacao});  
+  const CardImoveis({super.key, this.operacao});
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,11 @@ class CardImoveis extends StatelessWidget {
               padding: const EdgeInsets.only(right: 8.0),
               child: GestureDetector(
                 onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/DetalhesImoveis',
+                    arguments: ImovelDetalhesArgs(id: imovel.id)
+                  );
                   print(imovel.id);
                   print(imovel.operacao);
                 },
