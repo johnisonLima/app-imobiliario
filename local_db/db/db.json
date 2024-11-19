@@ -1,0 +1,425 @@
+{
+  "imoveis": [
+    {
+      "id": "1",
+      "tipo": "Apartamento",
+      "sobre": "O Residencial RIVERSIDE tem 54,81m2 de área privativa, bem distribuídos em 2 quartos, Sala, banheiro social, cozinha e área de serviço, 1 vaga de estacionamento e vagas para visitante. Localizado no B. Felícia _ Lot. Alameda dos Pássaros, 555 (Próximo ao Shopping Conquista Sul) ponto de Transporte coletivo em frente, padarias e farmácias. Possui Piscina adulto e infantil, área de fitness, quadra, jardim, churrasqueira, playground e Salão para festas. Além disso, segurança garantida 24 horas. ",
+      "valor": 235.11,
+      "titulo": "Candeias Premium Residencial",
+      "cliente": {
+        "nome": "James",
+        "Sobrenome": "Hetfield",
+        "email": "metallica@email.com",
+        "telefone": "(77) 98854-8796"
+      },
+      "endereco": {
+        "bairro": "Candeias",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Alameda dos Pássaros",
+        "location": {
+          "lat": -42.043982,
+          "long": -107.590829
+        }
+      },
+      "operacao": "Venda",
+      "areaTotal": 8578.21,
+      "comodidades": [
+        {
+          "qtd": 2,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": 4,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": 4,
+          "tipo": "quarto"
+        },
+        {
+          "qtd": "",
+          "tipo": "climatizada"
+        }
+      ],
+      "dataLancamento": "2024-02-16",
+      "imagemDestaque": "https://i.ibb.co/MZ795dC/apartamento.webp",
+      "dataEncerramamento": "2024-07-30"
+    },
+    {
+      "id": "2",
+      "tipo": "Galpão em Condomínio",
+      "sobre": "Condomínio de galpões modulares com todas as facilidades para as empresas que necessitam de espaços para armazenagem, oferecendo aos usuários todos os benefícios e vantagens de uma infraestrutura.",
+      "valor": 89490.00,
+      "titulo": "Parque Logistico Sudoeste",
+      "cliente": {
+        "nome": "Axl",
+        "Sobrenome": "Rose",
+        "email": "gunsnroses@email.com",
+        "telefone": "(77) 2105-8856"
+      },
+      "endereco": {
+        "bairro": " Aírton Senna",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "BR-116",
+        "location": {
+          "lat": -14.910357,
+          "long": -40.8721725
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 6497.95,
+      "comodidades": [
+        {
+          "qtd": 1,
+          "tipo": "portaria blindada"
+        },
+        {
+          "qtd": "4",
+          "tipo": "garagem"
+        },
+        {
+          "qtd": "",
+          "tipo": "vigilancia"
+        }
+      ],
+      "dataLancamento": "2024-10-01",
+      "imagemDestaque": "https://i.ibb.co/4WPRZrG/galpao.webp" 
+    },
+    {
+      "id": "3",
+      "tipo": "Aluguel",
+      "sobre": "Galpão A com 13 módulos disponíveis a partir de 1.731m² até 23.344m² podendo locar juntos ou separados",
+      "valor": 611.52,
+      "titulo": "Condomínio Industrial",
+      "cliente": {
+        "nome": "Tina",
+        "Sobrenome": "Turner",
+        "email": "tina@email.com",
+        "telefone": "(77) 98855-0554"
+      },
+      "endereco": {
+        "bairro": "Distrito Industrial dos Imborés",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Rua G",
+        "location": {
+          "lat": -14.8224183,
+          "long": -40.8057139
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 1623.16,
+      "comodidades": [
+        {
+          "qtd": 1,
+          "tipo": "refeitorio"
+        },
+        {
+          "qtd": 3,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": "",
+          "tipo": "vigilancia"
+        },        
+        {
+          "qtd": "",
+          "tipo": "wifi"
+        }
+      ],
+      "dataLancamento": "24-12-11",
+      "imagemDestaque": "https://i.ibb.co/0fHjNZK/galpao2.webp"
+    },
+    {
+      "id": "4",
+      "tipo": "Casa",
+      "sobre": "Casa residencial espaçosa com 3 quartos, suíte, cozinha ampla e quintal com área para lazer. Localizada em bairro tranquilo e próximo a escolas, mercados e transporte público.",
+      "valor": 320.00,
+      "titulo": "Residencial Lagoa Azul",
+      "cliente": {
+        "nome": "Freddie",
+        "Sobrenome": "Mercury",
+        "email": "freddie@email.com",
+        "telefone": "(77) 98860-7766"
+      },
+      "endereco": {
+        "bairro": "Boa Vista",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Rua das Flores",
+        "location": {
+          "lat": -14.861918,
+          "long": -40.844733
+        }
+      },
+      "operacao": "Venda",
+      "areaTotal": 150.0,
+      "comodidades": [
+        {
+          "qtd": 2,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": 2,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": 3,
+          "tipo": "quarto"
+        }
+      ],
+      "dataLancamento": "2023-05-15",
+      "imagemDestaque": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+      "dataEncerramamento": "2024-11-15"
+    },
+    {
+      "id": "5",
+      "tipo": "Cobertura",
+      "sobre": "Cobertura duplex de alto padrão com vista panorâmica, 4 suítes, piscina privativa, e área gourmet. Localizada em área nobre com fácil acesso a restaurantes e shoppings.",
+      "valor": 950.75,
+      "titulo": "Cobertura da Colina",
+      "cliente": {
+        "nome": "Elton",
+        "Sobrenome": "John",
+        "email": "elton@email.com",
+        "telefone": "(77) 98870-1234"
+      },
+      "endereco": {
+        "bairro": "Recreio",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Av. da Colina",
+        "location": {
+          "lat": -14.854120,
+          "long": -40.848220
+        }
+      },
+      "operacao": "Venda",
+      "areaTotal": 350.0,
+      "comodidades": [
+        {
+          "qtd": 4,
+          "tipo": "quarto"
+        },
+        {
+          "qtd": 3,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": 1,
+          "tipo": "wifi"
+        }
+      ],
+      "dataLancamento": "2024-03-20",
+      "imagemDestaque": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+      "dataEncerramamento": "2025-03-20"
+    },
+    {
+      "id": "6",
+      "tipo": "Sala Comercial",
+      "sobre": "Sala comercial em edifício moderno, com recepção, segurança e fácil acesso. Ideal para escritórios e consultórios.",
+      "valor": 115.00,
+      "titulo": "Edifício Empresarial Conquista",
+      "cliente": {
+        "nome": "David",
+        "Sobrenome": "Bowie",
+        "email": "bowie@email.com",
+        "telefone": "(77) 2105-2215"
+      },
+      "endereco": {
+        "bairro": "Centro",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Av. Bartolomeu de Gusmão",
+        "location": {
+          "lat": -14.865500,
+          "long": -40.836900
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 45.0,
+      "comodidades": [
+        {
+          "qtd": "",
+          "tipo": "wifi"
+        },
+        {
+          "qtd": 1,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": "",
+          "tipo": "climatizada"
+        }
+      ],
+      "dataLancamento": "2024-01-05",
+      "imagemDestaque": "https://i.ibb.co/3szWBwq/Edif-cio-Empresarial.webp"
+    },{
+      "id": "7",
+      "tipo": "Apartamento",
+      "sobre": "Apartamento aconchegante e bem localizado, com 3 quartos, sendo uma suíte, cozinha integrada à sala, varanda e vaga de garagem coberta. Ideal para quem busca conforto e praticidade no dia a dia.",
+      "valor": 280.00,
+      "titulo": "Residencial Primavera",
+      "cliente": {
+        "nome": "Kurt",
+        "Sobrenome": "Cobain",
+        "email": "kurt@email.com",
+        "telefone": "(77) 98850-2020"
+      },
+      "endereco": {
+        "bairro": "Morada Real",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Rua das Acácias",
+        "location": {
+          "lat": -14.861218,
+          "long": -40.847319
+        }
+      },
+      "operacao": "Venda",
+      "areaTotal": 120.0,
+      "comodidades": [
+        {
+          "qtd": 2,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": 1,
+          "tipo": "garagem"
+        },
+        {
+          "qtd": 3,
+          "tipo": "quarto"
+        }
+      ],
+      "dataLancamento": "2024-02-20",
+      "imagemDestaque": "https://i.ibb.co/mqrXJ78/Residencial-Primavera.webp"
+    },
+    {
+      "id": "8",
+      "tipo": "Chácara",
+      "sobre": "Chácara completa com piscina, churrasqueira, ampla área verde e um belo lago. Ideal para quem busca tranquilidade e contato com a natureza.",
+      "valor": 1200.00,
+      "titulo": "Refúgio do Lago",
+      "cliente": {
+        "nome": "Janis",
+        "Sobrenome": "Joplin",
+        "email": "janis@email.com",
+        "telefone": "(77) 98845-3344"
+      },
+      "endereco": {
+        "bairro": "Zona Rural",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Estrada do Lago",
+        "location": {
+          "lat": -14.855312,
+          "long": -40.900123
+        }
+      },
+      "operacao": "Venda",
+      "areaTotal": 5000.0,
+      "comodidades": [
+        {
+          "qtd": 4,
+          "tipo": "quarto"
+        },
+        {
+          "qtd": 3,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": 5,
+          "tipo": "garagem"
+        }
+      ],
+      "dataLancamento": "2023-11-10",
+      "imagemDestaque": "https://i.ibb.co/wJX15Hg/Ref-gio-do-Lago.webp",
+      "dataEncerramamento": "2025-01-30"
+    },
+    {
+      "id": "9",
+      "tipo": "Kitnet",
+      "sobre": "Kitnet compacta, mobiliada, ideal para estudantes e profissionais solteiros. Localização central, próxima a transporte público e comércio.",
+      "valor": 100.00,
+      "titulo": "Kitnet Central",
+      "cliente": {
+        "nome": "Jimi",
+        "Sobrenome": "Hendrix",
+        "email": "jimi@email.com",
+        "telefone": "(77) 98856-4412"
+      },
+      "endereco": {
+        "bairro": "Centro",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Praça da Liberdade",
+        "location": {
+          "lat": -14.866300,
+          "long": -40.839100
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 30.0,
+      "comodidades": [
+        {
+          "qtd": 1,
+          "tipo": "quarto"
+        },
+        {
+          "qtd": 1,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": "",
+          "tipo": "wifi"
+        }
+      ],
+      "dataLancamento": "2024-05-05",
+      "imagemDestaque": "https://i.ibb.co/68K7BFN/Kitnet-Central.webp"
+    },
+    {
+      "id": "10",
+      "tipo": "Ponto Comercial",
+      "sobre": "Loja ampla, pronta para comércio, com ótima localização em rua movimentada. Possui espaço para depósito e dois banheiros.",
+      "valor": 450.00,
+      "titulo": "Loja Central",
+      "cliente": {
+        "nome": "Mick",
+        "Sobrenome": "Jagger",
+        "email": "mick@email.com",
+        "telefone": "(77) 98859-1221"
+      },
+      "endereco": {
+        "bairro": "Centro",
+        "cidade": "Vitória da Conquista",
+        "estado": "Bahia",
+        "logradouro": "Rua Grande",
+        "location": {
+          "lat": -14.865712,
+          "long": -40.838251
+        }
+      },
+      "operacao": "Aluguel",
+      "areaTotal": 80.0,
+      "comodidades": [
+        {
+          "qtd": 2,
+          "tipo": "banheiro"
+        },
+        {
+          "qtd": "",
+          "tipo": "wifi"
+        },
+        {
+          "qtd": 2,
+          "tipo": "garagem"
+        }
+      ],
+      "dataLancamento": "2024-06-20",
+      "imagemDestaque": "https://i.ibb.co/RT4g7B2/Ponto-Comercial.webp"
+    }        
+  ]
+}
