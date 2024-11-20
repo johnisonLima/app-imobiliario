@@ -1,5 +1,8 @@
+import 'package:app_front/components/icones_imovel.dart';
 import 'package:app_front/model/imoveis.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class DetalhesImoveis extends StatefulWidget {
   static const rountName = '/DetalhesImoveis';
@@ -94,7 +97,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                                         ],
                                     ),
                                   ),
-                                  Text(args.tipo,
+                                  Text(args.endereco.bairro ,
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
@@ -134,22 +137,26 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                 ),
               ),
 
+              
               Padding(
-                padding: const EdgeInsets.only(top: 18, left: 10, right: 10, bottom: 18),
-                child: Row(
+                padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: Row(                  
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'R\$: ${args.valor}', 
-                      style: const TextStyle(fontSize: 25),
+                    Text(args.tipo, 
+                      style: GoogleFonts.robotoFlex(
+                        fontSize: 17, 
+                        fontWeight: FontWeight.w100, 
+                        color: Colors.grey[800],                      
+                      ),
                     ),
-
+                    
                     Container(
-                      width: 40,
-                      height: 40,
+                      width: 30,
+                      height:30,
                       decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(30),
                         border: Border.all(
                           color: Colors.grey, 
                           width: 0.8,        
@@ -164,10 +171,112 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                   ],
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(args.operacao, 
+                      style: GoogleFonts.robotoFlex(
+                        fontSize: 16, 
+                        fontWeight: FontWeight.w600, 
+                        color: Colors.grey[800],                      
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8), 
+                height: 1,                                           
+                color: Colors.grey[600],                                  
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(paraMoeda(args.valor), 
+                      style: GoogleFonts.robotoFlex(
+                        fontSize: 28, 
+                        fontWeight: FontWeight.w600, 
+                        color: Colors.grey[800],                      
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8), 
+                height: 1,                                           
+                color: Colors.grey[600],                                  
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+                child: Row(
+                  children: args.comodidades.map<Widget>((comodidade) {
+                    return Row(
+                      children: [
+                        Text(
+                          comodidade.qtd.toString(),
+                          style: GoogleFonts.robotoFlex(
+                            fontSize: 18,
+                          ),
+                        ),
+                        Icon(
+                          IconesImovel.iconMap[comodidade.tipo],
+                          size: 19,
+                          semanticLabel: comodidade.tipo,
+                        ),
+                        const Padding(padding: EdgeInsets.only(left: 8),),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ),
+            
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8), 
+                height: 1,                                           
+                color: Colors.grey[600],                                  
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 50),
+                child:
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(args.sobre, 
+                      style: GoogleFonts.robotoFlex(
+                        fontSize: 15, 
+                        fontWeight: FontWeight.w100, 
+                        color: Colors.grey[500],                   
+                      ),
+                      textAlign: TextAlign.justify,
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
+                      ),
+                  ),
+              ),
+
             ],
           ),
         ),
       ),
     );
   }
+}
+
+String paraMoeda(double valor) {
+  final formatador = NumberFormat.currency(
+    locale: 'pt_BR', 
+    symbol: 'R\$',   
+  );
+  return formatador.format(valor);
 }
