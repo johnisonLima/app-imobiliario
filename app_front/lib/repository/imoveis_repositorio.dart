@@ -7,13 +7,13 @@ import 'dart:convert';
 class ImoveisRepositorio with ChangeNotifier {
   int _pagina = 1;
   bool _carregando = false;
-  bool _temMaisImoveis = true;
+  bool _temMais = true;
 
   late final List<Imovel> _imoveis = [];
 
   List<Imovel> get imoveis => _imoveis;
   bool get carregando => _carregando;
-  bool get temMaisImoveis => _temMaisImoveis;
+  bool get temMaisImoveis => _temMais;
 
   Future<void> getImoveis({String? operacao}) async {
     try {
@@ -35,7 +35,7 @@ class ImoveisRepositorio with ChangeNotifier {
         final dados = json.decode(response.body) as List;
 
         if (dados.isEmpty) {
-          _temMaisImoveis = false;
+          _temMais = false;
         } else {
           _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
           _pagina++;
@@ -53,7 +53,7 @@ class ImoveisRepositorio with ChangeNotifier {
   }
 
   Future<void> carregarMaisImoveis({String? operacao}) async {
-    if (_carregando || !_temMaisImoveis) return;
+    if (_carregando || !_temMais) return;
 
     _carregando = true;
     notifyListeners();

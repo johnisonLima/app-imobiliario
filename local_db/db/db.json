@@ -592,5 +592,91 @@
         }
       ]
     }        
+  ],
+  "comentarios": [
+    {
+      "id": "101",
+      "imovelId": 1,
+      "usuario": {
+        "id": "1",
+        "nome": "João Silva",
+        "email": "jaoo@email.com"
+      },
+      "texto": "Adorei o imóvel! Parece ser uma ótima oportunidade.",
+      "data": "2024-11-12T10:15:00Z",
+      "nota": 5
+    },
+    {
+      "id": "103",
+      "imovelId": 1,
+      "usuario": {
+        "id": "3",
+        "nome": "Catarina A.",
+        "email": "catarina@email.com"
+      },
+      "texto": "Este é um ótimo bairro. Acho que é muito seguro e ando sozinho à noite com frequência. As ruas, calçadas e parques são bem cuidados.",
+      "data": "2023-11-12T10:15:00Z",
+      "nota": 5
+    },
+    {
+      "id": "104",
+      "imovelId": 1,
+      "usuario": {
+        "id": "4",
+        "nome": "Ivete Sangalo",
+        "email": "ivete@email.com"
+      },
+      "texto": "Muito rápido para o trabalho, alguns motoristas irritantes /  rudes, mas eu sou do sul, então não estou acostumado com isso",
+      "data": "2024-06-12T10:15:00Z",
+      "nota": 4
+    },    
+    {
+      "id": "105",
+      "imovelId": 1,
+      "usuario": {
+        "id": "5",
+        "nome": "Caetano Veloso",
+        "email": "caetano@email.com"
+      },
+      "texto": "Excelente deslocamento. A vida caminhável torna as coisas acessíveis no bairro, de lojas a restaurantes.",
+      "data": "2024-08-12T10:15:00Z",
+      "nota": 4
+    },    
+    {
+      "id": "106",
+      "imovelId": 1,
+      "usuario": {
+        "id": "6",
+        "nome": "Mara Maravilha",
+        "email": "mara@email.com"
+      },
+      "texto": "Você não precisa ter carro neste bairro se não quiser. Tudo Pertinho.",
+      "data": "2024-08-12T10:15:00Z",
+      "nota": 4
+    },    
+    {
+      "id": "107",
+      "imovelId": 1,
+      "usuario": {
+        "id": "7",
+        "nome": "Dinho Ouro Preto",
+        "email": "dinho@email.com"
+      },
+      "texto": "O bairro é incrível. Ótimas opções de transporte público ao redor. As estradas são agradáveis e bem pavimentadas.",
+      "data": "2024-02-12T10:15:00Z",
+      "nota": 4
+    },
+    {
+      "id": "102",
+      "imovelId": 2,
+      "usuario": {
+        "id": "2",
+        "nome": "Maria Oliveira",
+        "email": "maria@email.com"
+      },
+      "texto": "Gostei, mas gostaria de mais detalhes sobre o bairro.",
+      "data": "2024-11-11T14:30:00Z",
+      "nota": 4
+    }
   ]
 }

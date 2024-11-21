@@ -1,3 +1,4 @@
+import 'package:app_front/components/icones_imovel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,16 +11,6 @@ class CardImoveis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, IconData> iconMap = {
-      'banheiro': Icons.shower_outlined,
-      'quarto': Icons.bed_outlined,
-      'garagem': Icons.directions_car_outlined,
-      'portaria blindada': Icons.verified_user_outlined,
-      'climatizada': Icons.thermostat_auto_outlined,
-      'vigilancia': Icons.camera_outdoor_outlined,
-      'refeitorio': Icons.restaurant_outlined,
-      'wifi': Icons.wifi_outlined,
-    };
 
     final imoveisRepo = Provider.of<ImoveisRepositorio>(context, listen: false);
     final scrollController = ScrollController();
@@ -137,7 +128,7 @@ class CardImoveis extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 3),
                                         ),
                                         Icon(
-                                          iconMap[repositorio.imoveis[index]
+                                          IconesImovel.iconMap[repositorio.imoveis[index]
                                               .comodidades[0].tipo],
                                         ),
                                         const Padding(
@@ -153,7 +144,7 @@ class CardImoveis extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 3),
                                         ),
                                         Icon(
-                                          iconMap[repositorio.imoveis[index]
+                                          IconesImovel.iconMap[repositorio.imoveis[index]
                                               .comodidades[1].tipo],
                                         ),
                                         const Padding(
@@ -168,7 +159,8 @@ class CardImoveis extends StatelessWidget {
                                         const Padding(
                                           padding: EdgeInsets.only(left: 3),
                                         ),
-                                        Icon(iconMap[repositorio.imoveis[index]
+                                        Icon(
+                                          IconesImovel.iconMap[repositorio.imoveis[index]
                                             .comodidades[2].tipo]),
                                         const Padding(
                                           padding: EdgeInsets.only(left: 5),
@@ -202,3 +194,4 @@ class CardImoveis extends StatelessWidget {
     );
   }
 }
+// 197

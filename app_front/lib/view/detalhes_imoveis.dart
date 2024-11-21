@@ -1,9 +1,13 @@
-import 'package:app_front/components/icones_imovel.dart';
-import 'package:app_front/model/imoveis.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
+
+import 'package:app_front/components/card_comentarios.dart';
+import 'package:app_front/components/icones_imovel.dart';
+import 'package:app_front/model/imoveis.dart';
+import 'package:app_front/repository/comentarios_repositorio.dart';
 
 class DetalhesImoveis extends StatefulWidget {
   static const rountName = '/DetalhesImoveis';
@@ -18,7 +22,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   late PageController _controladorSlides;
   late int _slideSelecionado;
   late ScrollController _scrollController;
-  bool _mostrarBotoes = false;
+  bool _mostrarContato = false;
   late int alturaBotoes = 100;
 
   @override
@@ -35,13 +39,13 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   }
 
   void _onScroll() {
-    if (_scrollController.offset > alturaBotoes && !_mostrarBotoes) {
+    if (_scrollController.offset > alturaBotoes && !_mostrarContato) {
       setState(() {
-        _mostrarBotoes = true;
+        _mostrarContato = true;
       });
-    } else if (_scrollController.offset <= alturaBotoes && _mostrarBotoes) {
+    } else if (_scrollController.offset <= alturaBotoes && _mostrarContato) {
       setState(() {
-        _mostrarBotoes = false;
+        _mostrarContato = false;
       });
     }
   }
@@ -54,9 +58,11 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
 
   @override
   Widget build(BuildContext context) {
+    final largura = MediaQuery.of(context).size.width * 
+    (MediaQuery.of(context).orientation == Orientation.portrait ? 0.92 : 0.95);
     const double alturaImagem = 500;
     final args = ModalRoute.of(context)?.settings.arguments;
-    var msg;
+    var mensagem = '';
 
     if (args is! Imovel) {
       return Scaffold(
@@ -278,7 +284,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 20, left: 10, right: 10, bottom: 50),
+                        top: 20, left: 10, right: 10, bottom: 20),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Text(
@@ -294,63 +300,92 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                       ),
                     ),
                   ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 70.0),
+                    child: Column(
+                      children: [
+                        const Text('Comentários', style: TextStyle(fontSize: 20),),
+
+                        Padding(                          
+                          padding: const EdgeInsets.only(top: 10),
+                          child: SizedBox(
+                            width: largura,
+                            height: 200,
+                            child: ChangeNotifierProvider(
+                                create: (_) => ComentariosRepositorio(),
+                                child: CardComentarios(imovelId: args.id),
+                            ),
+                          ),
+                        ),
+                        
+                      ],
+                    ),
+                  ),
+                
                 ],
               ),
             ),
           ),
-          if (_mostrarBotoes)
-            Positioned(
-              bottom: 16,
-              left: 16,
-              right: 16,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () async {
-                      const phone = '5577999285012';
-                      const whats =
-                          'https://api.whatsapp.com/send/?phone=$phone';
-                      msg = 'Olá, estou interessado no imóvel ${args.titulo}. Gostaria de obter mais informações sobre ele.';
-
-                      final Uri url = Uri.parse('$whats&text=${Uri.encodeComponent(msg)}');
-
-                      if (await canLaunchUrl(url)) {
-                        await launchUrl(url);
-                      } else {
-                        throw 'Não foi possível abrir o WhatsApp.';
-                      }
-                    },
-                    icon: const Icon(Icons.whatsa),
-                    label: const Text('Whatsapp'),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () async {
-                      final Uri emailUri = Uri(
-                        scheme: 'mailto',
-                        path: 'johnisonbsi@outlook.com',
-                        queryParameters: {
-                          'subject': 'Interesse no imóvel: ${args.titulo}',
-                          'body': 'Olá,\n\nEstou interessado no imóvel ${args.titulo}. Gostaria de obter mais informações sobre ele.',
-                        },
-                      );
-
-                      if (await canLaunchUrl(emailUri)) {
-                        await launchUrl(emailUri);
-                      } else {
-                        throw 'Não foi possível abrir o cliente de e-mail.';
-                      }
-                    },
-                    icon: const Icon(Icons.email),
-                    label: const Text('Email'),
-                  ),
-                ],
-              ),
-            ),
+          if (_mostrarContato)
+            _exibirContato(args.titulo, mensagem),
+          
+          
         ],
       ),
     );
   }
+}
+
+Widget _exibirContato(String tituloImovel, String msg){
+  return Positioned(
+    bottom: 16,
+    left: 16,
+    right: 16,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () async {
+            const phone = '5577999285012';
+            const whats =
+                'https://api.whatsapp.com/send/?phone=$phone';
+            msg = 'Olá, estou interessado no imóvel $tituloImovel. Gostaria de obter mais informações sobre ele.';
+
+            final Uri url = Uri.parse('$whats&text=${Uri.encodeComponent(msg)}');
+
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url);
+            } else {
+              throw 'Não foi possível abrir o WhatsApp.';
+            }
+          },
+          icon: const Icon(Icons.phone),
+          label: const Text('Whatsapp'),
+        ),
+        ElevatedButton.icon(
+          onPressed: () async {
+            final Uri emailUri = Uri(
+              scheme: 'mailto',
+              path: 'johnisonbsi@outlook.com',
+              queryParameters: {
+                'subject': 'Interesse no imóvel: $tituloImovel',
+                'body': 'Olá,\n\nEstou interessado no imóvel $tituloImovel. Gostaria de obter mais informações sobre ele.',
+              },
+            );
+
+            if (await canLaunchUrl(emailUri)) {
+              await launchUrl(emailUri);
+            } else {
+              throw 'Não foi possível abrir o cliente de e-mail.';
+            }
+          },
+          icon: const Icon(Icons.email),
+          label: const Text('Email'),
+        ),
+      ],
+    ),
+  );
 }
 
 String paraMoeda(double valor) {
