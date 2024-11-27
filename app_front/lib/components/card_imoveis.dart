@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../repository/imoveis_repositorio.dart';
+import '../view/detalhes_imoveis.dart';
 
 class CardImoveis extends StatelessWidget {
   final String? operacao;
@@ -11,7 +12,6 @@ class CardImoveis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final imoveisRepo = Provider.of<ImoveisRepositorio>(context, listen: false);
     final scrollController = ScrollController();
 
@@ -60,9 +60,9 @@ class CardImoveis extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
-                    context,
-                    '/DetalhesImoveis',
-                    arguments: imovel
+                    context, 
+                    DetalhesImoveis.rountName,
+                    arguments: imovel,
                   );
                 },
                 child: Card(
@@ -128,8 +128,10 @@ class CardImoveis extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 3),
                                         ),
                                         Icon(
-                                          IconesImovel.iconMap[repositorio.imoveis[index]
-                                              .comodidades[0].tipo],
+                                          IconesImovel.iconMap[repositorio
+                                              .imoveis[index]
+                                              .comodidades[0]
+                                              .tipo],
                                         ),
                                         const Padding(
                                           padding: EdgeInsets.only(left: 5),
@@ -144,8 +146,10 @@ class CardImoveis extends StatelessWidget {
                                           padding: EdgeInsets.only(left: 3),
                                         ),
                                         Icon(
-                                          IconesImovel.iconMap[repositorio.imoveis[index]
-                                              .comodidades[1].tipo],
+                                          IconesImovel.iconMap[repositorio
+                                              .imoveis[index]
+                                              .comodidades[1]
+                                              .tipo],
                                         ),
                                         const Padding(
                                           padding: EdgeInsets.only(left: 5),
@@ -159,9 +163,10 @@ class CardImoveis extends StatelessWidget {
                                         const Padding(
                                           padding: EdgeInsets.only(left: 3),
                                         ),
-                                        Icon(
-                                          IconesImovel.iconMap[repositorio.imoveis[index]
-                                            .comodidades[2].tipo]),
+                                        Icon(IconesImovel.iconMap[repositorio
+                                            .imoveis[index]
+                                            .comodidades[2]
+                                            .tipo]),
                                         const Padding(
                                           padding: EdgeInsets.only(left: 5),
                                         ),

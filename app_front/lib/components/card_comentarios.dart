@@ -35,12 +35,17 @@ class CardComentarios extends StatelessWidget {
           ),
         );
       } else if (!repositorio.carregando && repositorio.comentarios.isEmpty) {
-        return const Center(child: Text('Nenhum Comentário ainda'));
+        return const Center(
+          child: Text(
+            'Nenhum Comentário ainda',
+            style: TextStyle(color: Colors.grey),
+          ),
+        );
       }
 
       return ListView.builder(
         controller: scrollController,
-        itemCount: repositorio.comentarios.length + 1,        
+        itemCount: repositorio.comentarios.length + 1,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           if (index == repositorio.comentarios.length) {
@@ -54,36 +59,83 @@ class CardComentarios extends StatelessWidget {
           final comentarios = repositorio.comentarios[index];
           final DateTime dataComentario = DateTime.parse(comentarios.data);
 
-          return Card(
-            color: Colors.blue[500],
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    comentarios.usuario.nome,
-                    style: const TextStyle(
-                      color: Colors.white, 
-                      fontWeight: FontWeight.bold,
+          return Dismissible(
+            key: Key(
+              comentarios.id.toString(),
+            ),
+            direction: 1 % 2 != 0 // Mudar quando implementar usuario
+                ? DismissDirection.endToStart
+                : DismissDirection.none,
+            background: Container(
+              alignment: Alignment.centerRight,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 12.0),
+                child: Icon(Icons.delete, color: Colors.red),
+              ),
+            ),
+            confirmDismiss: (direction) async {
+    // Exibe o diálogo para confirmar
+    final bool? confirmar = await showDialog(
+      context: context,
+      builder: (BuildContext contexto) {
+        return AlertDialog(
+          title: const Text("Deseja apagar o comentário?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(contexto).pop(false); // Retorna "false" para cancelar
+              },
+              child: const Text("Cancelar"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(contexto).pop(true); // Retorna "true" para confirmar
+              },
+              child: const Text("Apagar"),
+            ),
+          ],
+        );
+      },
+    );
+
+    // Retorna o valor da decisão para o Dismissible
+    return confirmar == true;
+  },
+  onDismissed: (direction) {
+    // Realiza a ação de apagar o comentário
+    repositorio.apagarComentario(comentarios.id.toString());
+  },
+            child: Card(
+              color: Colors.blue[500],
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      comentarios.usuario.nome,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    formatarTempoAtras(dataComentario),
-                    style: const TextStyle(
-                      fontSize: 11, 
-                      color: Colors.white60,
+                    Text(
+                      formatarTempoAtras(dataComentario),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Colors.white60,
+                      ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(bottom: 5.0)),
-                  Text(
-                    '"${comentarios.texto}"',
-                    style: const TextStyle(
-                      fontSize: 14, 
-                      color: Colors.white,
+                    const Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                    Text(
+                      '"${comentarios.texto}"',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

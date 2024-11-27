@@ -21,12 +21,11 @@ class ComentariosRepositorio with ChangeNotifier {
 
       final String api;
 
-      if(id != null){
-        api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=3';
+      if (id != null) {
+        api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=1&_sort=data&_order=desc';
+      } else {
+        api = '${apiUrl}comentarios?_page=$_pagina&_limit=3&_sort=data&_order=desc';
       }
-      else{
-        api = '${apiUrl}comentarios?_page=$_pagina&_limit=3';
-      }      
 
       Uri uri = Uri.parse(api);
 
@@ -62,4 +61,52 @@ class ComentariosRepositorio with ChangeNotifier {
 
     await getComentarios(id: id);
   }
+
+  Future<void> adicionarComentario({required Comentarios novoComentario}) async {    
+    try {
+      const apiUrl = 'http://192.168.0.129:8080/comentarios';
+      Uri uri = Uri.parse(apiUrl);      
+      
+      final response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(novoComentario),
+      );
+
+      if (response.statusCode == 201) {        
+        final comentarioCriado =
+            Comentarios.fromJson(json.decode(response.body));
+
+         _comentarios.insert(0, comentarioCriado);
+
+        notifyListeners();
+      } else {
+        throw Exception('Erro ao adicionar comentário');
+      }
+    } catch (e) {
+      print("Erro ao adicionar comentário: $e");
+    }
+  }
+
+  Future<void> apagarComentario(String comentarioId) async {
+    try {
+      const apiUrl = 'http://192.168.0.129:8080/comentarios';
+      Uri uri = Uri.parse('$apiUrl/$comentarioId');
+
+      final response = await http.delete(uri);
+
+      if (response.statusCode == 200) {
+        // Remove o comentário do repositório local.
+        _comentarios.removeWhere((comentario) => comentario.id == comentarioId);
+        notifyListeners();
+      } else {
+        throw Exception('Erro ao apagar comentário');
+      }
+    } catch (e) {
+      print("Erro ao apagar comentário: $e");
+    }
+  }
+
 }

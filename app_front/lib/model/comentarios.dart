@@ -1,5 +1,5 @@
 class Comentarios {
-  final String id;
+  final String? id;
   final int imovelId;
   final String texto;
   final String data;
@@ -7,7 +7,7 @@ class Comentarios {
   final Usuario usuario;
 
   Comentarios({
-    required this.id,
+    this.id,
     required this.imovelId,
     required this.texto,
     required this.data,
