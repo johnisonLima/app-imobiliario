@@ -1,3 +1,5 @@
+import 'package:app_front/model/usuario.dart';
+
 class Comentarios {
   final String? id;
   final int imovelId;
@@ -36,24 +38,4 @@ class Comentarios {
   };
 }
 
-class Usuario {
-  final String id;
-  final String nome;
-  final String email;
 
-  Usuario({required this.id, required this.nome, required this.email});
-
-  factory Usuario.fromJson(Map<String, dynamic> json) {
-    return Usuario(
-      id: json['id'],
-      nome: json['nome'],
-      email: json['email'],
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'nome': nome,
-    'email': email,
-  };
-}

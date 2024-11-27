@@ -8,8 +8,9 @@ import 'package:app_front/components/card_comentarios.dart';
 import 'package:app_front/components/icones_imovel.dart';
 import 'package:app_front/model/imoveis.dart';
 import 'package:app_front/repository/comentarios_repositorio.dart';
-
-import '../model/comentarios.dart';
+import 'package:app_front/model/comentarios.dart';
+import 'package:app_front/model/usuario.dart';
+import 'package:app_front/usuarioManager.dart';
 
 class DetalhesImoveis extends StatefulWidget {
   static const rountName = '/DetalhesImoveis';
@@ -36,21 +37,14 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
     _controladorNovoComentario = TextEditingController();
-    
-    // _controladorNovoComentario.addListener(_onCommentChanged);
   }
 
   @override
   void dispose() {
     super.dispose();
     _scrollController.dispose();
-    // _controladorNovoComentario.removeListener(_onCommentChanged);
     _controladorNovoComentario.dispose();
   }
-
-  // void _onCommentChanged() {
-  //   print('Comment changed: ${_controladorNovoComentario.text}');
-  // }
 
   void _iniciarSlides() {
     _slideSelecionado = 0;
@@ -75,12 +69,16 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         (MediaQuery.of(context).orientation == Orientation.portrait
             ? 0.92
             : 0.95);
-    const double alturaImagem = 500;
-    var mensagem = '';
 
-    if (widget.imovel is! Imovel) {
-      _erroArgumentos();
-    }
+    final double alturaImagem = MediaQuery.of(context).size.height * 0.65;
+    final double wrapImagem =
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? alturaImagem
+            : alturaImagem * 1.1;
+
+    final estadoUsuario = context.watch<UsuarioManager>();
+    final bool estaLogado = estadoUsuario.estaLogado;
+    // final bool usuarioLogado = usuarioManager.usuario != null;
 
     return Scaffold(
       appBar: AppBar(),
@@ -93,92 +91,111 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? alturaImagem
-                        : alturaImagem / 1.8,
-                    child: Stack(children: [
-                      PageView.builder(
-                        itemCount: widget.imovel.imagens.length,
-                        controller: _controladorSlides,
-                        onPageChanged: (slide) {
-                          setState(() {
-                            _slideSelecionado = slide;
-                          });
-                        },
-                        itemBuilder: (context, index) {
-                          return Stack(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.network(
-                                widget.imovel.imagens[index].url,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: MediaQuery.of(context).orientation ==
-                                        Orientation.portrait
-                                    ? alturaImagem
-                                    : alturaImagem / 1.8,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 10,
-                              left: 10,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    widget.imovel.titulo,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      shadows: [
-                                        Shadow(
-                                          blurRadius: 5.0,
-                                          color: Colors.black45,
-                                          offset: Offset(2, 2),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.imovel.endereco.bairro,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      shadows: [
-                                        Shadow(
-                                          blurRadius: 5.0,
-                                          color: Colors.black45,
-                                          offset: Offset(2, 2),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              top: 10,
-                              right: 10,
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(54, 158, 158, 158),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: const Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.white,
+                    height: wrapImagem,
+                    child: Stack(
+                      children: [
+                        PageView.builder(
+                          itemCount: widget.imovel.imagens.length,
+                          controller: _controladorSlides,
+                          onPageChanged: (slide) {
+                            setState(() {
+                              _slideSelecionado = slide;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return Stack(children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  widget.imovel.imagens[index].url,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: wrapImagem,
                                 ),
                               ),
-                            ),
-                          ]);
-                        },
+                              Positioned(
+                                bottom: 10,
+                                left: 10,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.imovel.titulo,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                            blurRadius: 5.0,
+                                            color: Colors.black45,
+                                            offset: Offset(2, 2),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.imovel.endereco.bairro,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        shadows: [
+                                          Shadow(
+                                            blurRadius: 5.0,
+                                            color: Colors.black45,
+                                            offset: Offset(2, 2),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(54, 158, 158, 158),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  child: const Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ]);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        widget.imovel.imagens.length,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: _slideSelecionado == index
+                              ? 12
+                              : 8, // Tamanho do ponto selecionado
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: _slideSelecionado == index
+                                ? Colors.blue
+                                : Colors.grey,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
                       ),
-                    ]),
+                    ),
                   ),
                   Padding(
                     padding:
@@ -332,23 +349,22 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                             create: (_) => ComentariosRepositorio(),
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: _textFildCometario(
-                                    _controladorNovoComentario,
-                                    _enviarComentario,
+                                if(estaLogado)
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: _textFildCometario(
+                                      _controladorNovoComentario,
+                                      () => _enviarComentario(widget.imovel.id,
+                                          estadoUsuario.usuario!),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
+                                  SizedBox(
                                     width: largura,
                                     height: 200,
                                     child: CardComentarios(
-                                        imovelId: widget.imovel.id),
-                                         
+                                      imovelId: widget.imovel.id,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
@@ -360,25 +376,78 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
               ),
             ),
           ),
-          if (_mostrarContato) _exibirContato(widget.imovel.titulo, mensagem),
+          if (_mostrarContato) _exibirContato(widget.imovel.titulo),
         ],
+      ),
+      
+      endDrawer: Builder(
+        builder: (context) => Drawer(
+          child: Column(
+            children: [
+              estaLogado
+                  ? UserAccountsDrawerHeader(
+                      accountName: Text(estadoUsuario.usuario!.nome),
+                      accountEmail: Text(estadoUsuario.usuario!.email),
+                    )
+                  : const UserAccountsDrawerHeader(
+                      accountName: Text("Conecte-se"),
+                      accountEmail: Text("Para ficar por dentro das novidades"),
+                    ),
+              estaLogado
+                  ? ListTile(
+                      leading: const Icon(Icons.logout_outlined),
+                      title: const Text('Logout'),
+                      onTap: () {
+                        const snackBar = SnackBar(
+                          content: Text('Você foi desconectado com sucesso!'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        setState(() {
+                          estadoUsuario.logoff();
+                        });
+
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  : ListTile(
+                      leading: const Icon(Icons.logout_outlined),
+                      title: const Text('Login'),
+                      onTap: () {
+                        Usuario usuario = Usuario(
+                          id: 'R-pzP1f',
+                          nome: 'Johnison',
+                          email: 'johnisonbsi@outlook.com',
+                        );
+
+                        const snackBar = SnackBar(
+                          content: Text('Você foi conectado com sucesso!'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        setState(() {
+                          estadoUsuario.login(usuario);
+                        });
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  void _enviarComentario() async {
+  void _enviarComentario(String idImovel, Usuario usuario) async {
     String conteudo = _controladorNovoComentario.text.trim();
 
     final comentario = Comentarios(
-      imovelId: 1,
+      imovelId: int.parse(idImovel),
       texto: conteudo,
       data: DateTime.now().toIso8601String(),
       nota: 5,
-      usuario: Usuario(
-        id: "1",
-        nome: "usuarioNome",
-        email: "usuarioEmail",
-      ),
+      usuario: usuario,
     );
 
     try {
@@ -403,7 +472,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   }
 }
 
-Widget _exibirContato(String tituloImovel, String msg) {
+Widget _exibirContato(String tituloImovel) {
   return Positioned(
     bottom: 16,
     left: 16,
@@ -415,7 +484,7 @@ Widget _exibirContato(String tituloImovel, String msg) {
           onPressed: () async {
             const phone = '5577999285012';
             const whats = 'https://api.whatsapp.com/send/?phone=$phone';
-            msg =
+            final msg =
                 'Olá, estou interessado no imóvel $tituloImovel. Gostaria de obter mais informações sobre ele.';
 
             final Uri url =
@@ -500,15 +569,6 @@ Widget _textFildCometario(controladorNovoComentario, enviarComentario) {
       color: Colors.black,
     ),
     textInputAction: TextInputAction.newline,
-  );
-}
-
-Widget _erroArgumentos() {
-  return Scaffold(
-    appBar: AppBar(title: const Text('Erro')),
-    body: const Center(
-      child: Text('Argumentos inválidos ou ausentes.'),
-    ),
   );
 }
 

@@ -1,9 +1,11 @@
-import 'package:app_front/components/card_imoveis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../repository/imoveis_repositorio.dart';
-import 'Pesquisa.dart';
+import 'package:app_front/components/card_imoveis.dart';
+import 'package:app_front/repository/imoveis_repositorio.dart';
+import 'package:app_front/view/Pesquisa.dart';
+import 'package:app_front/components/app_bar.dart';
+import 'package:app_front/components/bottom_navigation_bar.dart';
 
 class PaginaInicial extends StatefulWidget {
   static const rountName = '/';
@@ -16,9 +18,6 @@ class PaginaInicial extends StatefulWidget {
 
 class _PaginainicialState extends State<PaginaInicial> {
   int _opcaoSelecionada = 0;
-
-  static const String bannerUrl = 'https://i.ibb.co/MkmKMPT/banner-m.webp';
-  static const String logoUrl = 'https://i.ibb.co/H7wKLLZ/logo.webp';
 
   @override
   Widget build(BuildContext context) {
@@ -133,90 +132,4 @@ Widget home(context) {
       ],
     ),
   );
-}
-
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      toolbarHeight: 100.0,
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(10),
-        ),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.network(
-                _PaginainicialState.bannerUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                Center(
-                  child: Image.network(
-                    _PaginainicialState.logoUrl,
-                    width: 130,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(100.0);
-}
-
-class CustomBottomNavigationBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-
-  const CustomBottomNavigationBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Colors.blue,
-            width: 0.2,
-          ),
-        ),
-      ),
-      child: BottomNavigationBar(
-        onTap: onTap,
-        type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: const TextStyle(fontSize: 13),
-        unselectedLabelStyle: const TextStyle(fontSize: 13),
-        backgroundColor: Colors.grey[200],
-        fixedColor: Colors.blue[800],
-        unselectedItemColor: Colors.grey[600],
-        currentIndex: currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Página Inicial',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Pesquisar',
-          ),
-        ],
-      ),
-    );
-  }
 }

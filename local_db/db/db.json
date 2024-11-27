@@ -677,6 +677,30 @@
       "texto": "Gostei, mas gostaria de mais detalhes sobre o bairro.",
       "data": "2024-11-11T14:30:00Z",
       "nota": 4
+    },
+    {
+      "id": "8zYvJZQ",
+      "imovelId": 1,
+      "texto": "teste",
+      "data": "2024-11-27T19:20:28.537211",
+      "nota": 5,
+      "usuario": {
+        "id": "R-pzP1f",
+        "nome": "Johnison",
+        "email": "johnisonbsi@outlook.com"
+      }
+    },
+    {
+      "id": "R2V7ZBU",
+      "imovelId": 4,
+      "texto": "Olá",
+      "data": "2024-11-27T19:24:51.704241",
+      "nota": 5,
+      "usuario": {
+        "id": "R-pzP1f",
+        "nome": "Johnison",
+        "email": "johnisonbsi@outlook.com"
+      }
     }
   ]
 }

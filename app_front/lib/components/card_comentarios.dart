@@ -1,4 +1,5 @@
 import 'package:app_front/repository/comentarios_repositorio.dart';
+import 'package:app_front/usuarioManager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,82 +60,86 @@ class CardComentarios extends StatelessWidget {
           final comentarios = repositorio.comentarios[index];
           final DateTime dataComentario = DateTime.parse(comentarios.data);
 
+          final estadoUsuario = context.watch<UsuarioManager>();
+
+          bool usuarioLogadoComentou = estadoUsuario.estaLogado &&
+            estadoUsuario.usuario!.email == comentarios.usuario.email;
+
           return Dismissible(
             key: Key(
               comentarios.id.toString(),
             ),
-            direction: 1 % 2 != 0 // Mudar quando implementar usuario
-                ? DismissDirection.endToStart
-                : DismissDirection.none,
+            direction: usuarioLogadoComentou 
+              ? DismissDirection.endToStart
+              : DismissDirection.none,
             background: Container(
               alignment: Alignment.centerRight,
               child: const Padding(
                 padding: EdgeInsets.only(right: 12.0),
-                child: Icon(Icons.delete, color: Colors.red),
+                child: Icon(Icons.delete_outline_outlined, color: Colors.red, size: 40,),
               ),
             ),
             confirmDismiss: (direction) async {
-    // Exibe o diálogo para confirmar
-    final bool? confirmar = await showDialog(
-      context: context,
-      builder: (BuildContext contexto) {
-        return AlertDialog(
-          title: const Text("Deseja apagar o comentário?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(contexto).pop(false); // Retorna "false" para cancelar
-              },
-              child: const Text("Cancelar"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(contexto).pop(true); // Retorna "true" para confirmar
-              },
-              child: const Text("Apagar"),
-            ),
-          ],
-        );
-      },
-    );
-
-    // Retorna o valor da decisão para o Dismissible
-    return confirmar == true;
-  },
-  onDismissed: (direction) {
-    // Realiza a ação de apagar o comentário
-    repositorio.apagarComentario(comentarios.id.toString());
-  },
+              final bool? confirmar = await showDialog(
+                context: context,
+                builder: (BuildContext contexto) {
+                  return AlertDialog(
+                    title: const Text("Deseja apagar o comentário?"),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(contexto).pop(false); 
+                        },
+                        child: const Text("Cancelar"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(contexto).pop(true);
+                        },
+                        child: const Text("Apagar"),
+                      ),
+                    ],
+                  );
+                },
+              );              
+              return confirmar == true;
+            },
+            onDismissed: (direction) {              
+              repositorio.apagarComentario(comentarios.id.toString());
+            },
             child: Card(
               color: Colors.blue[500],
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      comentarios.usuario.nome,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        comentarios.usuario.nome,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      formatarTempoAtras(dataComentario),
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: Colors.white60,
+                      Text(
+                        formatarTempoAtras(dataComentario),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.white60,
+                        ),
                       ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(bottom: 5.0)),
-                    Text(
-                      '"${comentarios.texto}"',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
+                      const Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                      Text(
+                        '"${comentarios.texto}"',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

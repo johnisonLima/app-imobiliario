@@ -1,17 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'package:app_front/model/imoveis.dart';
+import 'package:app_front/repository/comentarios_repositorio.dart';
 import 'package:app_front/view/Pesquisa.dart';
 import 'package:app_front/view/detalhes_imoveis.dart';
 import 'package:app_front/view/pagina_inicial.dart';
-
-import 'package:google_fonts/google_fonts.dart';
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'model/imoveis.dart';
-import 'repository/comentarios_repositorio.dart';
+import 'package:app_front/usuarioManager.dart';
 
 void main() {
-  runApp(const App());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => UsuarioManager(),
+      child: const App(),
+    ),
+  );
 }
 
 class App extends StatefulWidget {
@@ -28,12 +32,7 @@ class _AppState extends State<App> {
       initialRoute: PaginaInicial.rountName,
       onGenerateRoute: (settings) {
         if (settings.name == DetalhesImoveis.rountName) {
-          final imovel = settings.arguments
-              as Imovel; // Converta o argumento corretamente.
-
-          if (imovel == null) {
-            throw Exception("Erro: Argumento 'imovel' está nulo.");
-          }
+          final imovel = settings.arguments as Imovel; 
 
           return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
@@ -42,8 +41,7 @@ class _AppState extends State<App> {
             ),
           );
         }
-
-        // Rotas estáticas
+     
         return MaterialPageRoute(
           builder: (context) {
             switch (settings.name) {
@@ -57,23 +55,21 @@ class _AppState extends State<App> {
           },
         );
       },
+
       theme: ThemeData(
         useMaterial3: true,
 
-        // Define the default brightness and colors.
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
           brightness: Brightness.light,
         ),
 
-        // Define the default `TextTheme`. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
           displayLarge: const TextStyle(
             fontSize: 72,
             fontWeight: FontWeight.bold,
           ),
-          // ···
+          
           titleLarge: GoogleFonts.oswald(
             fontSize: 30,
             fontStyle: FontStyle.italic,
