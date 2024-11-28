@@ -1,152 +1,177 @@
-import 'package:app_front/repository/comentarios_repositorio.dart';
-import 'package:app_front/usuarioManager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CardComentarios extends StatelessWidget {
+import 'package:app_front/repository/comentarios_repositorio.dart';
+import 'package:app_front/usuarioManager.dart';
+
+class CardComentarios extends StatefulWidget {
   final String imovelId;
 
-  const CardComentarios({super.key, required this.imovelId});
+  const CardComentarios({super.key, required this.imovelId});  
+
+  @override
+  State<CardComentarios> createState() => _CardComentariosState();
+}
+
+class _CardComentariosState extends State<CardComentarios> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final comentariosRepo = Provider.of<ComentariosRepositorio>(context, listen: false);
+      comentariosRepo.getComentarios(id: widget.imovelId);
+    });
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {    
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  void _onScroll() {
+    final position = _scrollController.position.pixels;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+
+    if (position >= maxScroll) {
+      final comentariosRepo = Provider.of<ComentariosRepositorio>(context, listen: false);        
+      
+      comentariosRepo.carregarMaisComentarios(id: widget.imovelId);      
+    }
+  }  
 
   @override
   Widget build(BuildContext context) {
-    final comentariosRepo =
-        Provider.of<ComentariosRepositorio>(context, listen: false);
-    final scrollController = ScrollController();
-
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        comentariosRepo.carregarMaisComentarios(id: imovelId);
-      }
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      comentariosRepo.getComentarios(id: imovelId);
-    });
 
     return Consumer<ComentariosRepositorio>(
-        builder: (context, repositorio, child) {
-      if (repositorio.carregando && repositorio.comentarios.isEmpty) {
-        return const SizedBox(
-          width: 360,
-          height: 220,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      } else if (!repositorio.carregando && repositorio.comentarios.isEmpty) {
-        return const Center(
-          child: Text(
-            'Nenhum Comentário ainda',
-            style: TextStyle(color: Colors.grey),
-          ),
-        );
-      }
-
-      return ListView.builder(
-        controller: scrollController,
-        itemCount: repositorio.comentarios.length + 1,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) {
-          if (index == repositorio.comentarios.length) {
-            return Center(
-              child: repositorio.carregando
-                  ? const CircularProgressIndicator()
-                  : const SizedBox.shrink(),
-            );
-          }
-
-          final comentarios = repositorio.comentarios[index];
-          final DateTime dataComentario = DateTime.parse(comentarios.data);
-
-          final estadoUsuario = context.watch<UsuarioManager>();
-
-          bool usuarioLogadoComentou = estadoUsuario.estaLogado &&
-            estadoUsuario.usuario!.email == comentarios.usuario.email;
-
-          return Dismissible(
-            key: Key(
-              comentarios.id.toString(),
+      builder: (context, repositorio, child) {
+        if (repositorio.carregando && repositorio.comentarios.isEmpty) {
+          return const SizedBox(
+            width: 360,
+            height: 220,
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
-            direction: usuarioLogadoComentou 
-              ? DismissDirection.endToStart
-              : DismissDirection.none,
-            background: Container(
-              alignment: Alignment.centerRight,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 12.0),
-                child: Icon(Icons.delete_outline_outlined, color: Colors.red, size: 40,),
+          );
+        } else if (!repositorio.carregando && repositorio.comentarios.isEmpty) {
+          return const Center(
+            child: Text(
+              'Nenhum Comentário ainda',
+              style: TextStyle(color: Colors.grey),
+            ),
+          );
+        }
+
+        return ListView.builder(
+          controller: _scrollController,
+          itemCount: repositorio.comentarios.length + 1,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            if (index == repositorio.comentarios.length) {
+              return Center(
+                child: repositorio.carregando
+                    ? const CircularProgressIndicator()
+                    : const SizedBox.shrink(),
+              );
+            }
+
+            final comentarios = repositorio.comentarios[index];
+            final DateTime dataComentario = DateTime.parse(comentarios.data);
+
+            final estadoUsuario = context.watch<UsuarioManager>();
+
+            bool usuarioLogadoComentou = estadoUsuario.estaLogado &&
+              estadoUsuario.usuario!.email == comentarios.usuario.email;
+
+            return Dismissible(
+              key: Key(
+                comentarios.id.toString(),
               ),
-            ),
-            confirmDismiss: (direction) async {
-              final bool? confirmar = await showDialog(
-                context: context,
-                builder: (BuildContext contexto) {
-                  return AlertDialog(
-                    title: const Text("Deseja apagar o comentário?"),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(contexto).pop(false); 
-                        },
-                        child: const Text("Cancelar"),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(contexto).pop(true);
-                        },
-                        child: const Text("Apagar"),
-                      ),
-                    ],
-                  );
-                },
-              );              
-              return confirmar == true;
-            },
-            onDismissed: (direction) {              
-              repositorio.apagarComentario(comentarios.id.toString());
-            },
-            child: Card(
-              color: Colors.blue[500],
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        comentarios.usuario.nome,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+              direction: usuarioLogadoComentou 
+                ? DismissDirection.endToStart
+                : DismissDirection.none,
+              background: Container(
+                alignment: Alignment.centerRight,
+                child: const Padding(
+                  padding: EdgeInsets.only(right: 12.0),
+                  child: Icon(Icons.delete_outline_outlined, color: Colors.red, size: 40,),
+                ),
+              ),
+              confirmDismiss: (direction) async {
+                final bool? confirmar = await showDialog(
+                  context: context,
+                  builder: (BuildContext contexto) {
+                    return AlertDialog(
+                      title: const Text("Deseja apagar o comentário?"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(contexto).pop(false); 
+                          },
+                          child: const Text("Cancelar"),
                         ),
-                      ),
-                      Text(
-                        formatarTempoAtras(dataComentario),
-                        style: const TextStyle(
-                          fontSize: 11,
-                          color: Colors.white60,
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(contexto).pop(true);
+                          },
+                          child: const Text("Apagar"),
                         ),
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 5.0)),
-                      Text(
-                        '"${comentarios.texto}"',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
+                      ],
+                    );
+                  },
+                );              
+                return confirmar == true;
+              },
+              onDismissed: (direction) {              
+                repositorio.apagarComentario(comentarios.id.toString());
+              },
+              child: Card(
+                color: Colors.blue[500],
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          comentarios.usuario.nome,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          formatarTempoAtras(dataComentario),
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.white60,
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                        Text(
+                          '"${comentarios.texto}"',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
-      );
-    });
+            );
+          },
+        );
+      },
+    );
   }
 }
 

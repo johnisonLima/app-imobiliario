@@ -27,7 +27,6 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   late int _slideSelecionado;
   late ScrollController _scrollController;
   bool _mostrarContato = false;
-  late int alturaBotoes = 100;
   late TextEditingController _controladorNovoComentario;
 
   @override
@@ -52,16 +51,19 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   }
 
   void _onScroll() {
-    if (_scrollController.offset > alturaBotoes && !_mostrarContato) {
+    final position = _scrollController.position.pixels;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+
+    if (position > (maxScroll /2) && !_mostrarContato) {
       setState(() {
         _mostrarContato = true;
       });
-    } else if (_scrollController.offset <= alturaBotoes && _mostrarContato) {
+    } else if (position <= (maxScroll /2) && _mostrarContato) {
       setState(() {
         _mostrarContato = false;
       });
     }
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,6 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
 
     final estadoUsuario = context.watch<UsuarioManager>();
     final bool estaLogado = estadoUsuario.estaLogado;
-    // final bool usuarioLogado = usuarioManager.usuario != null;
 
     return Scaffold(
       appBar: AppBar(),
@@ -358,13 +359,13 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                                           estadoUsuario.usuario!),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: largura,
-                                    height: 200,
-                                    child: CardComentarios(
-                                      imovelId: widget.imovel.id,
-                                    ),
+                                SizedBox(
+                                  width: largura,
+                                  height: 200,
+                                  child: CardComentarios(
+                                    imovelId: widget.imovel.id,                                    
                                   ),
+                                ),
                               ],
                             ),
                           ),

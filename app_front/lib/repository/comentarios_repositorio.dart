@@ -22,10 +22,9 @@ class ComentariosRepositorio with ChangeNotifier {
       final String api;
 
       if (id != null) {
-        // api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=1&_sort=data&_order=desc';
-        api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=1';
+        api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=4&_sort=data&_order=desc';
       } else {
-        api = '${apiUrl}comentarios?_page=$_pagina&_limit=3&_sort=data&_order=desc';
+        api = '${apiUrl}comentarios?_page=$_pagina&_limit=3';
       }
 
       Uri uri = Uri.parse(api);
@@ -39,7 +38,10 @@ class ComentariosRepositorio with ChangeNotifier {
           _temMais = false;
         } else {
           _comentarios
-              .addAll(dados.map((item) => Comentarios.fromJson(item)).toList());
+              .addAll(dados.map((item) => Comentarios.fromJson(item)).toList());              
+          
+          notifyListeners();
+
           _pagina++;
         }
       } else {
