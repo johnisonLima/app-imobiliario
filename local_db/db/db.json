@@ -610,7 +610,6 @@
       "id": "103",
       "imovelId": 1,
       "usuario": {
-        "id": "3",
         "nome": "Catarina A.",
         "email": "catarina@email.com"
       },
@@ -622,7 +621,6 @@
       "id": "104",
       "imovelId": 1,
       "usuario": {
-        "id": "4",
         "nome": "Ivete Sangalo",
         "email": "ivete@email.com"
       },
@@ -634,7 +632,6 @@
       "id": "105",
       "imovelId": 1,
       "usuario": {
-        "id": "5",
         "nome": "Caetano Veloso",
         "email": "caetano@email.com"
       },
@@ -646,7 +643,6 @@
       "id": "106",
       "imovelId": 1,
       "usuario": {
-        "id": "6",
         "nome": "Mara Maravilha",
         "email": "mara@email.com"
       },
@@ -658,7 +654,6 @@
       "id": "107",
       "imovelId": 1,
       "usuario": {
-        "id": "7",
         "nome": "Dinho Ouro Preto",
         "email": "dinho@email.com"
       },
@@ -670,7 +665,6 @@
       "id": "102",
       "imovelId": 2,
       "usuario": {
-        "id": "2",
         "nome": "Maria Oliveira",
         "email": "maria@email.com"
       },
@@ -679,39 +673,69 @@
       "nota": 4
     },
     {
-      "id": "R2V7ZBU",
+      "id": "rQalJ3N",
       "imovelId": 4,
-      "texto": "Olá",
-      "data": "2024-11-27T19:24:51.704241",
+      "texto": "Ótimas lojas, bares e restaurantes na Avenida, excelentes vistas sobre a Reserva Alki & Schmidts para passear com cães.",
+      "data": "2024-11-28T15:22:51.757559",
       "nota": 5,
       "usuario": {
-        "id": "R-pzP1f",
         "nome": "Johnison",
         "email": "johnisonbsi@outlook.com"
       }
     },
     {
-      "id": "kFOwYaa",
-      "imovelId": 1,
-      "texto": "Segundo teste de quinta",
-      "data": "2024-11-28T14:46:06.242787",
+      "id": "geRRtWc",
+      "imovelId": 4,
+      "texto": "É toda a vibe alki, você pode aproveitar a vida um pouco mais, lits de restaurantes, caminhadas ao longo da avenida, parques locais. Acesso aos jogos do centro da cidade a pé na balsa.",
+      "data": "2024-11-28T15:28:34.188705",
       "nota": 5,
       "usuario": {
-        "id": "R-pzP1f",
-        "nome": "Johnison",
-        "email": "johnisonbsi@outlook.com"
+        "nome": "Lindsay Lohan",
+        "email": "lindsay@outlook.com"
       }
     },
     {
-      "id": "1g2i8v8",
-      "imovelId": 1,
-      "texto": "Vamos nessa",
-      "data": "2024-11-28T14:49:21.453604",
+      "id": "V16km2S",
+      "imovelId": 2,
+      "texto": "Os carros podem dirigir de forma um pouco imprudente, mas na maioria das vezes eu diria que este é o bairro mais seguro da cidade.",
+      "data": "2024-11-28T15:35:40.050252",
       "nota": 5,
       "usuario": {
-        "id": "R-pzP1f",
-        "nome": "Johnison",
-        "email": "johnisonbsi@outlook.com"
+        "nome": "Lindsay Lohan",
+        "email": "lindsay@outlook.com"
+      }
+    },
+    {
+      "id": "jNUdzZx",
+      "imovelId": 3,
+      "texto": "Muitos lugares para comer, belas vistas. Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
+      "data": "2024-11-28T15:54:48.306877",
+      "nota": 5,
+      "usuario": {
+        "nome": "Lindsay Lohan",
+        "email": "lindsay@outlook.com"
+      }
+    },
+    {
+      "id": "ZOyinPg",
+      "imovelId": 4,
+      "texto": "Eu pego ônibus para o centro da cidade 3 vezes por semana e é um trajeto muito fácil de 50 minutos. Os ônibus que saem de alki são seguros e higiênicos. O trajeto de carro também não é tão ruim, embora as rodovias do outro lado da ponte não sejam as",
+      "data": "2024-11-28T16:08:04.627073",
+      "nota": 5,
+      "usuario": {
+        "nome": "Morgan Freeman",
+        "email": "morgan@outlook.com"
+      }
+    },
+    {
+      "id": "g6Y8-0P",
+      "imovelId": 1,
+      "texto": "Muitos lugares para comer, belas vistas. Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
+      "data": "2024-11-28T16:34:56.975910",
+      "nota": 5,
+      "usuario": {
+        "nome": "Morgan Freeman",
+        "email": "morgan@outlook.com"
       }
     }
   ]

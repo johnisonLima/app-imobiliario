@@ -22,7 +22,9 @@ class ComentariosRepositorio with ChangeNotifier {
       final String api;
 
       if (id != null) {
-        api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=4&_sort=data&_order=desc';
+        api =
+            '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=4&_sort=data&_order=desc';
+        // api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=4';
       } else {
         api = '${apiUrl}comentarios?_page=$_pagina&_limit=3';
       }
@@ -38,8 +40,8 @@ class ComentariosRepositorio with ChangeNotifier {
           _temMais = false;
         } else {
           _comentarios
-              .addAll(dados.map((item) => Comentarios.fromJson(item)).toList());              
-          
+              .addAll(dados.map((item) => Comentarios.fromJson(item)).toList());
+
           notifyListeners();
 
           _pagina++;
@@ -65,11 +67,12 @@ class ComentariosRepositorio with ChangeNotifier {
     await getComentarios(id: id);
   }
 
-  Future<void> adicionarComentario({required Comentarios novoComentario}) async {    
+  Future<void> adicionarComentario(
+      {required Comentarios novoComentario}) async {
     try {
       const apiUrl = 'http://192.168.0.129:8080/comentarios';
-      Uri uri = Uri.parse(apiUrl);      
-      
+      Uri uri = Uri.parse(apiUrl);
+
       final response = await http.post(
         uri,
         headers: {
@@ -78,11 +81,11 @@ class ComentariosRepositorio with ChangeNotifier {
         body: json.encode(novoComentario),
       );
 
-      if (response.statusCode == 201) {        
+      if (response.statusCode == 201) {
         final comentarioCriado =
             Comentarios.fromJson(json.decode(response.body));
 
-         _comentarios.insert(0, comentarioCriado);
+        _comentarios.insert(0, comentarioCriado);
 
         notifyListeners();
       } else {
@@ -101,8 +104,9 @@ class ComentariosRepositorio with ChangeNotifier {
       final response = await http.delete(uri);
 
       if (response.statusCode == 200) {
-        // Remove o comentário do repositório local.
+        
         _comentarios.removeWhere((comentario) => comentario.id == comentarioId);
+        
         notifyListeners();
       } else {
         throw Exception('Erro ao apagar comentário');
@@ -111,5 +115,4 @@ class ComentariosRepositorio with ChangeNotifier {
       print("Erro ao apagar comentário: $e");
     }
   }
-
 }

@@ -18,4 +18,4 @@ class UsuarioManager with ChangeNotifier {
   }
 }
 
-// late UsuarioManager usuarioManager;
+late UsuarioManager estadoUsuario;

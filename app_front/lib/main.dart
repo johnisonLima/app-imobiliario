@@ -28,6 +28,8 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
+    estadoUsuario = context.watch<UsuarioManager>();
+  
     return MaterialApp(
       initialRoute: PaginaInicial.rountName,
       onGenerateRoute: (settings) {
@@ -58,6 +60,14 @@ class _AppState extends State<App> {
 
       theme: ThemeData(
         useMaterial3: true,
+
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          iconTheme: IconThemeData(
+            size: 30,
+            color: Colors.white, 
+          ),
+        ),
 
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
