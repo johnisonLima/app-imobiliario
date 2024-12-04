@@ -1,13 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'package:app_front/model/imoveis.dart';
+import 'package:app_front/repository/comentarios_repositorio.dart';
 import 'package:app_front/view/Pesquisa.dart';
 import 'package:app_front/view/detalhes_imoveis.dart';
 import 'package:app_front/view/pagina_inicial.dart';
-
-import 'package:google_fonts/google_fonts.dart';
-
-import 'package:flutter/material.dart';
+import 'package:app_front/repository/usuario_repositorio.dart';
 
 void main() {
-  runApp(const App());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => UsuarioManager(),
+      child: const App(),
+    ),
+  );
 }
 
 class App extends StatefulWidget {
@@ -18,109 +26,60 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  int _opcaoSelecionada = 0;
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(      
-      routes: {
-        PaginaInicial.rountName: (context) => const PaginaInicial(),
-        Pesquisa.rountName: (context) => const Pesquisa(),        
-        DetalhesImoveis.rountName: (context) => const DetalhesImoveis(),        
+    estadoUsuario = context.watch<UsuarioManager>();
+  
+    return MaterialApp(
+      initialRoute: PaginaInicial.rountName,
+      onGenerateRoute: (settings) {
+        if (settings.name == DetalhesImoveis.rountName) {
+          final imovel = settings.arguments as Imovel; 
+
+          return MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (_) => ComentariosRepositorio(),
+              child: DetalhesImoveis(imovel: imovel),
+            ),
+          );
+        }
+     
+        return MaterialPageRoute(
+          builder: (context) {
+            switch (settings.name) {
+              case PaginaInicial.rountName:
+                return const PaginaInicial();
+              case Pesquisa.rountName:
+                return const Pesquisa();
+              default:
+                throw Exception('Rota desconhecida: ${settings.name}');
+            }
+          },
+        );
       },
-      
-      home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 100.0,
-          flexibleSpace: ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(10),
-            ),
-            child: Stack(
-              children: [            
-                Positioned.fill(
-                  child: Image.network(
-                    'https://i.ibb.co/MkmKMPT/banner-m.webp',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 20), 
-                    Center(
-                      child: Image.network(
-                        'https://i.ibb.co/H7wKLLZ/logo.webp',
-                        width: 130,
-                      ),
-                    ),
-                  ],
-                ),            
-              ],
-            ),
-          ),
-        ),
-
-        body: IndexedStack(
-          index: _opcaoSelecionada,
-          children: const <Widget> [
-            PaginaInicial(),
-            Pesquisa(),
-            DetalhesImoveis(),
-          ],
-        ), 
-
-        bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Colors.blue,
-                width: 0.2,
-              ),
-            ),
-          ),
-          child: BottomNavigationBar(
-            onTap: (opcao) {
-              setState(() {
-                _opcaoSelecionada = opcao;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            selectedLabelStyle: const TextStyle(fontSize: 13),
-            unselectedLabelStyle: const TextStyle(fontSize: 13),
-            backgroundColor: Colors.grey[200],
-            fixedColor: Colors.blue[800],
-            unselectedItemColor: Colors.grey[600],
-            currentIndex: _opcaoSelecionada,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Página Inicial',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Pesquisar'),
-            ],
-          ),
-        ),
-      ),
 
       theme: ThemeData(
         useMaterial3: true,
 
-        // Define the default brightness and colors.
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          iconTheme: IconThemeData(
+            size: 30,
+            color: Colors.white, 
+          ),
+        ),
+
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
           brightness: Brightness.light,
         ),
 
-        // Define the default `TextTheme`. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
           displayLarge: const TextStyle(
             fontSize: 72,
             fontWeight: FontWeight.bold,
           ),
-          // ···
+          
           titleLarge: GoogleFonts.oswald(
             fontSize: 30,
             fontStyle: FontStyle.italic,
@@ -130,6 +89,5 @@ class _AppState extends State<App> {
         ),
       ),
     );
-      
   }
 }
