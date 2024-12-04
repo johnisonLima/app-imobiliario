@@ -738,57 +738,5 @@
         "email": "morgan@outlook.com"
       }
     }
-  ],
-  "likes": [
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "VYlO4E_"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "XITX_jU"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "DuEwgIY"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "0nnfX24"
-    },
-    {
-      "imovelId": "2",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "HLXln2K"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "dHI2WeR"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "tD0BxJE"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "VBisqsc"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "bZxHab3"
-    },
-    {
-      "imovelId": "1",
-      "emailUsuario": "morgan@outlook.com",
-      "id": "a3pBM3S"
-    }
   ]
 }

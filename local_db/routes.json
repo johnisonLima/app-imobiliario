@@ -1,5 +1,0 @@
-{
-    "/api/v1/*": "/$1",
-    "/imoveis/:id/": "/imoveis/:id/",
-    "/imoveis/:id/likes/": "/imoveis/:id/"
-}

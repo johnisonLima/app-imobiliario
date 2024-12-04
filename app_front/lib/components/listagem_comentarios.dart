@@ -272,6 +272,13 @@ void _enviarComentario(
     Usuario usuario) async {
   String conteudo = controlador.text.trim();
 
+  if(conteudo.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Comentário vazio')),
+    );
+    return;
+  }
+
   final comentario = Comentarios(
     imovelId: int.parse(idImovel),
     texto: conteudo,
