@@ -206,3 +206,4 @@ class Imagens {
       'tipo': tipo
     };
 }
+

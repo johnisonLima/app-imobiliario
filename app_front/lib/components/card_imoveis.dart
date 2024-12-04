@@ -1,9 +1,9 @@
-import 'package:app_front/components/icones_imovel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../repository/imoveis_repositorio.dart';
-import '../view/detalhes_imoveis.dart';
+import 'package:app_front/components/icones_imovel.dart';
+import 'package:app_front/repository/imoveis_repositorio.dart';
+import 'package:app_front/view/detalhes_imoveis.dart';
 
 class CardImoveis extends StatelessWidget {
   final String? operacao;
@@ -199,4 +199,3 @@ class CardImoveis extends StatelessWidget {
     );
   }
 }
-// 197

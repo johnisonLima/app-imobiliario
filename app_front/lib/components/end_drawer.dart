@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_front/usuarioManager.dart';
-import 'package:app_front/model/usuario.dart';
+import 'package:app_front/repository/usuario_repositorio.dart';
+import 'package:app_front/model/usuarios.dart';
 
 class CustomEndDrawer extends StatefulWidget {
   const CustomEndDrawer({super.key});

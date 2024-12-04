@@ -1,10 +1,11 @@
-import 'package:app_front/model/imoveis.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ImoveisRepositorio with ChangeNotifier {
+import 'package:app_front/model/imoveis.dart';
+import 'package:app_front/repository/base_repositorio.dart';
+
+class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
   int _pagina = 1;
   bool _carregando = false;
   bool _temMais = true;
@@ -16,15 +17,13 @@ class ImoveisRepositorio with ChangeNotifier {
   bool get temMaisImoveis => _temMais;
 
   Future<void> getImoveis({String? operacao}) async {
-    try {
-      const apiUrl = 'http://192.168.0.129:8080/';
-
+    try {    
       final String api;
 
       if (operacao != null) {
-        api = '${apiUrl}imoveis?operacao=$operacao&_page=$_pagina&_limit=3';
+        api = '${BASE_API}imoveis?operacao=$operacao&_page=$_pagina&_limit=3';
       } else {
-        api = '${apiUrl}imoveis?_page=$_pagina&_limit=3';
+        api = '${BASE_API}imoveis?_page=$_pagina&_limit=3';
       }
 
       Uri uri = Uri.parse(api);
@@ -61,6 +60,7 @@ class ImoveisRepositorio with ChangeNotifier {
     await getImoveis(operacao: operacao);
   }
 }
+
 
   /*
   npm install json-server@0.17.3

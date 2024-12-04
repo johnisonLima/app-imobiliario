@@ -3,6 +3,6 @@
     "json-server": "^0.17.4"
   },
   "scripts": {
-    "server-start": "json-server --host 192.168.0.129 --port 8080 db/db.json"
+    "server-start": "json-server --host 192.168.0.129 --port 8080  --routes routes.json db/db.json"
   }
 }

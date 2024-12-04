@@ -1,4 +1,4 @@
-import 'package:app_front/model/usuario.dart';
+import 'package:app_front/model/usuarios.dart';
 
 class Comentarios {
   final String? id;

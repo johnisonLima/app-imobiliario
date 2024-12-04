@@ -7,7 +7,7 @@ import 'package:app_front/repository/comentarios_repositorio.dart';
 import 'package:app_front/view/Pesquisa.dart';
 import 'package:app_front/view/detalhes_imoveis.dart';
 import 'package:app_front/view/pagina_inicial.dart';
-import 'package:app_front/usuarioManager.dart';
+import 'package:app_front/repository/usuario_repositorio.dart';
 
 void main() {
   runApp(

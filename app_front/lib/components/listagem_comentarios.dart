@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app_front/repository/comentarios_repositorio.dart';
-import 'package:app_front/usuarioManager.dart';
+import 'package:app_front/repository/usuario_repositorio.dart';
 import 'package:app_front/model/comentarios.dart';
-import 'package:app_front/model/usuario.dart';
+import 'package:app_front/model/usuarios.dart';
 
 class ListagemComentarios extends StatefulWidget {
   final String imovelId;

@@ -9,7 +9,8 @@ import 'package:app_front/components/listagem_comentarios.dart';
 import 'package:app_front/components/icones_imovel.dart';
 import 'package:app_front/model/imoveis.dart';
 import 'package:app_front/repository/comentarios_repositorio.dart';
-import 'package:app_front/usuarioManager.dart';
+import 'package:app_front/repository/imoveis_repositorio.dart';
+import 'package:app_front/repository/usuario_repositorio.dart';
 import 'package:app_front/components/end_drawer.dart';
 
 class DetalhesImoveis extends StatefulWidget {
@@ -33,7 +34,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     super.initState();
     _iniciarSlides();
     _scrollController = ScrollController();
-    _scrollController.addListener(_onScroll); 
+    _scrollController.addListener(_onScroll);
   }
 
   @override
@@ -74,11 +75,18 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         MediaQuery.of(context).orientation == Orientation.portrait
             ? alturaImagem
             : alturaImagem * 1.1;
-    
+
     bool estaLogado = estadoUsuario.estaLogado;
 
-    return ChangeNotifierProvider(
-      create: (_) => ComentariosRepositorio(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ComentariosRepositorio(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ImoveisRepositorio(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(),
         body: Stack(
@@ -150,24 +158,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                                       ),
                                     ],
                                   ),
-                                ),
-                                Positioned(
-                                  top: 10,
-                                  right: 10,
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          54, 158, 158, 158),
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    child: const Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
+                                ),                              
                               ]);
                             },
                           ),
@@ -212,30 +203,15 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                               color: Colors.grey[800],
                             ),
                           ),
-                          // Container(
-                          //   width: 30,
-                          //   height: 30,
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(30),
-                          //     border: Border.all(
-                          //       color: Colors.grey,
-                          //       width: 0.8,
-                          //     ),
-                          //   ),
-                          //   child: Center(
-                          //     child: 
-                              IconButton(
-                               onPressed: () {
-    Share.share(
-      'Confira este imóvel: ${widget.imovel.titulo}',
-    );
-  },
-  icon: const Icon(Icons.share_outlined),
-  color: Colors.grey,
-                              ),
-
-                          //   ),
-                          // ),
+                          IconButton(
+                            onPressed: () {
+                              Share.share(
+                                'Confira este imóvel: ${widget.imovel.titulo}',
+                              );
+                            },
+                            icon: const Icon(Icons.share_outlined),
+                            color: Colors.grey,
+                          ),
                         ],
                       ),
                     ),
@@ -349,7 +325,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                               children: [
                                 Text(
                                   'Logado como: ${estadoUsuario.usuario?.nome}.',
-                                  style: const TextStyle(fontSize: 12),                                  
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
@@ -380,7 +356,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         endDrawer: const CustomEndDrawer(),
       ),
     );
-  }
+  }  
 }
 
 Widget _exibirContato(String tituloImovel) {

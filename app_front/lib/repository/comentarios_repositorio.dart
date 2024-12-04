@@ -1,10 +1,11 @@
-import 'package:app_front/model/comentarios.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ComentariosRepositorio with ChangeNotifier {
+import 'package:app_front/model/comentarios.dart';
+import 'package:app_front/repository/base_repositorio.dart';
+
+class ComentariosRepositorio extends BaseRepositorio with ChangeNotifier {
   int _pagina = 1;
   bool _carregando = false;
   bool _temMais = true;
@@ -17,16 +18,13 @@ class ComentariosRepositorio with ChangeNotifier {
 
   Future<void> getComentarios({String? id}) async {
     try {
-      const apiUrl = 'http://192.168.0.129:8080/';
-
       final String api;
 
       if (id != null) {
         api =
-            '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=4&_sort=data&_order=desc';
-        // api = '${apiUrl}comentarios?imovelId=$id&_page=$_pagina&_limit=4';
+            '${BASE_API}comentarios?imovelId=$id&_page=$_pagina&_limit=4&_sort=data&_order=desc';
       } else {
-        api = '${apiUrl}comentarios?_page=$_pagina&_limit=3';
+        api = '${BASE_API}comentarios?_page=$_pagina&_limit=3';
       }
 
       Uri uri = Uri.parse(api);
@@ -70,8 +68,9 @@ class ComentariosRepositorio with ChangeNotifier {
   Future<void> adicionarComentario(
       {required Comentarios novoComentario}) async {
     try {
-      const apiUrl = 'http://192.168.0.129:8080/comentarios';
-      Uri uri = Uri.parse(apiUrl);
+      final String api = '${BASE_API}comentarios';
+      
+      Uri uri = Uri.parse(api);
 
       final response = await http.post(
         uri,
@@ -98,8 +97,9 @@ class ComentariosRepositorio with ChangeNotifier {
 
   Future<void> apagarComentario(String comentarioId) async {
     try {
-      const apiUrl = 'http://192.168.0.129:8080/comentarios';
-      Uri uri = Uri.parse('$apiUrl/$comentarioId');
+      final String api = '${BASE_API}comentarios/$comentarioId';
+      
+      Uri uri = Uri.parse(api);
 
       final response = await http.delete(uri);
 
