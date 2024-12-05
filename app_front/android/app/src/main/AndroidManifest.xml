@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app_front">
+    package="com.example.lh_imoveis">
     <!-- Permissão para acessar a internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <queries>
@@ -21,7 +21,7 @@
         </intent>
     </queries>
     <application
-        android:label="app_front"
+        android:label="lh_imoveis"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

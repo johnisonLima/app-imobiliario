@@ -1,6 +1,6 @@
 {
-    "name": "app_front",
-    "short_name": "app_front",
+    "name": "lh_imoveis",
+    "short_name": "lh_imoveis",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
