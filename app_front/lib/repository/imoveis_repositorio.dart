@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:app_front/model/imoveis.dart';
-import 'package:app_front/repository/base_repositorio.dart';
+import 'package:lh_imoveis/model/imoveis.dart';
+import 'package:lh_imoveis/repository/base_repositorio.dart';
 
 class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
   int _pagina = 1;
@@ -16,17 +16,18 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
   bool get carregando => _carregando;
   bool get temMaisImoveis => _temMais;
 
-  Future<void> getImoveis({String? operacao, bool? refresh, String? query=''}) async {
-    if(refresh != null && refresh) {
+  Future<void> getImoveis(
+      {String? operacao, bool? refresh, String? query = ''}) async {
+    if (refresh != null && refresh) {
       _pagina = 1;
       _imoveis.clear();
       _carregando = false;
       _temMais = true;
     }
-    try {    
+    try {
       final String api;
 
-      if(query == ''){
+      if (query == '') {
         if (operacao != null) {
           api = '${BASE_API}imoveis?operacao=$operacao&_page=$_pagina&_limit=3';
         } else {
@@ -35,7 +36,7 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
 
         Uri uri = Uri.parse(api);
 
-        final response = await http.get(uri);       
+        final response = await http.get(uri);
 
         if (response.statusCode == 200) {
           final dados = json.decode(response.body) as List;
@@ -43,20 +44,24 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
           if (dados.isEmpty) {
             _temMais = false;
           } else {
-            _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
+            _imoveis
+                .addAll(dados.map((item) => Imovel.fromJson(item)).toList());
             _pagina++;
           }
         } else {
           throw Exception('Erro ao carregar dados da API');
         }
-      }
-      else {
-        final String api1 = '${BASE_API}imoveis?tipo_like=^$query&_page=$_pagina&_limit=3';
-        final String api2 = '${BASE_API}imoveis?endereco.bairro_like=^$query&_page=$_pagina&_limit=3';
-        final String api3 = '${BASE_API}imoveis?operacao=$query&_page=$_pagina&_limit=3';
-        final String api4 = '${BASE_API}imoveis?sobre_like=^$query&_page=$_pagina&_limit=3';
+      } else {
+        final String api1 =
+            '${BASE_API}imoveis?tipo_like=^$query&_page=$_pagina&_limit=3';
+        final String api2 =
+            '${BASE_API}imoveis?endereco.bairro_like=^$query&_page=$_pagina&_limit=3';
+        final String api3 =
+            '${BASE_API}imoveis?operacao=$query&_page=$_pagina&_limit=3';
+        final String api4 =
+            '${BASE_API}imoveis?sobre_like=^$query&_page=$_pagina&_limit=3';
 
-        final Set<String> idsProcessados = {}; 
+        final Set<String> idsProcessados = {};
 
         try {
           final responses = await Future.wait([
@@ -64,7 +69,7 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
             http.get(Uri.parse(api2)),
             http.get(Uri.parse(api3)),
             http.get(Uri.parse(api4)),
-          ]);    
+          ]);
 
           final List<Imovel> imoveisPaginaAtual = [];
 
@@ -77,25 +82,26 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
 
                   if (!idsProcessados.contains(imovel.id)) {
                     idsProcessados.add(imovel.id);
-                    imoveisPaginaAtual.add(imovel); 
+                    imoveisPaginaAtual.add(imovel);
                   }
                 }
               }
             } else {
-              throw Exception('Erro ao carregar dados da API: ${response.statusCode}');
+              throw Exception(
+                  'Erro ao carregar dados da API: ${response.statusCode}');
             }
           }
 
           if (imoveisPaginaAtual.isEmpty) {
-            _temMais = false; 
+            _temMais = false;
           } else {
-            _imoveis.addAll(imoveisPaginaAtual); 
-            _pagina++; 
+            _imoveis.addAll(imoveisPaginaAtual);
+            _pagina++;
           }
         } catch (e) {
           print('Erro nas requisições simultâneas: $e');
         } finally {
-          notifyListeners(); 
+          notifyListeners();
         }
       }
     } catch (e) {
@@ -107,7 +113,8 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
     }
   }
 
-  Future<void> carregarMaisImoveis({String? operacao, String? query=''}) async {
+  Future<void> carregarMaisImoveis(
+      {String? operacao, String? query = ''}) async {
     if (_carregando || !_temMais) return;
 
     _carregando = true;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_front/repository/usuario_repositorio.dart';
-import 'package:app_front/model/usuarios.dart';
+import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/model/usuarios.dart';
 
 class CustomEndDrawer extends StatefulWidget {
   const CustomEndDrawer({super.key});
@@ -12,9 +12,9 @@ class CustomEndDrawer extends StatefulWidget {
 
 class _CustomEndDrawerState extends State<CustomEndDrawer> {
   @override
-  Widget build(BuildContext context) {        
+  Widget build(BuildContext context) {
     bool estaLogado = estadoUsuario.estaLogado;
-    
+
     return Builder(
       builder: (context) => Drawer(
         child: Column(

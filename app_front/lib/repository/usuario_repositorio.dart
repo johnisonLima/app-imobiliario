@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_front/model/usuarios.dart';
+import 'package:lh_imoveis/model/usuarios.dart';
 
 class UsuarioManager with ChangeNotifier {
   Usuario? _usuario;

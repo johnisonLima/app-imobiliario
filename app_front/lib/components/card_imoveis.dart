@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:app_front/components/icones_imovel.dart';
-import 'package:app_front/repository/imoveis_repositorio.dart';
-import 'package:app_front/view/detalhes_imoveis.dart';
+import 'package:lh_imoveis/components/icones_imovel.dart';
+import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
+import 'package:lh_imoveis/view/detalhes_imoveis.dart';
 
 class CardImoveis extends StatelessWidget {
   final String? operacao;
@@ -60,7 +60,7 @@ class CardImoveis extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
-                    context, 
+                    context,
                     DetalhesImoveis.rountName,
                     arguments: imovel,
                   );

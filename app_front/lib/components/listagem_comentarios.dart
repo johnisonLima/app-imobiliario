@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:app_front/repository/comentarios_repositorio.dart';
-import 'package:app_front/repository/usuario_repositorio.dart';
-import 'package:app_front/model/comentarios.dart';
-import 'package:app_front/model/usuarios.dart';
+import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
+import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/model/comentarios.dart';
+import 'package:lh_imoveis/model/usuarios.dart';
 
 class ListagemComentarios extends StatefulWidget {
   final String imovelId;
@@ -125,10 +125,10 @@ Widget _textFildCometario(controlador, imovel, enviarComentario) {
 
 Widget _exibirComentarios(BuildContext context, ScrollController controller) {
   return RefreshIndicator(
-    onRefresh: () async {          
-      final comentariosRepo = 
-        Provider.of<ComentariosRepositorio>(context, listen: false);
-      
+    onRefresh: () async {
+      final comentariosRepo =
+          Provider.of<ComentariosRepositorio>(context, listen: false);
+
       await comentariosRepo.getComentarios(refresh: true);
     },
     child: Consumer<ComentariosRepositorio>(
@@ -149,7 +149,7 @@ Widget _exibirComentarios(BuildContext context, ScrollController controller) {
             ),
           );
         }
-    
+
         return ListView.builder(
           controller: controller,
           itemCount: repositorio.comentarios.length + 1,
@@ -162,15 +162,15 @@ Widget _exibirComentarios(BuildContext context, ScrollController controller) {
                     : const SizedBox.shrink(),
               );
             }
-    
+
             final comentarios = repositorio.comentarios[index];
             final DateTime dataComentario = DateTime.parse(comentarios.data);
-    
+
             final estadoUsuario = context.watch<UsuarioManager>();
-    
+
             bool usuarioLogadoComentou = estadoUsuario.estaLogado &&
                 estadoUsuario.usuario!.email == comentarios.usuario.email;
-    
+
             return Dismissible(
               key: Key(
                 comentarios.id.toString(),
@@ -215,7 +215,7 @@ Widget _exibirComentarios(BuildContext context, ScrollController controller) {
                 return confirmar == true;
               },
               onDismissed: (direction) {
-                repositorio.apagarComentario(comentarios.id.toString());   
+                repositorio.apagarComentario(comentarios.id.toString());
               },
               child: Card(
                 color: Colors.blue[800],
@@ -273,14 +273,11 @@ void _atualizarComentarios(BuildContext context, String idcomentario) {
   comentariosRepo.carregarMaisComentarios(id: idcomentario);
 }
 
-void _enviarComentario(
-    TextEditingController controlador,
-    context,
-    String idImovel,
-    Usuario usuario) async {
+void _enviarComentario(TextEditingController controlador, context,
+    String idImovel, Usuario usuario) async {
   String conteudo = controlador.text.trim();
 
-  if(conteudo.isEmpty) {
+  if (conteudo.isEmpty) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Comentário vazio')),
     );
@@ -340,4 +337,3 @@ String formatarTempoAtras(DateTime data) {
     return 'Agora mesmo';
   }
 }
-

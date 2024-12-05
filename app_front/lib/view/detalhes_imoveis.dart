@@ -5,13 +5,13 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:app_front/components/listagem_comentarios.dart';
-import 'package:app_front/components/icones_imovel.dart';
-import 'package:app_front/model/imoveis.dart';
-import 'package:app_front/repository/comentarios_repositorio.dart';
-import 'package:app_front/repository/imoveis_repositorio.dart';
-import 'package:app_front/repository/usuario_repositorio.dart';
-import 'package:app_front/components/end_drawer.dart';
+import 'package:lh_imoveis/components/listagem_comentarios.dart';
+import 'package:lh_imoveis/components/icones_imovel.dart';
+import 'package:lh_imoveis/model/imoveis.dart';
+import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
+import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
+import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/components/end_drawer.dart';
 
 class DetalhesImoveis extends StatefulWidget {
   static const rountName = '/DetalhesImoveis';
@@ -158,7 +158,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                                       ),
                                     ],
                                   ),
-                                ),                              
+                                ),
                               ]);
                             },
                           ),
@@ -356,7 +356,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         endDrawer: const CustomEndDrawer(),
       ),
     );
-  }  
+  }
 }
 
 Widget _exibirContato(String tituloImovel) {

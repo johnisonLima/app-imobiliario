@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:app_front/model/comentarios.dart';
-import 'package:app_front/repository/base_repositorio.dart';
+import 'package:lh_imoveis/model/comentarios.dart';
+import 'package:lh_imoveis/repository/base_repositorio.dart';
 
 class ComentariosRepositorio extends BaseRepositorio with ChangeNotifier {
   int _pagina = 1;
@@ -17,7 +17,7 @@ class ComentariosRepositorio extends BaseRepositorio with ChangeNotifier {
   bool get temMais => _temMais;
 
   Future<void> getComentarios({String? id, bool? refresh}) async {
-      if(refresh != null && refresh) {
+    if (refresh != null && refresh) {
       _pagina = 1;
       _comentarios.clear();
       _carregando = false;
@@ -75,7 +75,7 @@ class ComentariosRepositorio extends BaseRepositorio with ChangeNotifier {
       {required Comentarios novoComentario}) async {
     try {
       final String api = '${BASE_API}comentarios';
-      
+
       Uri uri = Uri.parse(api);
 
       final response = await http.post(
@@ -104,15 +104,14 @@ class ComentariosRepositorio extends BaseRepositorio with ChangeNotifier {
   Future<void> apagarComentario(String comentarioId) async {
     try {
       final String api = '${BASE_API}comentarios/$comentarioId';
-      
+
       Uri uri = Uri.parse(api);
 
       final response = await http.delete(uri);
 
       if (response.statusCode == 200) {
-        
         _comentarios.removeWhere((comentario) => comentario.id == comentarioId);
-        
+
         notifyListeners();
       } else {
         throw Exception('Erro ao apagar comentário');

@@ -3,15 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import 'package:app_front/components/icones_imovel.dart';
-import 'package:app_front/view/detalhes_imoveis.dart';
-import 'package:app_front/repository/imoveis_repositorio.dart';
-
+import 'package:lh_imoveis/components/icones_imovel.dart';
+import 'package:lh_imoveis/view/detalhes_imoveis.dart';
+import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
 
 class Pesquisa extends StatefulWidget {
   static const rountName = '/Pesquisa';
-  
-  const Pesquisa({super.key});   
+
+  const Pesquisa({super.key});
 
   @override
   State<Pesquisa> createState() => _PesquisaState();
@@ -43,10 +42,10 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
   @override
   void initState() {
     super.initState();
-    
+
     final imoveisRepo = Provider.of<ImoveisRepositorio>(context, listen: false);
     imoveisRepo.getImoveis();
-    
+
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
     _controladorBusca = TextEditingController();
@@ -57,7 +56,7 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
     super.dispose();
     _scrollController.dispose();
     _controladorBusca.dispose();
-  }   
+  }
 
   void _onScroll() {
     final imoveisRepo = Provider.of<ImoveisRepositorio>(context, listen: false);
@@ -66,19 +65,18 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
     final maxScroll = _scrollController.position.maxScrollExtent;
 
     if (position == maxScroll) {
-      if(_controladorBusca.text.isEmpty) {
-          if(imoveisRepo.temMaisImoveis) {
-            imoveisRepo.carregarMaisImoveis();
-          }
+      if (_controladorBusca.text.isEmpty) {
+        if (imoveisRepo.temMaisImoveis) {
+          imoveisRepo.carregarMaisImoveis();
         }
-        else {
-          imoveisRepo.carregarMaisImoveis(query: _controladorBusca.text);
-        }
+      } else {
+        imoveisRepo.carregarMaisImoveis(query: _controladorBusca.text);
+      }
     }
   }
 
   @override
-  Widget build(BuildContext context) {      
+  Widget build(BuildContext context) {
     return Column(
       children: [
         _pesquisarImoveis(context, _controladorBusca),
@@ -88,7 +86,8 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
   }
 }
 
-Widget _pesquisarImoveis(BuildContext context, TextEditingController controladorBusca) {
+Widget _pesquisarImoveis(
+    BuildContext context, TextEditingController controladorBusca) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: TextField(
@@ -97,17 +96,17 @@ Widget _pesquisarImoveis(BuildContext context, TextEditingController controlador
         hintText: 'Encontre seu novo apartamento, casa, terrenos e muito mais',
         prefixIcon: const Icon(Icons.search),
         suffixIcon: IconButton(
-        icon: const Icon(Icons.send),
-        color: Colors.blue,
-        onPressed: () {
-          String conteudo = controladorBusca.text.trim();
+          icon: const Icon(Icons.send),
+          color: Colors.blue,
+          onPressed: () {
+            String conteudo = controladorBusca.text.trim();
 
-          Provider.of<ImoveisRepositorio>(context, listen: false)
-            .getImoveis(query: conteudo, refresh: true);
-          
-          FocusScope.of(context).unfocus();
-        },
-      ),
+            Provider.of<ImoveisRepositorio>(context, listen: false)
+                .getImoveis(query: conteudo, refresh: true);
+
+            FocusScope.of(context).unfocus();
+          },
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -278,4 +277,3 @@ String paraMoeda(double valor) {
   );
   return formatador.format(valor);
 }
-
