@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "6320355917",
+    "project_id": "lh-imoveis",
+    "storage_bucket": "lh-imoveis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6320355917:android:4ad521ceeb9314e499fa04",
+        "android_client_info": {
+          "package_name": "com.example.lh_imoveis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6320355917-v50du2om4dskfo3rrnje2hdj1i3npgh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lh_imoveis",
+            "certificate_hash": "794cfeb2bf224933c4ba729922d8b3dfc7b98753"
+          }
+        },
+        {
+          "client_id": "6320355917-ihntleb57tassg3l867i111m7d606ba6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBon0DfDVIWnSTBUoZbgkamhFJIFPsaxtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6320355917-ihntleb57tassg3l867i111m7d606ba6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "6320355917-4q54505lq39llsc7ja3km96d17m7glbc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appFront"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

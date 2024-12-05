@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:lh_imoveis/model/imoveis.dart';
 import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
@@ -9,7 +10,10 @@ import 'package:lh_imoveis/view/detalhes_imoveis.dart';
 import 'package:lh_imoveis/view/pagina_inicial.dart';
 import 'package:lh_imoveis/repository/usuario_repositorio.dart';
 
-void main() {
+void main() async {
+ WidgetsFlutterBinding.ensureInitialized(); 
+ await Firebase.initializeApp();
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => UsuarioManager(),

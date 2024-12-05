@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lh_imoveis/autenticador.dart';
 
 import 'package:lh_imoveis/repository/usuario_repositorio.dart';
-import 'package:lh_imoveis/model/usuarios.dart';
 
 class CustomEndDrawer extends StatefulWidget {
   const CustomEndDrawer({super.key});
@@ -11,6 +11,23 @@ class CustomEndDrawer extends StatefulWidget {
 }
 
 class _CustomEndDrawerState extends State<CustomEndDrawer> {
+
+  @override
+  void initState() {
+    super.initState();
+    _recuperarEstadoUsuario();
+  }
+
+  Future<void> _recuperarEstadoUsuario() async {
+    final usuario = await Autenticador.recuperarUsuario();
+    if (usuario != null) {
+      setState(() {
+        estadoUsuario.login(usuario);
+      });
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     bool estaLogado = estadoUsuario.estaLogado;
@@ -30,9 +47,22 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
                   ),
             estaLogado
                 ? ListTile(
-                    leading: const Icon(Icons.logout_outlined),
-                    title: const Text('Logout'),
-                    onTap: () {
+                    title: _logout(),
+                    onTap: () async {
+                      /* lOGOUT MANUAL
+                      const snackBar = SnackBar(
+                        content: Text('Você foi desconectado com sucesso!'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      setState(() {
+                        estadoUsuario.logoff();
+                      });
+
+                      Navigator.of(context).pop(); */
+
+                      await Autenticador.logout();
+
                       const snackBar = SnackBar(
                         content: Text('Você foi desconectado com sucesso!'),
                       );
@@ -43,12 +73,14 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
                       });
 
                       Navigator.of(context).pop();
+
+
                     },
                   )
                 : ListTile(
-                    leading: const Icon(Icons.logout_outlined),
-                    title: const Text('Login'),
-                    onTap: () {
+                    title: _loginGoogle(),
+                    onTap: () async {
+                      /* lOGIN MANUAL
                       Usuario usuario = Usuario(
                         nome: 'Morgan Freeman',
                         email: 'morgan@outlook.com',
@@ -63,7 +95,28 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
                         estadoUsuario.login(usuario);
                       });
 
+                      Navigator.of(context).pop(); */
+                      try {
+                        final usuario = await Autenticador.login();
+
+                        const snackBar = SnackBar(
+                          content: Text('Você foi conectado com sucesso!'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        setState(() {
+                          estadoUsuario.login(usuario);
+                        });
+                      } catch (e) {
+                        const snackBar = SnackBar(
+                          content: Text('Falha ao conectar. Tente novamente'),
+                        );
+                        print(e);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+
                       Navigator.of(context).pop();
+
                     },
                   ),
           ],
@@ -71,4 +124,52 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
       ),
     );
   }
+}
+
+Widget _loginGoogle(){
+  return SizedBox(
+    height: 35,
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          color: Colors.grey,
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          Image.network(
+            height: 30,
+            'https://i.ibb.co/z5jZdQy/google.webp'
+          ),
+          const SizedBox(width: 10),
+          const Text('Continuar com Google')
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _logout(){
+  return SizedBox(
+    height: 35,
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          color: Colors.grey,
+          width: 1,
+        ),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Logout', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+        ],
+      ),
+    ),
+  );
 }
