@@ -28,6 +28,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   late int _slideSelecionado;
   late ScrollController _scrollController;
   bool _mostrarContato = false;
+  bool _curtiu = false;
 
   @override
   void initState() {
@@ -110,7 +111,8 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                               });
                             },
                             itemBuilder: (context, index) {
-                              return Stack(children: [
+                              return Stack(
+                                children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: Image.network(
@@ -119,6 +121,33 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                                     width: double.infinity,
                                     height: wrapImagem,
                                   ),
+                                ),
+                                Positioned(
+                                  top: 10,
+                                  right: 10,
+                                  child: estaLogado ?
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _curtiu = !_curtiu;
+                                        }); 
+                                      },
+                                      icon: _curtiu
+                                      ? const Icon(Icons.favorite, color: Colors.red,)
+                                      : const Icon(Icons.favorite_border, color: Colors.white,),
+                                    )
+                                    : IconButton(
+                                        onPressed: (){
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              content: Text('Faça login para curtir este imóvel.'),
+                                              duration: Duration(seconds: 2),
+                                            ),
+                                          );
+                                        }, 
+                                        icon: const Icon(Icons.favorite_border, color: Colors.white,
+                                      ),
+                                    ),
                                 ),
                                 Positioned(
                                   bottom: 10,
