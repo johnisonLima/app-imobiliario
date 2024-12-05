@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app_front/components/card_imoveis.dart';
 import 'package:app_front/repository/imoveis_repositorio.dart';
-import 'package:app_front/view/Pesquisa.dart';
+import 'package:app_front/view/pesquisar_imoveis.dart';
 import 'package:app_front/components/app_bar.dart';
 import 'package:app_front/components/bottom_navigation_bar.dart';
 import 'package:app_front/components/end_drawer.dart';

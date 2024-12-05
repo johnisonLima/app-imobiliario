@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:app_front/model/imoveis.dart';
 import 'package:app_front/repository/comentarios_repositorio.dart';
-import 'package:app_front/view/Pesquisa.dart';
+import 'package:app_front/view/pesquisar_imoveis.dart';
 import 'package:app_front/view/detalhes_imoveis.dart';
 import 'package:app_front/view/pagina_inicial.dart';
 import 'package:app_front/repository/usuario_repositorio.dart';
@@ -29,12 +29,12 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     estadoUsuario = context.watch<UsuarioManager>();
-  
+
     return MaterialApp(
       initialRoute: PaginaInicial.rountName,
       onGenerateRoute: (settings) {
         if (settings.name == DetalhesImoveis.rountName) {
-          final imovel = settings.arguments as Imovel; 
+          final imovel = settings.arguments as Imovel;
 
           return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
@@ -43,7 +43,7 @@ class _AppState extends State<App> {
             ),
           );
         }
-     
+
         return MaterialPageRoute(
           builder: (context) {
             switch (settings.name) {
@@ -57,29 +57,24 @@ class _AppState extends State<App> {
           },
         );
       },
-
       theme: ThemeData(
         useMaterial3: true,
-
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.blue,
           iconTheme: IconThemeData(
             size: 30,
-            color: Colors.white, 
+            color: Colors.white,
           ),
         ),
-
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
           brightness: Brightness.light,
         ),
-
         textTheme: TextTheme(
           displayLarge: const TextStyle(
             fontSize: 72,
             fontWeight: FontWeight.bold,
           ),
-          
           titleLarge: GoogleFonts.oswald(
             fontSize: 30,
             fontStyle: FontStyle.italic,
