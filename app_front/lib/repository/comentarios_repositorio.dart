@@ -16,7 +16,13 @@ class ComentariosRepositorio extends BaseRepositorio with ChangeNotifier {
   bool get carregando => _carregando;
   bool get temMais => _temMais;
 
-  Future<void> getComentarios({String? id}) async {
+  Future<void> getComentarios({String? id, bool? refresh}) async {
+      if(refresh != null && refresh) {
+      _pagina = 1;
+      _comentarios.clear();
+      _carregando = false;
+      _temMais = true;
+    }
     try {
       final String api;
 
