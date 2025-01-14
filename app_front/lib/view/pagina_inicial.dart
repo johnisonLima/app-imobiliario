@@ -28,7 +28,7 @@ class _PaginainicialState extends State<PaginaInicial> {
         index: _opcaoSelecionada,
         children: <Widget>[
           home(context),
-          const Pesquisa(),
+          // const Pesquisa(),
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(

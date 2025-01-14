@@ -33,7 +33,7 @@ class Imovel {
 
   factory Imovel.fromJson(Map<String, dynamic> json) {
     return Imovel(
-      id: json['id'],
+      id: json['_id'],
       tipo: json['tipo'],
       sobre: json['sobre'],
       valor: json['valor'].toDouble(),
@@ -55,7 +55,7 @@ class Imovel {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
+        '_id': id,
         'tipo': tipo,
         'sobre': sobre,
         'valor': valor,

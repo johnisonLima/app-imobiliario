@@ -64,7 +64,7 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
     final position = _scrollController.position.pixels;
     final maxScroll = _scrollController.position.maxScrollExtent;
 
-    if (position == maxScroll) {
+/*     if (position == maxScroll) {
       if (_controladorBusca.text.isEmpty) {
         if (imoveisRepo.temMaisImoveis) {
           imoveisRepo.carregarMaisImoveis();
@@ -72,51 +72,53 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
       } else {
         imoveisRepo.carregarMaisImoveis(query: _controladorBusca.text);
       }
-    }
+    } */
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _pesquisarImoveis(context, _controladorBusca),
-        Expanded(child: _exibirImoveis(context, _scrollController)),
-      ],
-    );
+    return Container();
+    // return Column(
+    //   children: [
+    //     _pesquisarImoveis(context, _controladorBusca),
+    //     Expanded(child: _exibirImoveis(context, _scrollController)),
+    //   ],
+    // );
   }
 }
 
-Widget _pesquisarImoveis(
-    BuildContext context, TextEditingController controladorBusca) {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: TextField(
-      controller: controladorBusca,
-      decoration: InputDecoration(
-        hintText: 'Encontre seu novo apartamento, casa, terrenos e muito mais',
-        prefixIcon: const Icon(Icons.search),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.send),
-          color: Colors.blue,
-          onPressed: () {
-            String conteudo = controladorBusca.text.trim();
+// Widget _pesquisarImoveis(
+//     BuildContext context, TextEditingController controladorBusca) {
+//   return Padding(
+//     padding: const EdgeInsets.all(16.0),
+//     child: TextField(
+//       controller: controladorBusca,
+//       decoration: InputDecoration(
+//         hintText: 'Encontre seu novo apartamento, casa, terrenos e muito mais',
+//         prefixIcon: const Icon(Icons.search),
+//         suffixIcon: IconButton(
+//           icon: const Icon(Icons.send),
+//           color: Colors.blue,
+//           onPressed: () {
+//             String conteudo = controladorBusca.text.trim();
 
-            Provider.of<ImoveisRepositorio>(context, listen: false)
-                .getImoveis(query: conteudo, refresh: true);
+//             Provider.of<ImoveisRepositorio>(context, listen: false)
+//                 .getImoveis(query: conteudo, refresh: true);
 
-            FocusScope.of(context).unfocus();
-          },
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-    ),
-  );
-}
+//             FocusScope.of(context).unfocus();
+//           },
+//         ),
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8.0),
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
 Widget _exibirImoveis(BuildContext context, ScrollController scrollController) {
-  return RefreshIndicator(
+  return Container();
+  /* return RefreshIndicator(
     onRefresh: () async {
       final imoveisRepo =
           Provider.of<ImoveisRepositorio>(context, listen: false);
@@ -267,7 +269,7 @@ Widget _exibirImoveis(BuildContext context, ScrollController scrollController) {
         );
       },
     ),
-  );
+  ); */
 }
 
 String paraMoeda(double valor) {
