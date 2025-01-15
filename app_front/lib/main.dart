@@ -8,7 +8,7 @@ import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
 import 'package:lh_imoveis/view/pesquisar_imoveis.dart';
 import 'package:lh_imoveis/view/detalhes_imoveis.dart';
 import 'package:lh_imoveis/view/pagina_inicial.dart';
-import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 
 void main() async {
  WidgetsFlutterBinding.ensureInitialized(); 

@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:lh_imoveis/autenticador.dart';
 
-import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/autenticador.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 
 class CustomEndDrawer extends StatefulWidget {
   const CustomEndDrawer({super.key});
@@ -73,8 +74,6 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
                       });
 
                       Navigator.of(context).pop();
-
-
                     },
                   )
                 : ListTile(

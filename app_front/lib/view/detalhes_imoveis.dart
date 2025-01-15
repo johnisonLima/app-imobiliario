@@ -10,8 +10,9 @@ import 'package:lh_imoveis/components/icones_imovel.dart';
 import 'package:lh_imoveis/model/imoveis.dart';
 import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
 import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
-import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 import 'package:lh_imoveis/components/end_drawer.dart';
+import 'package:lh_imoveis/repository/likes_repositorio.dart';
 
 class DetalhesImoveis extends StatefulWidget {
   static const rountName = '/DetalhesImoveis';
@@ -25,8 +26,9 @@ class DetalhesImoveis extends StatefulWidget {
 
 class _DetalhesImoveisState extends State<DetalhesImoveis> {
   late PageController _controladorSlides;
-  late int _slideSelecionado;
   late ScrollController _scrollController;
+  int _slideSelecionado = 0;
+  int qtdLikes = 0;
   bool _mostrarContato = false;
   bool _curtiu = false;
 
@@ -36,6 +38,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     _iniciarSlides();
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
+    qtdLikes = widget.imovel.likesCount ?? 0;
   }
 
   @override
@@ -45,7 +48,6 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   }
 
   void _iniciarSlides() {
-    _slideSelecionado = 0;
     _controladorSlides = PageController(initialPage: _slideSelecionado);
   }
 
@@ -87,6 +89,9 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         ChangeNotifierProvider(
           create: (_) => ImoveisRepositorio(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => LikesRepositorio(),
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(),
@@ -111,8 +116,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                               });
                             },
                             itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
+                              return Stack(children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: Image.network(
@@ -125,29 +129,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                                 Positioned(
                                   top: 10,
                                   right: 10,
-                                  child: estaLogado ?
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _curtiu = !_curtiu;
-                                        }); 
-                                      },
-                                      icon: _curtiu
-                                      ? const Icon(Icons.favorite, color: Colors.red,)
-                                      : const Icon(Icons.favorite_border, color: Colors.white,),
-                                    )
-                                    : IconButton(
-                                        onPressed: (){
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(
-                                              content: Text('Faça login para curtir este imóvel.'),
-                                              duration: Duration(seconds: 2),
-                                            ),
-                                          );
-                                        }, 
-                                        icon: const Icon(Icons.favorite_border, color: Colors.white,
-                                      ),
-                                    ),
+                                  child: _like(estaLogado, context),
                                 ),
                                 Positioned(
                                   bottom: 10,
@@ -384,6 +366,79 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         ),
         endDrawer: const CustomEndDrawer(),
       ),
+    );
+  }
+
+  Widget _like(bool usuarioLogado, BuildContext context) {
+    final likesRepo = Provider.of<LikesRepositorio>(context, listen: false);
+    final usuarioId = estadoUsuario.usuario?.uid ?? '';
+    final imovelId = widget.imovel.id;
+
+    if (usuarioLogado) {
+      likesRepo.verificarLike(imovelId, usuarioId).then((curtiu) {
+        setState(() {
+          _curtiu = curtiu;
+        });
+      });
+    }
+
+    return Column(
+      children: [
+        usuarioLogado
+            ? IconButton(
+                onPressed: () async {
+                  setState(() {
+                    _curtiu = !_curtiu;
+                    _curtiu ? qtdLikes++ : qtdLikes--;
+                  });
+
+                  if (_curtiu) {
+                    await likesRepo.adicionarLike(imovelId, usuarioId);
+                  } else {
+                    await likesRepo.removerLike(imovelId, usuarioId);
+                  }
+                },
+                icon: _curtiu
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                    : const Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                      ),
+              )
+            : IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Faça login para curtir este imóvel.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.favorite_border,
+                  color: Colors.white,
+                ),
+              ),
+        qtdLikes != 0
+            ? Text(
+                qtdLikes.toString(),
+                style: GoogleFonts.robotoFlex(
+                  color: Colors.white,
+                  fontSize: 14,
+                  shadows: [
+                    const Shadow(
+                      blurRadius: 5.0,
+                      color: Colors.black45,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
+                ),
+              )
+            : const Text(''),
+      ],
     );
   }
 }

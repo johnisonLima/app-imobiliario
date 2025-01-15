@@ -1,5 +1,4 @@
 from flask import Flask, jsonify # type: ignore
-# from pymongo import MongoClient # type: ignore
 from flask import request # type: ignore
 from bson.objectid import ObjectId # type: ignore
 from db_config import db
@@ -8,18 +7,6 @@ servico = Flask("imoveis")
 
 DESCRICAO = "Serviço de Listagem e Cadastro de Imóveis"
 VERSAO = "1.0"
-
-""" # Configurações do MongoDB
-MONGO_USER = "root"
-MONGO_PASS = "admin@banco"
-MONGO_PORT = 27017
-MONGO_DB = "lh_imoveis"
-MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}:{MONGO_PORT}/{MONGO_DB}?authSource=admin"
-
-# Inicializa o cliente 
-client = MongoClient(MONGO_URI)
-db = client[MONGO_DB] """
-
 
 @servico.get("/info")
 def get_info():

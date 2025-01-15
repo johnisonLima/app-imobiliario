@@ -198,7 +198,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 150
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd85525'),
@@ -256,7 +257,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 111      
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd85526'),
@@ -318,7 +320,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 100
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd85527'),
@@ -377,7 +380,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 200
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd85528'),
@@ -436,7 +440,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 58
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd85529'),
@@ -494,7 +499,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 30
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd8552a'),
@@ -552,7 +558,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 80
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd8552b'),
@@ -611,7 +618,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 120
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd8552c'),
@@ -669,7 +677,8 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 90
     },
     {
       "_id": ObjectId('6782d16fd828c3511bd8552d'),
@@ -727,7 +736,29 @@ db.imoveis.insertMany(
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 70
+    }
+  ]
+);
+
+db.likes.insertMany(
+  [
+    {
+      "imovelId": '6782d16fd828c3511bd85524',
+      "usuarioId": '6782d16fd828c3511bd85524',
+      "data": ISODate("2024-11-28T15:22:51.757559")
+    }
+    
+  ]
+);
+
+db.usuarios.insertMany(
+  [
+    {
+      "_id": '6782d16fd828c3511bd85524',
+      "nome": "João Silva",
+      "email": "joao@email.com",
     }
   ]
 );

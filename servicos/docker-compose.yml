@@ -34,6 +34,17 @@ services:
     ports:
       - "5003:5000"
 
+  usuarios:
+    build: ./dockerfiles/python
+    container_name: usuarios
+    hostname: usuarios
+    restart: always
+    volumes:
+      - ./app-service:/servico
+    command: python3 /servico/usuarios.py
+    ports:
+      - "5004:5000"
+
   banco:
     image: mongo    
     container_name: banco

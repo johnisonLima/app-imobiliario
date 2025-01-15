@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
-import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 import 'package:lh_imoveis/model/comentarios.dart';
 import 'package:lh_imoveis/model/usuarios.dart';
 
@@ -168,10 +168,12 @@ class _CardComentariosState extends State<ListagemComentarios> {
                   return confirmar == true;
                 },
                 onDismissed: (direction) {
-                  repositorio.apagarComentario(comentarios.id.toString());
+                  repositorio.removerComentario(comentarios.id.toString());
                   setState(() {
                     repositorio.comentarios.removeAt(index);
                   });
+
+                  FocusScope.of(context).unfocus();
                 },
                 child: Card(
                   color: Colors.blue[800],
@@ -291,7 +293,6 @@ void _enviarComentario(TextEditingController controlador, context,
   final comentario = Comentarios(
     imovelId: idImovel,
     texto: conteudo,
-    // data: DateTime.now().toIso8601String(),
     nota: 5,
     usuario: usuario,
   );

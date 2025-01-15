@@ -1,6 +1,5 @@
 from flask import Flask, jsonify # type: ignore
 from flask import request # type: ignore
-# from pymongo import MongoClient # type: ignore
 from bson.objectid import ObjectId # type: ignore
 from datetime import datetime, timezone # type: ignore
 from db_config import db
@@ -9,17 +8,6 @@ servico = Flask("comentarios")
 
 DESCRICAO = "Serviço de Listagem e Cadastro de Comentários"
 VERSAO = "1.0"
-
-""" # Configurações do MongoDB
-MONGO_USER = "root"
-MONGO_PASS = "admin@banco"
-MONGO_PORT = 27017
-MONGO_DB = "lh_imoveis"
-MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}:{MONGO_PORT}/{MONGO_DB}?authSource=admin"
-
-# Inicializa o cliente 
-client = MongoClient(MONGO_URI)
-db = client[MONGO_DB] """
 
 @servico.get("/info")
 def get_info():
@@ -121,8 +109,6 @@ def apagar_comentario(comentario_id):
     except Exception as e:
         print(f"Erro ao apagar comentário: {e}")
         return jsonify({"erro": "Erro ao apagar comentário"}), 500
-
-
 
 if __name__ == "__main__":
     servico.run(host="0.0.0.0", debug=True)
