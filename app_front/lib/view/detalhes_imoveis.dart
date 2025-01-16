@@ -47,6 +47,10 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     _scrollController.dispose();
   }
 
+  bool isKeyboardVisible() {
+    return MediaQuery.of(context).viewInsets.bottom > 0;
+  }
+
   void _iniciarSlides() {
     _controladorSlides = PageController(initialPage: _slideSelecionado);
   }
@@ -60,6 +64,12 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         _mostrarContato = true;
       });
     } else if (position <= (maxScroll / 2) && _mostrarContato) {
+      setState(() {
+        _mostrarContato = false;
+      });
+    }
+
+    if(isKeyboardVisible()) {
       setState(() {
         _mostrarContato = false;
       });
@@ -349,7 +359,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
                           ),
                           SizedBox(
                             width: largura,
-                            height: 200,
+                            height: 300,
                             child: ListagemComentarios(
                               imovelId: widget.imovel.id,
                             ),

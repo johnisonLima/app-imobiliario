@@ -45,7 +45,10 @@ class _PaginainicialState extends State<PaginaInicial> {
         index: _opcaoSelecionada,
         children: <Widget>[
           home(context),
-          // const Pesquisa(),
+          ChangeNotifierProvider(
+            create: (_) => ImoveisRepositorio(),
+            child: const Pesquisa(),
+          ) 
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
