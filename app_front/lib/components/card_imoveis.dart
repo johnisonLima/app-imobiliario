@@ -199,3 +199,6 @@ class CardImoveis extends StatelessWidget {
     );
   }
 }
+
+
+

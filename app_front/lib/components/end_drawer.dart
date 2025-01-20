@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:lh_imoveis/autenticador.dart';
+import 'package:lh_imoveis/repository/base_repositorio.dart';
 import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 
 class CustomEndDrawer extends StatefulWidget {
@@ -31,6 +32,8 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final baseRepositorio = BaseRepositorio();
+    final String logoGoogle = '${baseRepositorio.BASE_API}:5005/google.webp';
     bool estaLogado = estadoUsuario.estaLogado;
 
     return Builder(
@@ -77,7 +80,7 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
                     },
                   )
                 : ListTile(
-                    title: _loginGoogle(),
+                    title: _loginGoogle(logoGoogle),
                     onTap: () async {
                       /* lOGIN MANUAL
                       Usuario usuario = Usuario(
@@ -125,7 +128,7 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
   }
 }
 
-Widget _loginGoogle(){
+Widget _loginGoogle(String logoGoogle){
   return SizedBox(
     height: 35,
     child: Container(
@@ -141,7 +144,7 @@ Widget _loginGoogle(){
         children: [
           Image.network(
             height: 30,
-            'https://i.ibb.co/z5jZdQy/google.webp'
+            logoGoogle,
           ),
           const SizedBox(width: 10),
           const Text('Continuar com Google')

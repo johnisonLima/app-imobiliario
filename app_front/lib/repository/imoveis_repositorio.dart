@@ -33,6 +33,9 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
     try {
       // Monta a URL da API com base no último ID e no tamanho da página
       int tamanhoPagina = 3;
+      //// Base URL para as imagens
+      // ignore: unnecessary_brace_in_string_interps
+      String baseImageUrl = '${BASE_API}:5005';
       // ignore: unnecessary_brace_in_string_interps
       String baseUrl = '${BASE_API}:5001/imoveis';
       String api;
@@ -61,7 +64,31 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
           _temMais = false; // Não há mais imóveis
         } else {
           // Atualiza a lista de imóveis
-          _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
+          // _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
+          // Atualiza a lista de imóveis e monta a URL das imagens
+
+           _imoveis.addAll(dados.map((item) {
+            // Monta o caminho completo da imagem de destaque
+            String caminhoDestaque = item['imagemDestaque'] ?? '';
+            item['imagemDestaque'] = caminhoDestaque.isNotEmpty
+                ? '$baseImageUrl$caminhoDestaque'
+                : null;
+
+            // Opcional: processa as URLs dentro do array 'imagens'
+            if (item['imagens'] != null && item['imagens'] is List) {
+              item['imagens'] = (item['imagens'] as List).map((img) {
+                // Certifica-se de que a URL é mantida ou ajustada se necessário
+                if (img['url'] != null && !(img['url'] as String).startsWith('http')) {
+                  img['url'] = '$baseImageUrl${img['url']}';
+                }
+                return img;
+              }).toList();
+            }
+
+            // Converte para o modelo
+            return Imovel.fromJson(item);
+          }).toList());
+
 
           // Atualiza o último ID com o ID do último imóvel retornado
           _ultimoId = _imoveis.last.id;

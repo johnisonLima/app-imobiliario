@@ -1,6 +1,9 @@
 db = db.getSiblingDB('lh_imoveis');
-
-db.comentarios.insertMany(
+db.imoveis.drop();
+db.comentarios.drop();
+db.likes.drop();
+db.imoveis.drop();
+db.usuarios.insertMany(
   [
     {
       "imovelId": "6782d16fd828c3511bd85524",
@@ -180,21 +183,21 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-02-16",
-      "imagemDestaque": "https://i.ibb.co/MZ795dC/apartamento.webp",
       "dataEncerramamento": "2024-07-30",
+      "imagemDestaque": "/apartamentos/venda/apto-002/apartamento.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/apartamentos/venda/apto-002/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "url": "/apartamentos/venda/apto-002/sala.webp",
           "descricao": "Sala de estar ampla",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "url": "/apartamentos/venda/apto-002/Cobertura-da-Colina.webp",
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
@@ -240,21 +243,21 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-10-01",
-      "imagemDestaque": "https://i.ibb.co/4WPRZrG/galpao.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-001/galpao.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/comerciais/aluguel/comercial-001/fachada.webp",
+          "descricao": "Fachada do galpão",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/comerciais/aluguel/comercial-001/estrutura.webp",
+          "descricao": "Estutura do galpão com pé direito alto",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/comerciais/aluguel/comercial-001/ampla.webp",
+          "descricao": "Visão ampla do galpão",
           "tipo": "interna"
         }
       ],
@@ -303,21 +306,26 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "24-12-11",
-      "imagemDestaque": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-002/fachada.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/comerciais/aluguel/comercial-002/galpao.webp",
+          "descricao": "Galpão com 13 módulos disponíveis",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/comerciais/aluguel/comercial-002/fachada.webp",
+          "descricao": "Fachada do galpão",
+          "tipo": "frontal"
+        },
+        {
+          "url": "/comerciais/aluguel/comercial-002/aeria.webp",
+          "descricao": "Visão aérea do galpão",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/comerciais/aluguel/comercial-002/ampla.webp",
+          "descricao": "Amplitude do galpão",
           "tipo": "interna"
         }
       ],
@@ -362,22 +370,32 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2023-05-15",
-      "imagemDestaque": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+      "imagemDestaque": "/casas/venda/casa-002/fachada.webp",
       "dataEncerramamento": "2024-11-15",
       "imagens": [
+      {
+        "url": "/casas/venda/casa-002/fachada.webp",
+        "descricao": "Fachada do imóvel",
+        "tipo": "frontal"
+      },
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/casas/venda/casa-002/varanda.webp",
+          "descricao": "Varanda com vista para o jardim",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "url": "/casas/venda/casa-002/lavanderia.webp",
+          "descricao": "Lavanderia com espaço para máquina de lavar",
+          "tipo": "frontal"
+        },
+        {
+          "url": "/casas/venda/casa-002/sala.webp",
           "descricao": "Sala de estar ampla",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/casas/venda/casa-002/sala2.webp",
+          "descricao": "Sala de café da manhã",
           "tipo": "interna"
         }
       ],
@@ -422,22 +440,22 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-03-20",
-      "imagemDestaque": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+      "imagemDestaque": "/apartamentos/venda/apto-003/fachada.webp",
       "dataEncerramamento": "2025-03-20",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/apartamentos/venda/apto-003/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/apartamentos/venda/apto-003/vista.webp",
+          "descricao": "Vista panorâmica da cidade",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/apartamentos/venda/apto-003/sala.webp",
+          "descricao": "Sala de estar ampla e aconchegante",
           "tipo": "interna"
         }
       ],
@@ -482,21 +500,21 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-01-05",
-      "imagemDestaque": "https://i.ibb.co/3szWBwq/Edif-cio-Empresarial.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-003/sala.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/comerciais/aluguel/comercial-003/sala.webp",
+          "descricao": "Sala comercial moderna",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/comerciais/aluguel/comercial-003/corredor.webp",
+          "descricao": "Espaço amplo e bem iluminado",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/comerciais/aluguel/comercial-003/elevadores.webp",
+          "descricao": "Dois elevadores para acesso",
           "tipo": "interna"
         }
       ],
@@ -541,21 +559,21 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-02-20",
-      "imagemDestaque": "https://i.ibb.co/mqrXJ78/Residencial-Primavera.webp",
+      "imagemDestaque": "/apartamentos/venda/apto-004/sala.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/apartamentos/venda/apto-004/sala.webp",
+          "descricao": "Sala luxuosa e aconchegante",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/apartamentos/venda/apto-004/varanda.webp",
+          "descricao": "Varanda com vista para a cidade",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/apartamentos/venda/apto-004/cozinha.webp",
+          "descricao": "Cozinha integrada à sala",
           "tipo": "interna"
         }
       ],
@@ -600,23 +618,13 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2023-11-10",
-      "imagemDestaque": "https://i.ibb.co/wJX15Hg/Ref-gio-do-Lago.webp",
+      "imagemDestaque": "/casas/venda/casa-003/fachada.webp",
       "dataEncerramamento": "2025-01-30",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/casas/venda/casa-003/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
-        },
-        {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
-          "tipo": "interna"
-        },
-        {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
-          "tipo": "interna"
         }
       ],
       "likesCount": 120
@@ -660,21 +668,16 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-05-05",
-      "imagemDestaque": "https://i.ibb.co/68K7BFN/Kitnet-Central.webp",
+      "imagemDestaque": "/apartamentos/aluguel/apto-005/sala.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/apartamentos/aluguel/apto-005/sala.webp",
+          "descricao": "Sala compacta e funcional",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
-          "tipo": "interna"
-        },
-        {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/apartamentos/aluguel/apto-005/banheiro.webp",
+          "descricao": "Banheiro com box de vidro",
           "tipo": "interna"
         }
       ],
@@ -719,22 +722,12 @@ db.imoveis.insertMany(
         }
       ],
       "dataLancamento": "2024-06-20",
-      "imagemDestaque": "https://i.ibb.co/RT4g7B2/Ponto-Comercial.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-004/fachada.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/comerciais/aluguel/comercial-004/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
-        },
-        {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
-          "tipo": "interna"
-        },
-        {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
-          "tipo": "interna"
         }
       ],
       "likesCount": 70

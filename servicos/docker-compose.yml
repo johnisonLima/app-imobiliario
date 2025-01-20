@@ -71,6 +71,27 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:admin@banco:27017/  
       ME_CONFIG_BASICAUTH: false
 
+  arquivos:
+    build: ./dockerfiles/nginx
+    container_name: arquivos
+    hostname: arquivos
+    restart: always
+    volumes:
+      - ./imagens:/usr/share/nginx/html
+    ports:
+      - "5005:80"
+
+  # localstack:
+  #   image: localstack/localstack:latest
+  #   environment:
+  #     - AWS_DEFAULT_REGION=us-east-1
+  #     - EDGE_PORT=4566
+  #     - SERVICES=lambda, s3      
+  #   ports:
+  #     - "4566-4583:4566-4583"
+  #   volumes:
+  #     - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
 
   # banco:
   #   build:
@@ -101,12 +122,4 @@ services:
   #     ME_CONFIG_MONGODB_URL: mongodb://root:admin@banco:27017/
   #     ME_CONFIG_BASICAUTH: false   
 
-  # arquivos:
-  #   build: ./dockerfiles/nginx
-  #   container_name: arquivos
-  #   hostname: arquivos
-  #   restart: always
-  #   volumes:
-  #     - ./app-service/imagens:/usr/share/nginx/html
-  #   ports:
-  #     - "5005:80"
+ 
