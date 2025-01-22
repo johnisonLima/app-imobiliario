@@ -42,7 +42,8 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ImoveisRepositorio>(context, listen: false).getImoveis();
+      Provider.of<ImoveisRepositorio>(context, listen: false)
+        .getImoveis();
     });    
 
     _scrollController = ScrollController();
@@ -130,10 +131,8 @@ Widget _pesquisarImoveis(
 Widget _exibirImoveis(BuildContext context, ScrollController scrollController) {
   return RefreshIndicator(
     onRefresh: () async {
-      final imoveisRepo =
-          Provider.of<ImoveisRepositorio>(context, listen: false);
-
-      await imoveisRepo.getImoveis(refresh: true);
+      await Provider.of<ImoveisRepositorio>(context, listen: false)
+       .getImoveis(refresh: true);
     },
     child: Consumer<ImoveisRepositorio>(
       builder: (context, repositorio, child) {

@@ -43,12 +43,14 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final usuarioId = estadoUsuario.usuario?.uid ?? '';
 
-      Provider.of<LikesRepositorio>(context, listen: false)      
-      .verificarLike(widget.imovel.id, usuarioId).then((curtiu) {
-        setState(() {
-          _curtiu = curtiu;
-        });
-      });   
+      if(estaLogado){
+        Provider.of<LikesRepositorio>(context, listen: false)      
+          .verificarLike(widget.imovel.id, usuarioId).then((curtiu) {
+            setState(() {
+              _curtiu = curtiu;
+            });
+          }); 
+      }  
     });
   }
 
@@ -100,294 +102,285 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
             ? alturaImagem
             : alturaImagem * 1.1;
 
-      return Scaffold(
-        appBar: AppBar(),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              controller: _scrollController,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15, left: 8.0, right: 8.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: wrapImagem,
-                      child: Stack(
-                        children: [
-                          PageView.builder(
-                            itemCount: widget.imovel.imagens.length,
-                            controller: _controladorSlides,
-                            onPageChanged: (slide) {
-                              setState(() {
-                                _slideSelecionado = slide;
-                              });
-                            },
-                            itemBuilder: (context, index) {
-                              return Stack(children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.network(
-                                    widget.imovel.imagens[index].url,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: wrapImagem,
-                                  ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            controller: _scrollController,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15, left: 8.0, right: 8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: wrapImagem,
+                    child: Stack(
+                      children: [
+                        PageView.builder(
+                          itemCount: widget.imovel.imagens.length,
+                          controller: _controladorSlides,
+                          onPageChanged: (slide) {
+                            setState(() {
+                              _slideSelecionado = slide;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return Stack(children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  widget.imovel.imagens[index].url,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: wrapImagem,
                                 ),
-                                Positioned(
-                                  top: 10,
-                                  right: 10,
-                                  child: _like(estaLogado, context),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  left: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.imovel.titulo,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [
-                                            Shadow(
-                                              blurRadius: 5.0,
-                                              color: Colors.black45,
-                                              offset: Offset(2, 2),
-                                            ),
-                                          ],
-                                        ),
+                              ),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: _like(estaLogado, context),
+                              ),
+                              Positioned(
+                                bottom: 10,
+                                left: 10,
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.imovel.titulo,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                            blurRadius: 5.0,
+                                            color: Colors.black45,
+                                            offset: Offset(2, 2),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        widget.imovel.endereco.bairro,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          shadows: [
-                                            Shadow(
-                                              blurRadius: 5.0,
-                                              color: Colors.black45,
-                                              offset: Offset(2, 2),
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                    Text(
+                                      widget.imovel.endereco.bairro,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        shadows: [
+                                          Shadow(
+                                            blurRadius: 5.0,
+                                            color: Colors.black45,
+                                            offset: Offset(2, 2),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ]);
-                            },
-                          ),
-                        ],
-                      ),
+                              ),
+                            ]);
+                          },
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          widget.imovel.imagens.length,
-                          (index) => AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            width: _slideSelecionado == index
-                                ? 12
-                                : 8, // Tamanho do ponto selecionado
-                            height: 8,
-                            decoration: BoxDecoration(
-                              color: _slideSelecionado == index
-                                  ? Colors.blue
-                                  : Colors.grey,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        widget.imovel.imagens.length,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: _slideSelecionado == index
+                              ? 12
+                              : 8, // Tamanho do ponto selecionado
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: _slideSelecionado == index
+                                ? Colors.blue
+                                : Colors.grey,
+                            borderRadius: BorderRadius.circular(4),
                           ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 20, left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.imovel.tipo,
-                            style: GoogleFonts.robotoFlex(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w100,
-                              color: Colors.grey[800],
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 20, left: 10, right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.imovel.tipo,
+                          style: GoogleFonts.robotoFlex(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w100,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Share.share(
+                              'Confira este imóvel: ${widget.imovel.titulo}',
+                            );
+                          },
+                          icon: const Icon(Icons.share_outlined),
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.imovel.operacao,
+                          style: GoogleFonts.robotoFlex(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    height: 1,
+                    color: Colors.grey[600],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          paraMoeda(widget.imovel.valor),
+                          style: GoogleFonts.robotoFlex(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    height: 1,
+                    color: Colors.grey[600],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      children:
+                          widget.imovel.comodidades.map<Widget>((comodidade) {
+                        return Row(
+                          children: [
+                            Text(
+                              comodidade.qtd.toString(),
+                              style: GoogleFonts.robotoFlex(
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Share.share(
-                                'Confira este imóvel: ${widget.imovel.titulo}',
-                              );
-                            },
-                            icon: const Icon(Icons.share_outlined),
-                            color: Colors.grey,
-                          ),
-                        ],
+                            Icon(
+                              IconesImovel.iconMap[comodidade.tipo],
+                              size: 19,
+                              semanticLabel: comodidade.tipo,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 8),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    height: 1,
+                    color: Colors.grey[600],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20, left: 10, right: 10, bottom: 20),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        widget.imovel.sobre,
+                        style: GoogleFonts.robotoFlex(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w100,
+                          color: Colors.grey[500],
+                        ),
+                        textAlign: TextAlign.justify,
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, bottom: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.imovel.operacao,
-                            style: GoogleFonts.robotoFlex(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[800],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      height: 1,
-                      color: Colors.grey[600],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10, left: 10, right: 10, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            paraMoeda(widget.imovel.valor),
-                            style: GoogleFonts.robotoFlex(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[800],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      height: 1,
-                      color: Colors.grey[600],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10, left: 10, right: 10, bottom: 10),
-                      child: Row(
-                        children:
-                            widget.imovel.comodidades.map<Widget>((comodidade) {
-                          return Row(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 70.0, left: 10, right: 10),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Comentários',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        if (estaLogado)
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                comodidade.qtd.toString(),
-                                style: GoogleFonts.robotoFlex(
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Icon(
-                                IconesImovel.iconMap[comodidade.tipo],
-                                size: 19,
-                                semanticLabel: comodidade.tipo,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(left: 8),
+                                'Logado como: ${estadoUsuario.usuario?.nome}.',
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ],
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      height: 1,
-                      color: Colors.grey[600],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20, left: 10, right: 10, bottom: 20),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          widget.imovel.sobre,
-                          style: GoogleFonts.robotoFlex(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w100,
-                            color: Colors.grey[500],
                           ),
-                          textAlign: TextAlign.justify,
-                          softWrap: true,
-                          overflow: TextOverflow.visible,
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 10.0),
                         ),
-                      ),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        SizedBox(
+                          width: largura,
+                          height: 300,
+                          child: ListagemComentarios(
+                            imovelId: widget.imovel.id,
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 70.0, left: 10, right: 10),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Comentários',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          if (estaLogado)
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Logado como: ${estadoUsuario.usuario?.nome}.',
-                                  style: const TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 10.0),
-                          ),
-                          const Divider(
-                            color: Colors.grey,
-                            height: 1,
-                          ),
-                          SizedBox(
-                            width: largura,
-                            height: 300,
-                            child: ListagemComentarios(
-                              imovelId: widget.imovel.id,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            if (_mostrarContato) _exibirContato(widget.imovel.titulo),
-          ],
-        ),
-        endDrawer: const CustomEndDrawer(),
-      );
-    // );
+          ),
+          if (_mostrarContato) _exibirContato(widget.imovel.titulo),
+        ],
+      ),
+      endDrawer: const CustomEndDrawer(),
+    );
   }
 
   Widget _like(bool usuarioLogado, BuildContext context) {
     final likesRepo = Provider.of<LikesRepositorio>(context, listen: false);
     final usuarioId = estadoUsuario.usuario?.uid ?? '';
     final imovelId = widget.imovel.id;
-
-    // if (usuarioLogado) {
-    //   likesRepo.verificarLike(imovelId, usuarioId).then((curtiu) {
-    //     setState(() {
-    //       _curtiu = curtiu;
-    //     });
-    //   });
-    // }
 
     return Column(
       children: [

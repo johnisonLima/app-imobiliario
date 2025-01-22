@@ -79,10 +79,8 @@ class _CardComentariosState extends State<ListagemComentarios> {
   Widget _exibirComentarios(BuildContext context, ScrollController controller, String idcomentario) {
     return RefreshIndicator(
       onRefresh: () async {
-        final comentariosRepo =
-            Provider.of<ComentariosRepositorio>(context, listen: false);
-
-        await comentariosRepo.getComentarios(refresh: true, imovelId: idcomentario);
+        await Provider.of<ComentariosRepositorio>(context, listen: false)
+          .getComentarios(refresh: true, imovelId: idcomentario);
       },
       child: Consumer<ComentariosRepositorio>(
         builder: (context, repositorio, child) {
@@ -268,15 +266,13 @@ Widget _textFildCometario(controlador, imovel, enviarComentario) {
 }
 
 void _carregarComentarios(BuildContext context, String idcomentario) {
-  final comentariosRepo =
-      Provider.of<ComentariosRepositorio>(context, listen: false);
-  comentariosRepo.getComentarios(imovelId: idcomentario);
+  Provider.of<ComentariosRepositorio>(context, listen: false)
+    .getComentarios(imovelId: idcomentario);
 }
 
 void _atualizarComentarios(BuildContext context, String idcomentario) {
-  final comentariosRepo =
-      Provider.of<ComentariosRepositorio>(context, listen: false);
-  comentariosRepo.carregarMaisComentarios(imovelId: idcomentario);
+  Provider.of<ComentariosRepositorio>(context, listen: false)
+    .carregarMaisComentarios(imovelId: idcomentario);
 }
 
 void _enviarComentario(TextEditingController controlador, context,
@@ -298,10 +294,8 @@ void _enviarComentario(TextEditingController controlador, context,
   );
 
   try {
-    final comentariosRepo =
-        Provider.of<ComentariosRepositorio>(context, listen: false);
-
-    await comentariosRepo.adicionarComentario(novoComentario: comentario);
+    await Provider.of<ComentariosRepositorio>(context, listen: false)
+      .adicionarComentario(novoComentario: comentario);
 
     FocusScope.of(context).unfocus();
 
