@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lh_imoveis/repository/likes_repositorio.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -15,9 +16,13 @@ void main() async {
  await Firebase.initializeApp();
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => UsuarioManager(),
-      child: const App(),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => LikesRepositorio()),
+      ChangeNotifierProvider(create: (_) => UsuarioManager()),
+    ],
+    child: const App(),
+    // ChangeNotifierProvider(
+    //   create: (_) => UsuarioManager(),      
     ),
   );
 }

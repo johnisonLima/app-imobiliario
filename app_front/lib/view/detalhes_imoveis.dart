@@ -31,6 +31,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   int qtdLikes = 0;
   bool _mostrarContato = false;
   bool _curtiu = false;
+  late bool estaLogado;
 
   @override
   void initState() {
@@ -39,6 +40,21 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
     qtdLikes = widget.imovel.likesCount ?? 0;
+    estaLogado = estadoUsuario.estaLogado;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final likesRepo = Provider.of<LikesRepositorio>(context, listen: false);
+      final usuarioId = estadoUsuario.usuario?.uid ?? '';
+      // final imovelId = widget.imovel.id;
+
+      // if (usuarioLogado) {
+      likesRepo.verificarLike(widget.imovel.id, usuarioId).then((curtiu) {
+        setState(() {
+          _curtiu = curtiu;
+        });
+      });
+      // }      
+    });
   }
 
   @override
@@ -69,7 +85,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
       });
     }
 
-    if(isKeyboardVisible()) {
+    if (isKeyboardVisible()) {
       setState(() {
         _mostrarContato = false;
       });
@@ -89,7 +105,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
             ? alturaImagem
             : alturaImagem * 1.1;
 
-    bool estaLogado = estadoUsuario.estaLogado;
+    // bool estaLogado = estadoUsuario.estaLogado;
 
     return MultiProvider(
       providers: [
@@ -99,9 +115,9 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
         ChangeNotifierProvider(
           create: (_) => ImoveisRepositorio(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => LikesRepositorio(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => LikesRepositorio(),
+        // ),
       ],
       child: Scaffold(
         appBar: AppBar(),
@@ -384,13 +400,13 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     final usuarioId = estadoUsuario.usuario?.uid ?? '';
     final imovelId = widget.imovel.id;
 
-    if (usuarioLogado) {
-      likesRepo.verificarLike(imovelId, usuarioId).then((curtiu) {
-        setState(() {
-          _curtiu = curtiu;
-        });
-      });
-    }
+    // if (usuarioLogado) {
+    //   likesRepo.verificarLike(imovelId, usuarioId).then((curtiu) {
+    //     setState(() {
+    //       _curtiu = curtiu;
+    //     });
+    //   });
+    // }
 
     return Column(
       children: [

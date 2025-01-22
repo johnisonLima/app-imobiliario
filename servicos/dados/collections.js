@@ -1,142 +1,10 @@
 db = db.getSiblingDB('lh_imoveis');
+
 db.imoveis.drop();
 db.comentarios.drop();
 db.likes.drop();
 db.imoveis.drop();
-db.usuarios.insertMany(
-  [
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "usuario": {
-        "nome": "João Silva",
-        "email": "jaoo@email.com"
-      },
-      "texto": "Adorei o imóvel! Parece ser uma ótima oportunidade.",
-      "data":  ISODate("2024-11-12T10:15:00Z"),
-      "nota": 5
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "usuario": {
-        "nome": "Catarina A.",
-        "email": "catarina@email.com"
-      },
-      "texto": "Este é um ótimo bairro. Acho que é muito seguro e ando sozinho à noite com frequência. As ruas, calçadas e parques são bem cuidados.",
-      "data":  ISODate("2023-11-12T10:15:00Z"),
-      "nota": 5
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "usuario": {
-        "nome": "Ivete Sangalo",
-        "email": "ivete@email.com"
-      },
-      "texto": "Muito rápido para o trabalho, alguns motoristas irritantes /  rudes, mas eu sou do sul, então não estou acostumado com isso",
-      "data":  ISODate("2024-06-12T10:15:00Z"),
-      "nota": 4
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "usuario": {
-        "nome": "Caetano Veloso",
-        "email": "caetano@email.com"
-      },
-      "texto": "Excelente deslocamento. A vida caminhável torna as coisas acessíveis no bairro, de lojas a restaurantes.",
-      "data":  ISODate("2024-08-12T10:15:00Z"),
-      "nota": 4
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "usuario": {
-        "nome": "Mara Maravilha",
-        "email": "mara@email.com"
-      },
-      "texto": "Você não precisa ter carro neste bairro se não quiser. Tudo Pertinho.",
-      "data":  ISODate("2024-08-12T10:15:00Z"),
-      "nota": 4
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "usuario": {
-        "nome": "Dinho Ouro Preto",
-        "email": "dinho@email.com"
-      },
-      "texto": "O bairro é incrível. Ótimas opções de transporte público ao redor. As estradas são agradáveis e bem pavimentadas.",
-      "data":  ISODate("2024-02-12T10:15:00Z"),
-      "nota": 4
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85525",
-      "usuario": {
-        "nome": "Maria Oliveira",
-        "email": "maria@email.com"
-      },
-      "texto": "Gostei, mas gostaria de mais detalhes sobre o bairro.",
-      "data":  ISODate("2024-11-11T14:30:00Z"),
-      "nota": 4
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85527",
-      "texto": "Ótimas lojas, bares e restaurantes na Avenida, excelentes vistas sobre a Reserva Alki & Schmidts para passear com cães.",
-      "data":  ISODate("2024-11-28T15:22:51.757559"),
-      "nota": 5,
-      "usuario": {
-        "nome": "Johnison",
-        "email": "johnisonbsi@outlook.com"
-      }
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85527",
-      "texto": "É toda a vibe alki, você pode aproveitar a vida um pouco mais, lits de restaurantes, caminhadas ao longo da avenida, parques locais. Acesso aos jogos do centro da cidade a pé na balsa.",
-      "data":  ISODate("2024-11-28T15:28:34.188705"),
-      "nota": 5,
-      "usuario": {
-        "nome": "Lindsay Lohan",
-        "email": "lindsay@outlook.com"
-      }
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85525",
-      "texto": "Os carros podem dirigir de forma um pouco imprudente, mas na maioria das vezes eu diria que este é o bairro mais seguro da cidade.",
-      "data":  ISODate("2024-11-28T15:35:40.050252"),
-      "nota": 5,
-      "usuario": {
-        "nome": "Lindsay Lohan",
-        "email": "lindsay@outlook.com"
-      }
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85526",
-      "texto": "Muitos lugares para comer, belas vistas. Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
-      "data":  ISODate("2024-11-28T15:54:48.306877"),
-      "nota": 5,
-      "usuario": {
-        "nome": "Lindsay Lohan",
-        "email": "lindsay@outlook.com"
-      }
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85527",
-      "texto": "Eu pego ônibus para o centro da cidade 3 vezes por semana e é um trajeto muito fácil de 50 minutos. Os ônibus que saem de alki são seguros e higiênicos. O trajeto de carro também não é tão ruim, embora as rodovias do outro lado da ponte não sejam as",
-      "data":  ISODate("2024-11-28T16:08:04.627073"),
-      "nota": 5,
-      "usuario": {
-        "nome": "Morgan Freeman",
-        "email": "morgan@outlook.com"
-      }
-    },
-    {
-      "imovelId": "6782d16fd828c3511bd85524",
-      "texto": "Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
-      "data": "2024-11-28T16:34:56.975910",
-      "nota": 5,
-      "usuario": {
-        "nome": "Morgan Freeman",
-        "email": "morgan@outlook.com"
-      }
-    }
-  ]
-);
+db.usuarios.drop();
 
 db.imoveis.insertMany(
   [
@@ -731,6 +599,141 @@ db.imoveis.insertMany(
         }
       ],
       "likesCount": 70
+    }
+  ]
+);
+
+db.comentarios.insertMany(
+  [
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "usuario": {
+        "nome": "João Silva",
+        "email": "jaoo@email.com"
+      },
+      "texto": "Adorei o imóvel! Parece ser uma ótima oportunidade.",
+      "data":  ISODate("2024-11-12T10:15:00Z"),
+      "nota": 5
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "usuario": {
+        "nome": "Catarina A.",
+        "email": "catarina@email.com"
+      },
+      "texto": "Este é um ótimo bairro. Acho que é muito seguro e ando sozinho à noite com frequência. As ruas, calçadas e parques são bem cuidados.",
+      "data":  ISODate("2023-11-12T10:15:00Z"),
+      "nota": 5
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "usuario": {
+        "nome": "Ivete Sangalo",
+        "email": "ivete@email.com"
+      },
+      "texto": "Muito rápido para o trabalho, alguns motoristas irritantes /  rudes, mas eu sou do sul, então não estou acostumado com isso",
+      "data":  ISODate("2024-06-12T10:15:00Z"),
+      "nota": 4
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "usuario": {
+        "nome": "Caetano Veloso",
+        "email": "caetano@email.com"
+      },
+      "texto": "Excelente deslocamento. A vida caminhável torna as coisas acessíveis no bairro, de lojas a restaurantes.",
+      "data":  ISODate("2024-08-12T10:15:00Z"),
+      "nota": 4
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "usuario": {
+        "nome": "Mara Maravilha",
+        "email": "mara@email.com"
+      },
+      "texto": "Você não precisa ter carro neste bairro se não quiser. Tudo Pertinho.",
+      "data":  ISODate("2024-08-12T10:15:00Z"),
+      "nota": 4
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "usuario": {
+        "nome": "Dinho Ouro Preto",
+        "email": "dinho@email.com"
+      },
+      "texto": "O bairro é incrível. Ótimas opções de transporte público ao redor. As estradas são agradáveis e bem pavimentadas.",
+      "data":  ISODate("2024-02-12T10:15:00Z"),
+      "nota": 4
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85525",
+      "usuario": {
+        "nome": "Maria Oliveira",
+        "email": "maria@email.com"
+      },
+      "texto": "Gostei, mas gostaria de mais detalhes sobre o bairro.",
+      "data":  ISODate("2024-11-11T14:30:00Z"),
+      "nota": 4
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85527",
+      "texto": "Ótimas lojas, bares e restaurantes na Avenida, excelentes vistas sobre a Reserva Alki & Schmidts para passear com cães.",
+      "data":  ISODate("2024-11-28T15:22:51.757559"),
+      "nota": 5,
+      "usuario": {
+        "nome": "Johnison",
+        "email": "johnisonbsi@outlook.com"
+      }
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85527",
+      "texto": "É toda a vibe alki, você pode aproveitar a vida um pouco mais, lits de restaurantes, caminhadas ao longo da avenida, parques locais. Acesso aos jogos do centro da cidade a pé na balsa.",
+      "data":  ISODate("2024-11-28T15:28:34.188705"),
+      "nota": 5,
+      "usuario": {
+        "nome": "Lindsay Lohan",
+        "email": "lindsay@outlook.com"
+      }
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85525",
+      "texto": "Os carros podem dirigir de forma um pouco imprudente, mas na maioria das vezes eu diria que este é o bairro mais seguro da cidade.",
+      "data":  ISODate("2024-11-28T15:35:40.050252"),
+      "nota": 5,
+      "usuario": {
+        "nome": "Lindsay Lohan",
+        "email": "lindsay@outlook.com"
+      }
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85526",
+      "texto": "Muitos lugares para comer, belas vistas. Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
+      "data":  ISODate("2024-11-28T15:54:48.306877"),
+      "nota": 5,
+      "usuario": {
+        "nome": "Lindsay Lohan",
+        "email": "lindsay@outlook.com"
+      }
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85527",
+      "texto": "Eu pego ônibus para o centro da cidade 3 vezes por semana e é um trajeto muito fácil de 50 minutos. Os ônibus que saem de alki são seguros e higiênicos. O trajeto de carro também não é tão ruim, embora as rodovias do outro lado da ponte não sejam as",
+      "data":  ISODate("2024-11-28T16:08:04.627073"),
+      "nota": 5,
+      "usuario": {
+        "nome": "Morgan Freeman",
+        "email": "morgan@outlook.com"
+      }
+    },
+    {
+      "imovelId": "6782d16fd828c3511bd85524",
+      "texto": "Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
+      "data": "2024-11-28T16:34:56.975910",
+      "nota": 5,
+      "usuario": {
+        "nome": "Morgan Freeman",
+        "email": "morgan@outlook.com"
+      }
     }
   ]
 );

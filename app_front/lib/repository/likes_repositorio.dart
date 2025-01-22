@@ -69,14 +69,13 @@ class LikesRepositorio extends BaseRepositorio with ChangeNotifier {
     }
   }
 
-  Future<bool> verificarLike(String imovelId, String usuarioId) async {  
+  Future<bool> verificarLike(String imovelId, String usuarioId) async {
     final String api = '${BASE_API}:5003/likes/$imovelId/$usuarioId';
     Uri uri = Uri.parse(api);
 
     try {
+      final response = await http.get(uri);      
 
-      final response = await http.get(uri);
-      
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return data['curtiu'] ?? false; // Retorna true ou false
