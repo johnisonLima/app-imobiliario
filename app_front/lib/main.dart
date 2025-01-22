@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lh_imoveis/repository/likes_repositorio.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:lh_imoveis/model/imoveis.dart';
-import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
 import 'package:lh_imoveis/view/pesquisar_imoveis.dart';
 import 'package:lh_imoveis/view/detalhes_imoveis.dart';
 import 'package:lh_imoveis/view/pagina_inicial.dart';
+import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
 import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
+import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
+import 'package:lh_imoveis/repository/likes_repositorio.dart';
 
 void main() async {
  WidgetsFlutterBinding.ensureInitialized(); 
  await Firebase.initializeApp();
 
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => LikesRepositorio()),
-      ChangeNotifierProvider(create: (_) => UsuarioManager()),
-    ],
-    child: const App(),
-    // ChangeNotifierProvider(
-    //   create: (_) => UsuarioManager(),      
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ImoveisRepositorio()),
+        ChangeNotifierProvider(create: (_) => LikesRepositorio()),
+        ChangeNotifierProvider(create: (_) => ComentariosRepositorio()),
+        ChangeNotifierProvider(create: (_) => UsuarioManager()),
+      ],
+      child: const App(),
     ),
   );
 }
@@ -45,11 +47,8 @@ class _AppState extends State<App> {
         if (settings.name == DetalhesImoveis.rountName) {
           final imovel = settings.arguments as Imovel;
 
-          return MaterialPageRoute(
-            builder: (context) => ChangeNotifierProvider(
-              create: (_) => ComentariosRepositorio(),
-              child: DetalhesImoveis(imovel: imovel),
-            ),
+           return MaterialPageRoute(
+            builder: (context) => DetalhesImoveis(imovel: imovel)
           );
         }
 

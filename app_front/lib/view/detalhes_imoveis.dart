@@ -7,11 +7,9 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:lh_imoveis/components/listagem_comentarios.dart';
 import 'package:lh_imoveis/components/icones_imovel.dart';
-import 'package:lh_imoveis/model/imoveis.dart';
-import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
-import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
-import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 import 'package:lh_imoveis/components/end_drawer.dart';
+import 'package:lh_imoveis/model/imoveis.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 import 'package:lh_imoveis/repository/likes_repositorio.dart';
 
 class DetalhesImoveis extends StatefulWidget {
@@ -43,17 +41,14 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
     estaLogado = estadoUsuario.estaLogado;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final likesRepo = Provider.of<LikesRepositorio>(context, listen: false);
       final usuarioId = estadoUsuario.usuario?.uid ?? '';
-      // final imovelId = widget.imovel.id;
 
-      // if (usuarioLogado) {
-      likesRepo.verificarLike(widget.imovel.id, usuarioId).then((curtiu) {
+      Provider.of<LikesRepositorio>(context, listen: false)      
+      .verificarLike(widget.imovel.id, usuarioId).then((curtiu) {
         setState(() {
           _curtiu = curtiu;
         });
-      });
-      // }      
+      });   
     });
   }
 
@@ -105,21 +100,7 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
             ? alturaImagem
             : alturaImagem * 1.1;
 
-    // bool estaLogado = estadoUsuario.estaLogado;
-
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => ComentariosRepositorio(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ImoveisRepositorio(),
-        ),
-        // ChangeNotifierProvider(
-        //   create: (_) => LikesRepositorio(),
-        // ),
-      ],
-      child: Scaffold(
+      return Scaffold(
         appBar: AppBar(),
         body: Stack(
           children: [
@@ -391,8 +372,8 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
           ],
         ),
         endDrawer: const CustomEndDrawer(),
-      ),
-    );
+      );
+    // );
   }
 
   Widget _like(bool usuarioLogado, BuildContext context) {
