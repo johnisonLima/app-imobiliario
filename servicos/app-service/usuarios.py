@@ -23,19 +23,16 @@ def get_todos_usuarios():
 def registrar_usuario():
     dados = request.json
 
-    # Obter UID e Email do Firebase
     uid = dados.get("uid")
     email = dados.get("email")
 
     if not uid or not email:
         return jsonify({"erro": "UID e Email são obrigatórios"}), 400
 
-    # Verificar se o usuário já existe
     usuario_existente = db.usuarios.find_one({"_id": uid})
     if usuario_existente:
         return jsonify({"mensagem": "Usuário já registrado"}), 200
 
-    # Inserir novo usuário
     novo_usuario = {
         "_id": uid,  # UID do Firebase como chave primária
         "email": email,

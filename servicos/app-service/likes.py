@@ -25,23 +25,19 @@ def get_todos_likes():
 
 @servico.route('/likes/<string:imovel_id>', methods=['GET'])
 def get_likes_imovel(imovel_id):
-    # Buscar todos os likes para o imóvel
     likes = list(db.likes.find({"imovelId": imovel_id}))
 
-    # Formatar o resultado
     for like in likes:
-        like["_id"] = str(like["_id"])  # Convertendo ObjectId para string
-        like["data"] = like["data"].isoformat()  # Convertendo datetime para string ISO
+        like["_id"] = str(like["_id"])  
+        like["data"] = like["data"].isoformat()  
 
     return jsonify(likes), 200
 
 @servico.route('/likes/<string:imovel_id>/<string:usuario_id>', methods=['GET'])
 def get_like_usuario_imovel(imovel_id, usuario_id):
-    # Consulta para verificar se existe um like com o imovelId e usuarioId
     like = db.likes.find_one({"imovelId": imovel_id, "usuarioId": usuario_id})
 
     if like:
-        # Convertendo o _id para string
         like["_id"] = str(like["_id"])
         return jsonify({"curtiu": True, "like": like}), 200
     else:
@@ -58,13 +54,11 @@ def registrar_like():
     if not imovel_id or not usuario_id:
         return jsonify({"erro": "Imóvel ID e Usuário ID são obrigatórios"}), 400
 
-    # Verificar se o like já existe
     like_existente = db.likes.find_one({"imovelId": imovel_id, "usuarioId": usuario_id})
 
     if like_existente:
         return jsonify({"mensagem": "Usuário já deu like nesse imóvel"}), 200
 
-    # Inserir novo like
     novo_like = {
         "imovelId": imovel_id,
         "usuarioId": usuario_id,
@@ -73,7 +67,6 @@ def registrar_like():
 
     db.likes.insert_one(novo_like)
 
-    # Incrementar o contador de likes no imóvel
     db.imoveis.update_one(
         {"_id": ObjectId(imovel_id)},
         {"$inc": {"likesCount": 1}}
@@ -83,13 +76,11 @@ def registrar_like():
 
 @servico.route('/likes/<string:imovel_id>/<string:usuario_id>', methods=['DELETE'])
 def excluir_like(imovel_id, usuario_id):
-    # Buscar e remover o like
     resultado = db.likes.delete_one({"imovelId": imovel_id, "usuarioId": usuario_id})
 
     if resultado.deleted_count == 0:
         return jsonify({"erro": "Like não encontrado"}), 404
     
-    # Decrementar o contador de likes no imóvel
     db.imoveis.update_one(
         {"_id": ObjectId(imovel_id)},
         {"$inc": {"likesCount": -1}}

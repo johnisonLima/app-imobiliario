@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names,
-// unnecessary_brace_in_string_interps
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,7 +6,7 @@ import 'package:lh_imoveis/model/imoveis.dart';
 import 'package:lh_imoveis/repository/base_repositorio.dart';
 
 class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
-  String? _ultimoId; // Armazena o último ID retornado
+  String? _ultimoId; 
   bool _carregando = false;
   bool _temMais = true;
 
@@ -18,12 +16,7 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
   bool get temMaisImoveis => _temMais;
 
   Future<void> getImoveis({String? operacao, bool? refresh = false}) async {
-    if (refresh != null && refresh) {
-      _ultimoId = null; // Reinicia o ID para carregar desde o início
-      _imoveis.clear();
-      _carregando = false;
-      _temMais = true;
-    }
+    _reload(refresh);
 
     if (_carregando || !_temMais) return;
 
@@ -31,22 +24,16 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
     notifyListeners();
 
     try {
-      // Monta a URL da API com base no último ID e no tamanho da página
       int tamanhoPagina = 3;
-      //// Base URL para as imagens
-      // ignore: unnecessary_brace_in_string_interps
       String baseImageUrl = '${BASE_API}:5005';
-      // ignore: unnecessary_brace_in_string_interps
       String baseUrl = '${BASE_API}:5001/imoveis';
       String api;
 
       if (_ultimoId == null) {
-        // Primeira página
         api = operacao != null
             ? '$baseUrl/0/$tamanhoPagina?operacao=$operacao'
             : '$baseUrl/0/$tamanhoPagina';
       } else {
-        // Páginas subsequentes
         api = operacao != null
             ? '$baseUrl/$_ultimoId/$tamanhoPagina?operacao=$operacao'
             : '$baseUrl/$_ultimoId/$tamanhoPagina';
@@ -54,28 +41,22 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
 
       final Uri uri = Uri.parse(api);
       final response = await http.get(uri);
+      print("ultimoId: $_ultimoId");
 
       if (response.statusCode == 200) {
         final dados = json.decode(response.body) as List;
 
         if (dados.isEmpty) {
-          _temMais = false; // Não há mais imóveis
+          _temMais = false; 
         } else {
-          // Atualiza a lista de imóveis
-          // _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
-          // Atualiza a lista de imóveis e monta a URL das imagens
-
           _imoveis.addAll(dados.map((item) {
-            // Monta o caminho completo da imagem de destaque
             String caminhoDestaque = item['imagemDestaque'] ?? '';
             item['imagemDestaque'] = caminhoDestaque.isNotEmpty
                 ? '$baseImageUrl$caminhoDestaque'
                 : null;
-
-            // Opcional: processa as URLs dentro do array 'imagens'
+            
             if (item['imagens'] != null && item['imagens'] is List) {
               item['imagens'] = (item['imagens'] as List).map((img) {
-                // Certifica-se de que a URL é mantida ou ajustada se necessário
                 if (img['url'] != null && !(img['url'] as String).startsWith('http')) {
                   img['url'] = '$baseImageUrl${img['url']}';
                 }
@@ -83,12 +64,9 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
               }).toList();
             }
 
-            // Converte para o modelo
             return Imovel.fromJson(item);
           }).toList());
 
-
-          // Atualiza o último ID com o ID do último imóvel retornado
           _ultimoId = _imoveis.last.id;
         }
       } else {
@@ -116,29 +94,19 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
     bool? refresh = false,
     bool novaBusca = false,
   }) async {
-    if (refresh != null && refresh) {
-      _ultimoId = null; // Reinicia o ID para carregar desde o início
-      _imoveis.clear();
-      _carregando = false;
-      _temMais = true;
-    }
+    _reload(refresh);
 
     if (_carregando || !_temMais) return;
-
-    // if (novaBusca) _ultimoId = null;
 
     _carregando = true;
     notifyListeners();
 
     try {
       int tamanhoPagina = 3;
-      // ignore: unnecessary_brace_in_string_interps
       String baseImageUrl = '${BASE_API}:5005';
-      // ignore: unnecessary_brace_in_string_interps
       String baseUrl = '${BASE_API}:5001/buscar_imoveis';
       String api;
 
-      // Monta os parâmetros da URL
       Map<String, String> params = {};
 
       if (tipo != null) params['tipo'] = tipo;
@@ -154,43 +122,34 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
         params['comodidades'] = comodidades.join(',');
       }
 
-      // Adiciona o último ID e o tamanho da página na URL
       if (_ultimoId == null) {
-        // Primeira página
         api = '$baseUrl/0/$tamanhoPagina';
       } else {
-        // Páginas subsequentes
         api = '$baseUrl/$_ultimoId/$tamanhoPagina';
       }
 
-      // Adiciona os filtros como query parameters
       if (params.isNotEmpty) {
         api += '?${Uri(queryParameters: params).query}';
       }
 
       final Uri uri = Uri.parse(api);
       final response = await http.get(uri);
+      print("ultimoId: $_ultimoId");
 
       if (response.statusCode == 200) {
         final dados = json.decode(response.body) as List;
 
         if (dados.isEmpty) {
-          _temMais = false; // Não há mais imóveis
+          _temMais = false; 
         } else {
-          // Atualiza a lista de imóveis
-          // _imoveis.addAll(dados.map((item) => Imovel.fromJson(item)).toList());
-
           _imoveis.addAll(dados.map((item) {
-            // Monta o caminho completo da imagem de destaque
             String caminhoDestaque = item['imagemDestaque'] ?? '';
             item['imagemDestaque'] = caminhoDestaque.isNotEmpty
                 ? '$baseImageUrl$caminhoDestaque'
                 : null;
 
-            // Opcional: processa as URLs dentro do array 'imagens'
             if (item['imagens'] != null && item['imagens'] is List) {
               item['imagens'] = (item['imagens'] as List).map((img) {
-                // Certifica-se de que a URL é mantida ou ajustada se necessário
                 if (img['url'] != null && !(img['url'] as String).startsWith('http')) {
                   img['url'] = '$baseImageUrl${img['url']}';
                 }
@@ -198,11 +157,9 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
               }).toList();
             }
 
-            // Converte para o modelo
             return Imovel.fromJson(item);
           }).toList());
 
-          // Atualiza o último ID com o ID do último imóvel retornado
           _ultimoId = _imoveis.last.id;
         }
       } else {
@@ -247,5 +204,14 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
       maxArea: maxArea,
       comodidades: comodidades,
     );
+  }
+
+  _reload(bool? refresh) {
+    if (refresh != null && refresh) {
+      _ultimoId = null; 
+      _imoveis.clear();
+      _carregando = false;
+      _temMais = true;
+    }
   }
 }
