@@ -1,17 +1,19 @@
 servicos/
 ├── app-services/
-│   ├── comentarios/
-│   ├── imagens/
-│   ├── imoveis/
-│   └── likes/
-├── dockerfiles/
-│   └── mongo/
-│       └── Dockerfile # meu Dockerfile do mongo está aqui
-├── nginx/
-├── python/
-├── docker-compose.yml
+│   ├── comentarios.py
+│   ├── db_config.py
+│   ├── imagens.py
+│   ├── imoveis.py
+│   └── likes.py
 ├── dados/
-│   ├── dados_comentarios.json
-│   ├── dados_imoveis.json
-│   └── dados_likes.json
+│   └── collections.js
+├── dockerfiles/
+│   ├── mongo
+│       └── Dockerfile 
+│   ├── nginx
+│       └── Dockerfile 
+│   └── python/
+│       └── Dockerfile 
+├── imagens/
+├── docker-compose.yml
 └── init.sh
