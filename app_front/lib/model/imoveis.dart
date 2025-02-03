@@ -13,6 +13,7 @@ class Imovel {
   final String imagemDestaque;
   final String? dataEncerramento;
   final List<Imagens> imagens;
+  final int? likesCount;
 
   Imovel({
     required this.id,
@@ -29,11 +30,12 @@ class Imovel {
     required this.imagemDestaque,
     required this.imagens,
     this.dataEncerramento,
+    this.likesCount = 0,
   });
 
   factory Imovel.fromJson(Map<String, dynamic> json) {
     return Imovel(
-      id: json['id'],
+      id: json['_id'],
       tipo: json['tipo'],
       sobre: json['sobre'],
       valor: json['valor'].toDouble(),
@@ -51,11 +53,12 @@ class Imovel {
       imagens: (json['imagens'] as List)
         .map((i) => Imagens.fromJson(i))
         .toList(),
+      likesCount: json['likesCount'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
+        '_id': id,
         'tipo': tipo,
         'sobre': sobre,
         'valor': valor,
@@ -69,6 +72,7 @@ class Imovel {
         'imagemDestaque': imagemDestaque,
         'dataEncerramento': dataEncerramento,
         'imagens': imagens.map((i) => i.toJson()).toList(),
+        'likesCount': likesCount,
       };
 }
 

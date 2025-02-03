@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "json-server": "^0.17.4"
-  },
-  "scripts": {
-    "server-start": "json-server --host seu_ip_aqui --port 8080 db/db.json"
-  }
-}

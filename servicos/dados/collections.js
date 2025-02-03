@@ -1,7 +1,15 @@
-{
-  "imoveis": [
+db = db.getSiblingDB('lh_imoveis');
+
+db.imoveis.drop();
+db.comentarios.drop();
+db.likes.drop();
+db.imoveis.drop();
+db.usuarios.drop();
+
+db.imoveis.insertMany(
+  [
     {
-      "id": "1",
+      "_id": ObjectId('6782d16fd828c3511bd85524'),
       "tipo": "Apartamento",
       "sobre": "O Residencial RIVERSIDE tem 54,81m2 de área privativa, bem distribuídos em 2 quartos, Sala, banheiro social, cozinha e área de serviço, 1 vaga de estacionamento e vagas para visitante. Localizado no B. Felícia _ Lot. Alameda dos Pássaros, 555 (Próximo ao Shopping Conquista Sul) ponto de Transporte coletivo em frente, padarias e farmácias. Possui Piscina adulto e infantil, área de fitness, quadra, jardim, churrasqueira, playground e Salão para festas. Além disso, segurança garantida 24 horas. ",
       "valor": 235.11,
@@ -43,28 +51,29 @@
         }
       ],
       "dataLancamento": "2024-02-16",
-      "imagemDestaque": "https://i.ibb.co/MZ795dC/apartamento.webp",
       "dataEncerramamento": "2024-07-30",
+      "imagemDestaque": "/apartamentos/venda/apto-002/apartamento.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/apartamentos/venda/apto-002/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "url": "/apartamentos/venda/apto-002/sala.webp",
           "descricao": "Sala de estar ampla",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+          "url": "/apartamentos/venda/apto-002/Cobertura-da-Colina.webp",
           "descricao": "Quarto com armário embutido",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 150
     },
     {
-      "id": "2",
+      "_id": ObjectId('6782d16fd828c3511bd85525'),
       "tipo": "Galpão em Condomínio",
       "sobre": "Condomínio de galpões modulares com todas as facilidades para as empresas que necessitam de espaços para armazenagem, oferecendo aos usuários todos os benefícios e vantagens de uma infraestrutura.",
       "valor": 89490,
@@ -102,27 +111,28 @@
         }
       ],
       "dataLancamento": "2024-10-01",
-      "imagemDestaque": "https://i.ibb.co/4WPRZrG/galpao.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-001/galpao.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/comerciais/aluguel/comercial-001/fachada.webp",
+          "descricao": "Fachada do galpão",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/comerciais/aluguel/comercial-001/estrutura.webp",
+          "descricao": "Estutura do galpão com pé direito alto",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/comerciais/aluguel/comercial-001/ampla.webp",
+          "descricao": "Visão ampla do galpão",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 111      
     },
     {
-      "id": "3",
+      "_id": ObjectId('6782d16fd828c3511bd85526'),
       "tipo": "Aluguel",
       "sobre": "Galpão A com 13 módulos disponíveis a partir de 1.731m² até 23.344m² podendo locar juntos ou separados",
       "valor": 611.52,
@@ -164,27 +174,33 @@
         }
       ],
       "dataLancamento": "24-12-11",
-      "imagemDestaque": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-002/fachada.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/comerciais/aluguel/comercial-002/galpao.webp",
+          "descricao": "Galpão com 13 módulos disponíveis",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/comerciais/aluguel/comercial-002/fachada.webp",
+          "descricao": "Fachada do galpão",
+          "tipo": "frontal"
+        },
+        {
+          "url": "/comerciais/aluguel/comercial-002/aeria.webp",
+          "descricao": "Visão aérea do galpão",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/comerciais/aluguel/comercial-002/ampla.webp",
+          "descricao": "Amplitude do galpão",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 100
     },
     {
-      "id": "4",
+      "_id": ObjectId('6782d16fd828c3511bd85527'),
       "tipo": "Casa",
       "sobre": "Casa residencial espaçosa com 3 quartos, suíte, cozinha ampla e quintal com área para lazer. Localizada em bairro tranquilo e próximo a escolas, mercados e transporte público.",
       "valor": 320,
@@ -222,28 +238,39 @@
         }
       ],
       "dataLancamento": "2023-05-15",
-      "imagemDestaque": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+      "imagemDestaque": "/casas/venda/casa-002/fachada.webp",
       "dataEncerramamento": "2024-11-15",
       "imagens": [
+      {
+        "url": "/casas/venda/casa-002/fachada.webp",
+        "descricao": "Fachada do imóvel",
+        "tipo": "frontal"
+      },
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/casas/venda/casa-002/varanda.webp",
+          "descricao": "Varanda com vista para o jardim",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
+          "url": "/casas/venda/casa-002/lavanderia.webp",
+          "descricao": "Lavanderia com espaço para máquina de lavar",
+          "tipo": "frontal"
+        },
+        {
+          "url": "/casas/venda/casa-002/sala.webp",
           "descricao": "Sala de estar ampla",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/casas/venda/casa-002/sala2.webp",
+          "descricao": "Sala de café da manhã",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 200
     },
     {
-      "id": "5",
+      "_id": ObjectId('6782d16fd828c3511bd85528'),
       "tipo": "Cobertura",
       "sobre": "Cobertura duplex de alto padrão com vista panorâmica, 4 suítes, piscina privativa, e área gourmet. Localizada em área nobre com fácil acesso a restaurantes e shoppings.",
       "valor": 950.75,
@@ -281,28 +308,29 @@
         }
       ],
       "dataLancamento": "2024-03-20",
-      "imagemDestaque": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
+      "imagemDestaque": "/apartamentos/venda/apto-003/fachada.webp",
       "dataEncerramamento": "2025-03-20",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/apartamentos/venda/apto-003/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/apartamentos/venda/apto-003/vista.webp",
+          "descricao": "Vista panorâmica da cidade",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/apartamentos/venda/apto-003/sala.webp",
+          "descricao": "Sala de estar ampla e aconchegante",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 58
     },
     {
-      "id": "6",
+      "_id": ObjectId('6782d16fd828c3511bd85529'),
       "tipo": "Sala Comercial",
       "sobre": "Sala comercial em edifício moderno, com recepção, segurança e fácil acesso. Ideal para escritórios e consultórios.",
       "valor": 115,
@@ -340,27 +368,28 @@
         }
       ],
       "dataLancamento": "2024-01-05",
-      "imagemDestaque": "https://i.ibb.co/3szWBwq/Edif-cio-Empresarial.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-003/sala.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/comerciais/aluguel/comercial-003/sala.webp",
+          "descricao": "Sala comercial moderna",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/comerciais/aluguel/comercial-003/corredor.webp",
+          "descricao": "Espaço amplo e bem iluminado",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/comerciais/aluguel/comercial-003/elevadores.webp",
+          "descricao": "Dois elevadores para acesso",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 30
     },
     {
-      "id": "7",
+      "_id": ObjectId('6782d16fd828c3511bd8552a'),
       "tipo": "Apartamento",
       "sobre": "Apartamento aconchegante e bem localizado, com 3 quartos, sendo uma suíte, cozinha integrada à sala, varanda e vaga de garagem coberta. Ideal para quem busca conforto e praticidade no dia a dia.",
       "valor": 280,
@@ -398,27 +427,28 @@
         }
       ],
       "dataLancamento": "2024-02-20",
-      "imagemDestaque": "https://i.ibb.co/mqrXJ78/Residencial-Primavera.webp",
+      "imagemDestaque": "/apartamentos/venda/apto-004/sala.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/apartamentos/venda/apto-004/sala.webp",
+          "descricao": "Sala luxuosa e aconchegante",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
+          "url": "/apartamentos/venda/apto-004/varanda.webp",
+          "descricao": "Varanda com vista para a cidade",
           "tipo": "interna"
         },
         {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/apartamentos/venda/apto-004/cozinha.webp",
+          "descricao": "Cozinha integrada à sala",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 80
     },
     {
-      "id": "8",
+      "_id": ObjectId('6782d16fd828c3511bd8552b'),
       "tipo": "Chácara",
       "sobre": "Chácara completa com piscina, churrasqueira, ampla área verde e um belo lago. Ideal para quem busca tranquilidade e contato com a natureza.",
       "valor": 1200,
@@ -456,28 +486,19 @@
         }
       ],
       "dataLancamento": "2023-11-10",
-      "imagemDestaque": "https://i.ibb.co/wJX15Hg/Ref-gio-do-Lago.webp",
+      "imagemDestaque": "/casas/venda/casa-003/fachada.webp",
       "dataEncerramamento": "2025-01-30",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/casas/venda/casa-003/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
-        },
-        {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
-          "tipo": "interna"
-        },
-        {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
-          "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 120
     },
     {
-      "id": "9",
+      "_id": ObjectId('6782d16fd828c3511bd8552c'),
       "tipo": "Kitnet",
       "sobre": "Kitnet compacta, mobiliada, ideal para estudantes e profissionais solteiros. Localização central, próxima a transporte público e comércio.",
       "valor": 100,
@@ -515,27 +536,23 @@
         }
       ],
       "dataLancamento": "2024-05-05",
-      "imagemDestaque": "https://i.ibb.co/68K7BFN/Kitnet-Central.webp",
+      "imagemDestaque": "/apartamentos/aluguel/apto-005/sala.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
-          "descricao": "Fachada do imóvel",
+          "url": "/apartamentos/aluguel/apto-005/sala.webp",
+          "descricao": "Sala compacta e funcional",
           "tipo": "frontal"
         },
         {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
-          "tipo": "interna"
-        },
-        {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
+          "url": "/apartamentos/aluguel/apto-005/banheiro.webp",
+          "descricao": "Banheiro com box de vidro",
           "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 90
     },
     {
-      "id": "10",
+      "_id": ObjectId('6782d16fd828c3511bd8552d'),
       "tipo": "Ponto Comercial",
       "sobre": "Loja ampla, pronta para comércio, com ótima localização em rua movimentada. Possui espaço para depósito e dois banheiros.",
       "valor": 450,
@@ -573,110 +590,95 @@
         }
       ],
       "dataLancamento": "2024-06-20",
-      "imagemDestaque": "https://i.ibb.co/RT4g7B2/Ponto-Comercial.webp",
+      "imagemDestaque": "/comerciais/aluguel/comercial-004/fachada.webp",
       "imagens": [
         {
-          "url": "https://i.ibb.co/0fHjNZK/galpao2.webp",
+          "url": "/comerciais/aluguel/comercial-004/fachada.webp",
           "descricao": "Fachada do imóvel",
           "tipo": "frontal"
-        },
-        {
-          "url": "https://i.ibb.co/8dzKmNV/Residencial-Lagoa-Azul.webp",
-          "descricao": "Sala de estar ampla",
-          "tipo": "interna"
-        },
-        {
-          "url": "https://i.ibb.co/8B0jtym/Cobertura-da-Colina.webp",
-          "descricao": "Quarto com armário embutido",
-          "tipo": "interna"
         }
-      ]
+      ],
+      "likesCount": 70
     }
-  ],
-  "comentarios": [
+  ]
+);
+
+db.comentarios.insertMany(
+  [
     {
-      "id": "101",
-      "imovelId": 1,
+      "imovelId": "6782d16fd828c3511bd85524",
       "usuario": {
-        "id": "1",
         "nome": "João Silva",
         "email": "jaoo@email.com"
       },
       "texto": "Adorei o imóvel! Parece ser uma ótima oportunidade.",
-      "data": "2024-11-12T10:15:00Z",
+      "data":  ISODate("2024-11-12T10:15:00Z"),
       "nota": 5
     },
     {
-      "id": "103",
-      "imovelId": 1,
+      "imovelId": "6782d16fd828c3511bd85524",
       "usuario": {
         "nome": "Catarina A.",
         "email": "catarina@email.com"
       },
       "texto": "Este é um ótimo bairro. Acho que é muito seguro e ando sozinho à noite com frequência. As ruas, calçadas e parques são bem cuidados.",
-      "data": "2023-11-12T10:15:00Z",
+      "data":  ISODate("2023-11-12T10:15:00Z"),
       "nota": 5
     },
     {
-      "id": "104",
-      "imovelId": 1,
+      "imovelId": "6782d16fd828c3511bd85524",
       "usuario": {
         "nome": "Ivete Sangalo",
         "email": "ivete@email.com"
       },
       "texto": "Muito rápido para o trabalho, alguns motoristas irritantes /  rudes, mas eu sou do sul, então não estou acostumado com isso",
-      "data": "2024-06-12T10:15:00Z",
+      "data":  ISODate("2024-06-12T10:15:00Z"),
       "nota": 4
     },
     {
-      "id": "105",
-      "imovelId": 1,
+      "imovelId": "6782d16fd828c3511bd85524",
       "usuario": {
         "nome": "Caetano Veloso",
         "email": "caetano@email.com"
       },
       "texto": "Excelente deslocamento. A vida caminhável torna as coisas acessíveis no bairro, de lojas a restaurantes.",
-      "data": "2024-08-12T10:15:00Z",
+      "data":  ISODate("2024-08-12T10:15:00Z"),
       "nota": 4
     },
     {
-      "id": "106",
-      "imovelId": 1,
+      "imovelId": "6782d16fd828c3511bd85524",
       "usuario": {
         "nome": "Mara Maravilha",
         "email": "mara@email.com"
       },
       "texto": "Você não precisa ter carro neste bairro se não quiser. Tudo Pertinho.",
-      "data": "2024-08-12T10:15:00Z",
+      "data":  ISODate("2024-08-12T10:15:00Z"),
       "nota": 4
     },
     {
-      "id": "107",
-      "imovelId": 1,
+      "imovelId": "6782d16fd828c3511bd85524",
       "usuario": {
         "nome": "Dinho Ouro Preto",
         "email": "dinho@email.com"
       },
       "texto": "O bairro é incrível. Ótimas opções de transporte público ao redor. As estradas são agradáveis e bem pavimentadas.",
-      "data": "2024-02-12T10:15:00Z",
+      "data":  ISODate("2024-02-12T10:15:00Z"),
       "nota": 4
     },
     {
-      "id": "102",
-      "imovelId": 2,
+      "imovelId": "6782d16fd828c3511bd85525",
       "usuario": {
         "nome": "Maria Oliveira",
         "email": "maria@email.com"
       },
       "texto": "Gostei, mas gostaria de mais detalhes sobre o bairro.",
-      "data": "2024-11-11T14:30:00Z",
+      "data":  ISODate("2024-11-11T14:30:00Z"),
       "nota": 4
     },
     {
-      "id": "rQalJ3N",
-      "imovelId": 4,
+      "imovelId": "6782d16fd828c3511bd85527",
       "texto": "Ótimas lojas, bares e restaurantes na Avenida, excelentes vistas sobre a Reserva Alki & Schmidts para passear com cães.",
-      "data": "2024-11-28T15:22:51.757559",
+      "data":  ISODate("2024-11-28T15:22:51.757559"),
       "nota": 5,
       "usuario": {
         "nome": "Johnison",
@@ -684,10 +686,9 @@
       }
     },
     {
-      "id": "geRRtWc",
-      "imovelId": 4,
+      "imovelId": "6782d16fd828c3511bd85527",
       "texto": "É toda a vibe alki, você pode aproveitar a vida um pouco mais, lits de restaurantes, caminhadas ao longo da avenida, parques locais. Acesso aos jogos do centro da cidade a pé na balsa.",
-      "data": "2024-11-28T15:28:34.188705",
+      "data":  ISODate("2024-11-28T15:28:34.188705"),
       "nota": 5,
       "usuario": {
         "nome": "Lindsay Lohan",
@@ -695,10 +696,9 @@
       }
     },
     {
-      "id": "V16km2S",
-      "imovelId": 2,
+      "imovelId": "6782d16fd828c3511bd85525",
       "texto": "Os carros podem dirigir de forma um pouco imprudente, mas na maioria das vezes eu diria que este é o bairro mais seguro da cidade.",
-      "data": "2024-11-28T15:35:40.050252",
+      "data":  ISODate("2024-11-28T15:35:40.050252"),
       "nota": 5,
       "usuario": {
         "nome": "Lindsay Lohan",
@@ -706,10 +706,9 @@
       }
     },
     {
-      "id": "jNUdzZx",
-      "imovelId": 3,
+      "imovelId": "6782d16fd828c3511bd85526",
       "texto": "Muitos lugares para comer, belas vistas. Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
-      "data": "2024-11-28T15:54:48.306877",
+      "data":  ISODate("2024-11-28T15:54:48.306877"),
       "nota": 5,
       "usuario": {
         "nome": "Lindsay Lohan",
@@ -717,10 +716,9 @@
       }
     },
     {
-      "id": "ZOyinPg",
-      "imovelId": 4,
+      "imovelId": "6782d16fd828c3511bd85527",
       "texto": "Eu pego ônibus para o centro da cidade 3 vezes por semana e é um trajeto muito fácil de 50 minutos. Os ônibus que saem de alki são seguros e higiênicos. O trajeto de carro também não é tão ruim, embora as rodovias do outro lado da ponte não sejam as",
-      "data": "2024-11-28T16:08:04.627073",
+      "data":  ISODate("2024-11-28T16:08:04.627073"),
       "nota": 5,
       "usuario": {
         "nome": "Morgan Freeman",
@@ -728,9 +726,8 @@
       }
     },
     {
-      "id": "g6Y8-0P",
-      "imovelId": 1,
-      "texto": "Muitos lugares para comer, belas vistas. Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
+      "imovelId": "6782d16fd828c3511bd85524",
+      "texto": "Destino turístico popular. Vida selvagem, ótima para crianças. Vizinhos amigáveis",
       "data": "2024-11-28T16:34:56.975910",
       "nota": 5,
       "usuario": {
@@ -739,4 +736,27 @@
       }
     }
   ]
-}
+);
+
+db.likes.insertMany(
+  [
+    {
+      "_id": ObjectId('679bccc53b695c005e544cb4'),
+      "imovelId": '6782d16fd828c3511bd85524',
+      "usuarioId": '6782d16fd828c3511bd85524',
+      "data": ISODate("2024-11-28T15:22:51.757559")
+    }
+    
+  ]
+);
+
+db.usuarios.insertMany(
+  [
+    {
+      "_id": '6782d16fd828c3511bd85524',
+      "nome": "João Silva",
+      "email": "joao@email.com",
+      "criadoEm": ISODate("2024-11-28T15:22:51.757559")
+    }
+  ]
+);

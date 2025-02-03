@@ -18,12 +18,10 @@ class Pesquisa extends StatefulWidget {
 
 class _PesquisaState extends State<Pesquisa> {
   @override
+  
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ChangeNotifierProvider(
-        create: (_) => ImoveisRepositorio(),
-        child: const ImoveisFeed(),
-      ),
+    return const Scaffold(
+      body: ImoveisFeed(),
     );
   }
 }
@@ -43,8 +41,10 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
   void initState() {
     super.initState();
 
-    final imoveisRepo = Provider.of<ImoveisRepositorio>(context, listen: false);
-    imoveisRepo.getImoveis();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ImoveisRepositorio>(context, listen: false)
+        .getImoveis();
+    });    
 
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
@@ -70,7 +70,13 @@ class _ImoveisFeedState extends State<ImoveisFeed> {
           imoveisRepo.carregarMaisImoveis();
         }
       } else {
-        imoveisRepo.carregarMaisImoveis(query: _controladorBusca.text);
+        imoveisRepo.carregarMaisImoveisBusca(
+          tipo: _controladorBusca.text,
+          operacao: _controladorBusca.text,
+          bairro: _controladorBusca.text,
+          cidade: _controladorBusca.text,
+          estado: _controladorBusca.text
+        );
       }
     }
   }
@@ -102,7 +108,14 @@ Widget _pesquisarImoveis(
             String conteudo = controladorBusca.text.trim();
 
             Provider.of<ImoveisRepositorio>(context, listen: false)
-                .getImoveis(query: conteudo, refresh: true);
+            .buscarImoveis(
+              tipo: conteudo,
+              operacao: conteudo,
+              bairro: conteudo,
+              cidade: conteudo,
+              estado: conteudo,
+              refresh: true,
+            );
 
             FocusScope.of(context).unfocus();
           },
@@ -118,10 +131,8 @@ Widget _pesquisarImoveis(
 Widget _exibirImoveis(BuildContext context, ScrollController scrollController) {
   return RefreshIndicator(
     onRefresh: () async {
-      final imoveisRepo =
-          Provider.of<ImoveisRepositorio>(context, listen: false);
-
-      await imoveisRepo.getImoveis(refresh: true);
+      await Provider.of<ImoveisRepositorio>(context, listen: false)
+       .getImoveis(refresh: true);
     },
     child: Consumer<ImoveisRepositorio>(
       builder: (context, repositorio, child) {

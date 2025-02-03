@@ -2,9 +2,9 @@ import 'package:lh_imoveis/model/usuarios.dart';
 
 class Comentarios {
   final String? id;
-  final int imovelId;
+  final String imovelId;
   final String texto;
-  final String data;
+  final String? data;
   final int nota;
   final Usuario usuario;
 
@@ -12,13 +12,13 @@ class Comentarios {
       {this.id,
       required this.imovelId,
       required this.texto,
-      required this.data,
+      this.data,
       required this.nota,
       required this.usuario});
 
   factory Comentarios.fromJson(Map<String, dynamic> json) {
     return Comentarios(
-      id: json['id'],
+      id: json['_id'],
       imovelId: json['imovelId'],
       texto: json['texto'],
       data: json['data'],
@@ -28,7 +28,7 @@ class Comentarios {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
+        '_id': id,
         'imovelId': imovelId,
         'texto': texto,
         'data': data,

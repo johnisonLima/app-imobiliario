@@ -1,0 +1,17 @@
+servicos/
+├── app-services/
+│   ├── comentarios/
+│   ├── imagens/
+│   ├── imoveis/
+│   └── likes/
+├── dockerfiles/
+│   └── mongo/
+│       └── Dockerfile # meu Dockerfile do mongo está aqui
+├── nginx/
+├── python/
+├── docker-compose.yml
+├── dados/
+│   ├── dados_comentarios.json
+│   ├── dados_imoveis.json
+│   └── dados_likes.json
+└── init.sh

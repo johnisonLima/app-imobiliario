@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lh_imoveis/repository/comentarios_repositorio.dart';
-import 'package:lh_imoveis/repository/usuario_repositorio.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
 import 'package:lh_imoveis/model/comentarios.dart';
 import 'package:lh_imoveis/model/usuarios.dart';
 
@@ -69,9 +69,151 @@ class _CardComentariosState extends State<ListagemComentarios> {
             ),
           ),
         Expanded(
-          child: _exibirComentarios(context, _scrollController),
+          child: _exibirComentarios(context, _scrollController, widget.imovelId),
         ),
       ],
+    );
+  }
+
+
+  Widget _exibirComentarios(BuildContext context, ScrollController controller, String idcomentario) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        await Provider.of<ComentariosRepositorio>(context, listen: false)
+          .getComentarios(refresh: true, imovelId: idcomentario);
+      },
+      child: Consumer<ComentariosRepositorio>(
+        builder: (context, repositorio, child) {
+          if (repositorio.carregando && repositorio.comentarios.isEmpty) {
+            return const SizedBox(
+              width: 360,
+              height: 220,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (!repositorio.carregando && repositorio.comentarios.isEmpty) {
+            return const Center(
+              child: Text(
+                'Nenhum Comentário ainda',
+                style: TextStyle(color: Colors.grey),
+              ),
+            );
+          }
+
+          return ListView.builder(
+            controller: controller,
+            itemCount: repositorio.comentarios.length + 1,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              if (index == repositorio.comentarios.length) {
+                return Center(
+                  child: repositorio.carregando
+                      ? const CircularProgressIndicator()
+                      : const SizedBox.shrink(),
+                );
+              }
+
+              final comentarios = repositorio.comentarios[index];
+              final DateTime dataComentario = DateTime.parse(comentarios.data ?? '');
+
+              final estadoUsuario = context.watch<UsuarioManager>();
+
+              bool usuarioLogadoComentou = estadoUsuario.estaLogado &&
+                  estadoUsuario.usuario!.email == comentarios.usuario.email;
+
+              return Dismissible(
+                key: Key(
+                  comentarios.id.toString(),
+                ),
+                direction: usuarioLogadoComentou
+                    ? DismissDirection.endToStart
+                    : DismissDirection.none,
+                background: Container(
+                  alignment: Alignment.centerRight,
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 12.0),
+                    child: Icon(
+                      Icons.delete_outline_outlined,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                  ),
+                ),
+                confirmDismiss: (direction) async {
+                  final bool? confirmar = await showDialog(
+                    context: context,
+                    builder: (BuildContext contexto) {
+                      return AlertDialog(
+                        title: const Text("Deseja apagar o comentário?"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(contexto).pop(false);
+                            },
+                            child: const Text("Cancelar"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(contexto).pop(true);
+                            },
+                            child: const Text("Apagar"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  return confirmar == true;
+                },
+                onDismissed: (direction) {
+                  repositorio.removerComentario(comentarios.id.toString());
+                  setState(() {
+                    repositorio.comentarios.removeAt(index);
+                  });
+
+                  FocusScope.of(context).unfocus();
+                },
+                child: Card(
+                  color: Colors.blue[800],
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            comentarios.usuario.nome,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            formatarTempoAtras(dataComentario),
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.white60,
+                            ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                          Text(
+                            '"${comentarios.texto}"',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
@@ -123,154 +265,14 @@ Widget _textFildCometario(controlador, imovel, enviarComentario) {
   );
 }
 
-Widget _exibirComentarios(BuildContext context, ScrollController controller) {
-  return RefreshIndicator(
-    onRefresh: () async {
-      final comentariosRepo =
-          Provider.of<ComentariosRepositorio>(context, listen: false);
-
-      await comentariosRepo.getComentarios(refresh: true);
-    },
-    child: Consumer<ComentariosRepositorio>(
-      builder: (context, repositorio, child) {
-        if (repositorio.carregando && repositorio.comentarios.isEmpty) {
-          return const SizedBox(
-            width: 360,
-            height: 220,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (!repositorio.carregando && repositorio.comentarios.isEmpty) {
-          return const Center(
-            child: Text(
-              'Nenhum Comentário ainda',
-              style: TextStyle(color: Colors.grey),
-            ),
-          );
-        }
-
-        return ListView.builder(
-          controller: controller,
-          itemCount: repositorio.comentarios.length + 1,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) {
-            if (index == repositorio.comentarios.length) {
-              return Center(
-                child: repositorio.carregando
-                    ? const CircularProgressIndicator()
-                    : const SizedBox.shrink(),
-              );
-            }
-
-            final comentarios = repositorio.comentarios[index];
-            final DateTime dataComentario = DateTime.parse(comentarios.data);
-
-            final estadoUsuario = context.watch<UsuarioManager>();
-
-            bool usuarioLogadoComentou = estadoUsuario.estaLogado &&
-                estadoUsuario.usuario!.email == comentarios.usuario.email;
-
-            return Dismissible(
-              key: Key(
-                comentarios.id.toString(),
-              ),
-              direction: usuarioLogadoComentou
-                  ? DismissDirection.endToStart
-                  : DismissDirection.none,
-              background: Container(
-                alignment: Alignment.centerRight,
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 12.0),
-                  child: Icon(
-                    Icons.delete_outline_outlined,
-                    color: Colors.red,
-                    size: 40,
-                  ),
-                ),
-              ),
-              confirmDismiss: (direction) async {
-                final bool? confirmar = await showDialog(
-                  context: context,
-                  builder: (BuildContext contexto) {
-                    return AlertDialog(
-                      title: const Text("Deseja apagar o comentário?"),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(contexto).pop(false);
-                          },
-                          child: const Text("Cancelar"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(contexto).pop(true);
-                          },
-                          child: const Text("Apagar"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-                return confirmar == true;
-              },
-              onDismissed: (direction) {
-                repositorio.apagarComentario(comentarios.id.toString());
-              },
-              child: Card(
-                color: Colors.blue[800],
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          comentarios.usuario.nome,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          formatarTempoAtras(dataComentario),
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: Colors.white60,
-                          ),
-                        ),
-                        const Padding(padding: EdgeInsets.only(bottom: 5.0)),
-                        Text(
-                          '"${comentarios.texto}"',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    ),
-  );
-}
-
 void _carregarComentarios(BuildContext context, String idcomentario) {
-  final comentariosRepo =
-      Provider.of<ComentariosRepositorio>(context, listen: false);
-  comentariosRepo.getComentarios(id: idcomentario);
+  Provider.of<ComentariosRepositorio>(context, listen: false)
+    .getComentarios(imovelId: idcomentario);
 }
 
 void _atualizarComentarios(BuildContext context, String idcomentario) {
-  final comentariosRepo =
-      Provider.of<ComentariosRepositorio>(context, listen: false);
-  comentariosRepo.carregarMaisComentarios(id: idcomentario);
+  Provider.of<ComentariosRepositorio>(context, listen: false)
+    .carregarMaisComentarios(imovelId: idcomentario);
 }
 
 void _enviarComentario(TextEditingController controlador, context,
@@ -285,18 +287,15 @@ void _enviarComentario(TextEditingController controlador, context,
   }
 
   final comentario = Comentarios(
-    imovelId: int.parse(idImovel),
+    imovelId: idImovel,
     texto: conteudo,
-    data: DateTime.now().toIso8601String(),
     nota: 5,
     usuario: usuario,
   );
 
   try {
-    final comentariosRepo =
-        Provider.of<ComentariosRepositorio>(context, listen: false);
-
-    await comentariosRepo.adicionarComentario(novoComentario: comentario);
+    await Provider.of<ComentariosRepositorio>(context, listen: false)
+      .adicionarComentario(novoComentario: comentario);
 
     FocusScope.of(context).unfocus();
 
@@ -311,9 +310,11 @@ void _enviarComentario(TextEditingController controlador, context,
   }
 }
 
-String formatarTempoAtras(DateTime data) {
+String formatarTempoAtras(DateTime dataUtc) {
+  final DateTime dataLocal = dataUtc.toLocal();
+
   final DateTime agora = DateTime.now();
-  final Duration diferenca = agora.difference(data);
+  final Duration diferenca = agora.difference(dataLocal);
 
   if (diferenca.inDays >= 365) {
     final anos = (diferenca.inDays / 365).floor();

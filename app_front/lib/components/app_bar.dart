@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:lh_imoveis/repository/base_repositorio.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
-  static const String bannerUrl = 'https://i.ibb.co/MkmKMPT/banner-m.webp';
-  static const String logoUrl = 'https://i.ibb.co/H7wKLLZ/logo.webp';
-
   @override
   Widget build(BuildContext context) {
+  
+  final baseRepositorio = BaseRepositorio();
+  final String bannerUrl = '${baseRepositorio.BASE_API}:5005/banner-m.webp';
+  final String logoUrl = '${baseRepositorio.BASE_API}:5005/logo.webp';
+
     return AppBar(
       toolbarHeight: 100.0,
       flexibleSpace: ClipRRect(
@@ -18,7 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Positioned.fill(
               child: Image.network(
-                CustomAppBar.bannerUrl,
+                bannerUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -28,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(height: 20),
                 Center(
                   child: Image.network(
-                    CustomAppBar.logoUrl,
+                    logoUrl,
                     width: 130,
                   ),
                 ),

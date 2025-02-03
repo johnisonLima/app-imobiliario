@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lh_imoveis/components/card_imoveis.dart';
-import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
-import 'package:lh_imoveis/view/pesquisar_imoveis.dart';
 import 'package:lh_imoveis/components/app_bar.dart';
 import 'package:lh_imoveis/components/bottom_navigation_bar.dart';
 import 'package:lh_imoveis/components/end_drawer.dart';
+import 'package:lh_imoveis/repository/usuarios_repositorio.dart';
+import 'package:lh_imoveis/repository/imoveis_repositorio.dart';
+import 'package:lh_imoveis/view/pesquisar_imoveis.dart';
+import 'package:lh_imoveis/autenticador.dart';
 
 class PaginaInicial extends StatefulWidget {
   static const rountName = '/';
@@ -19,6 +21,21 @@ class PaginaInicial extends StatefulWidget {
 
 class _PaginainicialState extends State<PaginaInicial> {
   int _opcaoSelecionada = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _recuperarEstadoUsuario();
+  }
+
+  Future<void> _recuperarEstadoUsuario() async {
+    final usuario = await Autenticador.recuperarUsuario();
+    if (usuario != null) {
+      setState(() {
+        estadoUsuario.login(usuario);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
