@@ -741,6 +741,7 @@ db.comentarios.insertMany(
 db.likes.insertMany(
   [
     {
+      "_id": ObjectId('679bccc53b695c005e544cb4'),
       "imovelId": '6782d16fd828c3511bd85524',
       "usuarioId": '6782d16fd828c3511bd85524',
       "data": ISODate("2024-11-28T15:22:51.757559")
@@ -755,6 +756,7 @@ db.usuarios.insertMany(
       "_id": '6782d16fd828c3511bd85524',
       "nome": "João Silva",
       "email": "joao@email.com",
+      "criadoEm": ISODate("2024-11-28T15:22:51.757559")
     }
   ]
 );

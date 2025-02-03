@@ -23,9 +23,24 @@ def get_todos_likes():
 
     return jsonify(likes)
 
+@servico.get("/like/<string:like_id>")
+def get_like_por_id(like_id):
+    like = db.likes.find_one({"_id": ObjectId(like_id)})
+
+    if not like:
+        return jsonify({"erro": "Like não encontrado"}), 404
+
+    like["_id"] = str(like["_id"])
+    like["data"] = like["data"].isoformat()
+
+    return jsonify(like)
+
 @servico.route('/likes/<string:imovel_id>', methods=['GET'])
 def get_likes_imovel(imovel_id):
     likes = list(db.likes.find({"imovelId": imovel_id}))
+    
+    if likes == []:
+        return jsonify({"erro": "Imóvel não possui likes"}), 404
 
     for like in likes:
         like["_id"] = str(like["_id"])  
@@ -65,14 +80,17 @@ def registrar_like():
         "data":  datetime.now(timezone.utc),
     }
 
-    db.likes.insert_one(novo_like)
+    resultado = db.likes.insert_one(novo_like)
 
     db.imoveis.update_one(
         {"_id": ObjectId(imovel_id)},
         {"$inc": {"likesCount": 1}}
     )
 
-    return jsonify({"mensagem": "Like registrado com sucesso"}), 201
+    novo_like["_id"] = str(resultado.inserted_id)
+    novo_like["data"] = novo_like["data"].isoformat()
+
+    return jsonify(novo_like), 201
 
 @servico.route('/likes/<string:imovel_id>/<string:usuario_id>', methods=['DELETE'])
 def excluir_like(imovel_id, usuario_id):

@@ -19,6 +19,15 @@ def get_todos_usuarios():
         usuario["_id"] = str(usuario["_id"])
     return jsonify(usuarios)
 
+@servico.get("/usuario/<uid>")
+def get_usuario_por_uid(uid):
+    usuario = db.usuarios.find_one({"_id": uid})
+    if usuario:
+        usuario["_id"] = str(usuario["_id"])
+        return jsonify(usuario)
+    
+    return jsonify({"erro": "Usuário não encontrado"}), 404
+
 @servico.route('/usuarios', methods=['POST'])
 def registrar_usuario():
     dados = request.json
@@ -42,6 +51,15 @@ def registrar_usuario():
     db.usuarios.insert_one(novo_usuario)
 
     return jsonify({"mensagem": "Usuário registrado com sucesso"}), 201
+
+@servico.route('/usuario/<uid>', methods=['DELETE'])
+def excluir_usuario(uid):
+    usuario = db.usuarios.find_one({"_id": uid})
+    if not usuario:
+        return jsonify({"erro": "Usuário não encontrado"}), 404
+    
+    db.usuarios.delete_one({"_id": uid})
+    return jsonify({"mensagem": "Usuário excluído com sucesso"}), 200
 
 if __name__ == "__main__":
     servico.run(host="0.0.0.0", debug=True)

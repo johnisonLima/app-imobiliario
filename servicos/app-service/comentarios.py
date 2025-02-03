@@ -20,6 +20,18 @@ def get_todos_comentarios():
         cometario["_id"] = str(cometario["_id"])
     return jsonify(cometarios)
 
+@servico.get("/comentarios/<string:comentario_id>")
+def get_comentario_por_id(comentario_id):   
+    comentario = db.comentarios.find_one({"_id": ObjectId(comentario_id)})
+    if not comentario:
+        return jsonify({"erro": "Comentário não encontrado"}), 404
+
+    comentario["_id"] = str(comentario["_id"])
+    if "data" in comentario:
+        comentario["data"] = comentario["data"].isoformat()
+
+    return jsonify(comentario)
+
 @servico.get("/comentarios/<string:ultimo_id>/<int:tamanho_da_pagina>")
 def get_comentarios(ultimo_id, tamanho_da_pagina):
     imovelId = request.args.get("imovelId")

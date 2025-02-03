@@ -29,7 +29,6 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final baseRepositorio = BaseRepositorio();
@@ -117,7 +116,7 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
 
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();                      
 
                     },
                   ),
@@ -128,7 +127,7 @@ class _CustomEndDrawerState extends State<CustomEndDrawer> {
   }
 }
 
-Widget _loginGoogle(String logoGoogle){
+Widget _loginGoogle(String logoGoogle) {
   return SizedBox(
     height: 35,
     child: Container(
@@ -154,7 +153,7 @@ Widget _loginGoogle(String logoGoogle){
   );
 }
 
-Widget _logout(){
+Widget _logout() {
   return SizedBox(
     height: 35,
     child: Container(
@@ -169,7 +168,11 @@ Widget _logout(){
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Logout', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+          Text(
+            'Logout',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+          )
         ],
       ),
     ),

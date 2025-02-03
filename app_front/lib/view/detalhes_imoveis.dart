@@ -90,7 +90,10 @@ class _DetalhesImoveisState extends State<DetalhesImoveis> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    final estadoUsuario = context.watch<UsuarioManager>();
+    bool estaLogado = estadoUsuario.estaLogado;
+
     final largura = MediaQuery.of(context).size.width *
         (MediaQuery.of(context).orientation == Orientation.portrait
             ? 0.92

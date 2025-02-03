@@ -41,7 +41,6 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
 
       final Uri uri = Uri.parse(api);
       final response = await http.get(uri);
-      print("ultimoId: $_ultimoId");
 
       if (response.statusCode == 200) {
         final dados = json.decode(response.body) as List;
@@ -134,7 +133,6 @@ class ImoveisRepositorio extends BaseRepositorio with ChangeNotifier {
 
       final Uri uri = Uri.parse(api);
       final response = await http.get(uri);
-      print("ultimoId: $_ultimoId");
 
       if (response.statusCode == 200) {
         final dados = json.decode(response.body) as List;

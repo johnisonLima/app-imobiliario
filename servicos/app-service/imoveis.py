@@ -40,6 +40,12 @@ def get_imoveis(ultimo_id, tamanho_da_pagina):
 
     return jsonify(imoveis)
 
+@servico.get("/imoveis/<string:imovel_id>")
+def get_imovel(imovel_id):
+    imovel = db.imoveis.find_one({"_id": ObjectId(imovel_id)})
+    imovel["_id"] = str(imovel["_id"])
+    return jsonify(imovel)
+
 @servico.route('/buscar_imoveis/<string:ultimo_id>/<int:tamanho_da_pagina>', methods=['GET'])
 def buscar_imoveis(ultimo_id, tamanho_da_pagina):
     filtros = []
@@ -56,15 +62,15 @@ def buscar_imoveis(ultimo_id, tamanho_da_pagina):
     comodidades = request.args.getlist('comodidades')  
 
     if tipo:
-        filtros.append({'tipo': tipo})
+        filtros.append({'tipo': {'$regex': tipo, '$options': 'i'}})
     if operacao:
-        filtros.append({'operacao': operacao})
+        filtros.append({'operacao': {'$regex': operacao, '$options': 'i'}})
     if bairro:
-        filtros.append({'endereco.bairro': bairro})
+        filtros.append({'endereco.bairro': {'$regex': bairro, '$options': 'i'}})
     if cidade:
-        filtros.append({'endereco.cidade': cidade})
+        filtros.append({'endereco.cidade': {'$regex': cidade, '$options': 'i'}})
     if estado:
-        filtros.append({'endereco.estado': estado})
+        filtros.append({'endereco.estado': {'$regex': estado, '$options': 'i'}})
     if min_valor or max_valor:
         valor_filter = {}
         if min_valor:
