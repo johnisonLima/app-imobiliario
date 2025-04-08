@@ -28,5 +28,3 @@ O aplicativo Laís Heitz Imóveis tem como objetivo facilitar o acesso dos usuá
   
 ### Estrutura do Projeto
 * /lib: Código fonte do aplicativo.
-* /assets: Imagens e recursos visuais.
-* /docs: Documentação adicional, incluindo diagramas de tela e guias de usuário# app-imobiliario
